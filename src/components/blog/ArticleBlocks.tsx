@@ -8,9 +8,26 @@ export function ArticleBlocks({ blocks }: { blocks: ArticleBlock[] }) {
           case "p":
             return (
               <p key={index}>
-                {block.lead ? <strong>Introdução. </strong> : null}
+                {block.lead ? (
+                  <strong>{block.leadLabel ?? "Introdução"}. </strong>
+                ) : null}
                 {block.content}
               </p>
+            );
+          case "lexGrid":
+            return (
+              <div key={index} className="blog-lex-grid">
+                {block.columns.map((col) => (
+                  <div key={col.title} className="blog-lex-card">
+                    <h4>{col.title}</h4>
+                    <ul>
+                      {col.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             );
           case "h2":
             return <h2 key={index}>{block.content}</h2>;

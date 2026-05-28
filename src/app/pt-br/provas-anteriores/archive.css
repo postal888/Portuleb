@@ -107,6 +107,22 @@
     color-mix(in srgb, var(--archive-surface) 70%, white),
     var(--archive-surface)
   );
+  position: relative;
+  overflow: hidden;
+}
+
+.archive-hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--archive-primary),
+    color-mix(in srgb, var(--archive-warning) 50%, var(--archive-primary))
+  );
 }
 
 .archive-lead {

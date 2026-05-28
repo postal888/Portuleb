@@ -71,6 +71,22 @@
 
 .practice-hero-main {
   padding: clamp(1.5rem, 4vw, 2.625rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.practice-hero-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--site-primary),
+    color-mix(in srgb, var(--practice-gold) 65%, var(--site-primary))
+  );
 }
 
 .practice-hero-side {

@@ -28,6 +28,12 @@ export function BlogArticleView({ post }: { post: BlogPost }) {
                 <span className="blog-pill">Artigo em destaque</span>
               </>
             ) : null}
+            {post.tags.includes("2026/1") && !post.featured ? (
+              <>
+                <span aria-hidden>·</span>
+                <span className="blog-pill blog-pill-accent">Tarefa 1 — 2026/1</span>
+              </>
+            ) : null}
           </div>
         </header>
 
@@ -42,8 +48,21 @@ export function BlogArticleView({ post }: { post: BlogPost }) {
               <p className="blog-muted">{post.sidebar.summary}</p>
             </section>
 
+            {post.sidebar.facts ? (
+              <section className="blog-side-card">
+                <h2 className="blog-side-title">{post.sidebar.facts.title}</h2>
+                <ul className="blog-side-list">
+                  {post.sidebar.facts.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+
             <section className="blog-side-card">
-              <h2 className="blog-side-title">Para quem é esta estratégia?</h2>
+              <h2 className="blog-side-title">
+                {post.sidebar.audienceHeading ?? "Para quem é esta estratégia?"}
+              </h2>
               <ul className="blog-side-list">
                 {post.sidebar.audience.map((item) => (
                   <li key={item}>{item}</li>

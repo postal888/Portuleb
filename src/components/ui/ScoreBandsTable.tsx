@@ -7,11 +7,11 @@ const scoreBands = [
 
 export function ScoreBandsTable() {
   return (
-    <div className="mt-5 overflow-x-auto rounded-xl border border-tan/40 bg-cream-dark/60 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.03)]">
+    <div className="surface-card mt-5 overflow-x-auto">
       <table className="w-full min-w-[280px] border-collapse text-left text-sm">
         <caption className="sr-only">Faixas de pontuação e níveis de certificação do Celpe-Bras</caption>
         <thead>
-          <tr className="border-b border-tan/40 bg-teal/[0.07]">
+          <tr className="border-b border-tan/40 bg-[var(--site-primary-highlight)]">
             <th
               scope="col"
               className="px-4 py-3.5 font-semibold tracking-wide text-teal sm:px-5"
