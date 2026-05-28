@@ -9,7 +9,7 @@ const steps = [
 export function HubPathStrip() {
   return (
     <div className="hub-path-strip surface-card-muted p-4 sm:p-5">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--site-faint)]">
+      <p className="text-xs font-medium tracking-wide text-[var(--site-muted)]">
         Jornada sugerida
       </p>
       <ol className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-0">

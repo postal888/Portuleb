@@ -1,10 +1,6 @@
 import type { ReactNode } from "react";
 
-/** Ink-sketch frame for hero illustrations — corners only, no floating badges. */
+/** Clean frame for hero brand lockup — minimal, matches flat logo style. */
 export function IllustrationFrame({ children }: { children: ReactNode }) {
-  return (
-    <div className="illustration-frame">
-      <div className="illustration-frame-inner">{children}</div>
-    </div>
-  );
+  return <div className="brand-hero-frame">{children}</div>;
 }

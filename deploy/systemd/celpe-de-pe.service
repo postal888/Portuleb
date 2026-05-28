@@ -1,0 +1,16 @@
+[Unit]
+Description=CELPE-Dê Pé (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/celpe-de-pe
+EnvironmentFile=/var/www/celpe-de-pe/.env.local
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm run start -- -p 3000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -74,7 +74,7 @@
 }
 
 .blog-title {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: clamp(2.1rem, 4.3vw, 3.4rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
@@ -144,7 +144,7 @@
 }
 
 .blog-article-card h2 {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.6rem;
   margin: 1.625rem 0 0.625rem;
   color: var(--site-text);
@@ -216,7 +216,7 @@
 }
 
 .blog-side-title {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.1rem;
   margin: 0 0 0.375rem;
   color: var(--site-text);

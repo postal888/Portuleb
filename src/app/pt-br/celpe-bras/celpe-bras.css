@@ -118,7 +118,7 @@
 
 .celpe-banner-logo-text {
   margin: 0.35rem 0 0;
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
   line-height: 1;
@@ -211,7 +211,7 @@
 }
 
 .celpe-instruction-num {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #fff;
@@ -292,7 +292,7 @@
 
 .celpe-task-chip-num {
   display: block;
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   line-height: 1;

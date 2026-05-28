@@ -58,7 +58,7 @@
 }
 
 .archive h1 {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   letter-spacing: -0.03em;
   max-width: 11ch;
@@ -209,7 +209,7 @@
 
 .archive-stat strong {
   display: block;
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.35rem;
   margin-bottom: 2px;
 }
@@ -236,7 +236,7 @@
 }
 
 .archive-section-title {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: clamp(1.5rem, 2vw, 2.2rem);
 }
 
@@ -310,7 +310,7 @@
 .archive-oral-card h3 {
   font-size: 1.12rem;
   line-height: 1.15;
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
 }
 
 .archive-muted {
@@ -345,7 +345,7 @@
 }
 
 .archive-task-no {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.5rem;
 }
 
@@ -378,7 +378,7 @@
 }
 
 .archive-subsection-title {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.25rem;
   margin: 2rem 0 1rem;
   color: var(--archive-text);
@@ -428,7 +428,7 @@
 
 .archive-faq-card h3 {
   font-size: 1.05rem;
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
 }
 
 .archive-kicker {
@@ -470,7 +470,7 @@
 }
 
 .archive-viewer-title {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }

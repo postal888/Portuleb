@@ -5,7 +5,7 @@ import { mainNav } from "@/lib/nav";
 
 export function Footer() {
   return (
-    <footer className="relative mt-auto overflow-hidden border-t-2 border-[var(--site-ink)]/20 bg-[var(--site-ink)] text-inverse">
+    <footer className="relative mt-auto overflow-hidden border-t border-[var(--site-primary-hover)] bg-[var(--site-ink)] text-inverse">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div>

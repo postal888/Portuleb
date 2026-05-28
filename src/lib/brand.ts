@@ -1,6 +1,7 @@
 export const siteBrand = {
-  name: "CELPE-Dê Pé",
-  tagline: "Preparação para o Celpe-Bras",
-  logoSrc: "/images/celpe-de-pe-logo.png",
-  logoAlt: "Ilustração: alpinista no topo da montanha com bandeira CELPE",
+  name: "Celpe-Dê Pé",
+  tagline: "um passo de cada vez",
+  logoLockupSrc: "/images/celpe-de-pe-lockup.png",
+  logoIconSrc: "/images/celpe-de-pe-icon.png",
+  logoAlt: "Celpe-Dê Pé — montanha, trilha pontilhada e bandeira CELPE no topo",
 } as const;

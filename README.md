@@ -28,3 +28,8 @@ npm run dev
 ```
 
 Abrir http://localhost:3000
+
+## Produção (VPS)
+
+Servidor: **137.184.179.172** — SSH: `ssh celpe-server`  
+Instruções completas: [deploy/DEPLOY.md](deploy/DEPLOY.md)

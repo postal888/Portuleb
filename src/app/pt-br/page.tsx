@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import { HubPathStrip } from "@/components/decor/HubPathStrip";
-import { IllustrationFrame } from "@/components/decor/IllustrationFrame";
 import { SectionHeading } from "@/components/decor/SectionHeading";
 import { siteBrand } from "@/lib/brand";
 import { mainNav } from "@/lib/nav";
@@ -46,39 +44,22 @@ export default function HomePage() {
 
   return (
     <div className="pb-4">
-      <section className="surface-card surface-card-lift overflow-hidden">
-        <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:p-10">
-          <div>
-            <span className="eyebrow">
-              <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-teal" aria-hidden />
-              {siteBrand.name}
-            </span>
-            <h1 className="page-title page-title-display mt-4 max-w-[14ch]">
-              Preparação para o Celpe-Bras
-            </h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
-              Portal em construção passo a passo: teoria, prática, provas anteriores e leituras
-              sobre estratégia de estudo.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/pt-br/celpe-bras" className="btn-primary">
-                Começar pelo guia
-              </Link>
-              <Link href="/pt-br/teoria" className="btn-secondary">
-                Ver Teoria
-              </Link>
-            </div>
-          </div>
-          <IllustrationFrame>
-            <Image
-              src={siteBrand.logoSrc}
-              alt={siteBrand.logoAlt}
-              width={640}
-              height={640}
-              className="h-auto w-full"
-              priority
-            />
-          </IllustrationFrame>
+      <section className="surface-card surface-card-lift p-6 sm:p-8 lg:p-10">
+        <span className="eyebrow">{siteBrand.tagline}</span>
+        <h1 className="page-title page-title-display mt-4 max-w-[18ch]">
+          Preparação para o Celpe-Bras
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+          Teoria, prática, provas anteriores e leituras sobre estratégia — portal em
+          construção, {siteBrand.tagline}.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/pt-br/celpe-bras" className="btn-primary">
+            Começar pelo guia
+          </Link>
+          <Link href="/pt-br/teoria" className="btn-secondary">
+            Ver Teoria
+          </Link>
         </div>
       </section>
 
@@ -96,7 +77,7 @@ export default function HomePage() {
             <li key={item.href}>
               <Link href={item.href} className="hub-card hub-card-accent group p-5">
                 <span className={`featured-icon ${item.iconClass}`}>{item.icon}</span>
-                <span className="font-serif text-lg font-semibold text-teal">{item.label}</span>
+                <span className="text-lg font-semibold text-teal">{item.label}</span>
                 <p className="mt-1 text-sm text-muted">{item.desc}</p>
                 <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-teal">
                   Abrir
@@ -117,12 +98,12 @@ export default function HomePage() {
             <li key={item.href}>
               <Link href={item.href} className="hub-card group flex items-center gap-3 p-5">
                 <span
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--site-primary-highlight)] font-serif text-lg text-teal"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--site-primary-highlight)] text-lg font-semibold text-teal"
                   aria-hidden
                 >
                   {sectionIcons[item.href] ?? "•"}
                 </span>
-                <span className="font-serif text-lg font-semibold text-teal">{item.label}</span>
+                <span className="text-lg font-semibold text-teal">{item.label}</span>
               </Link>
             </li>
           ))}
