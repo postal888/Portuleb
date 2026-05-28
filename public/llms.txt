@@ -1,0 +1,18 @@
+# Celpe-Dê Pé — celpe-depe.com
+
+> Portal de preparação para o exame Celpe-Bras (português como língua estrangeira):
+> teoria, prática, provas anteriores e análises. Conteúdo em português (pt-BR).
+
+## Páginas principais
+
+- [Guia do Celpe-Bras](https://celpe-depe.com/pt-br/celpe-bras): visão geral do exame, partes, critérios, níveis, inscrição.
+- [Provas Anteriores](https://celpe-depe.com/pt-br/provas-anteriores): arquivo de provas por sessão.
+- [Teoria](https://celpe-depe.com/pt-br/teoria): conteúdo teórico (gramática, estruturas).
+- [Prática](https://celpe-depe.com/pt-br/pratica): exercícios e estratégias de preparação.
+- [Blog](https://celpe-depe.com/pt-br/blog): análises de tarefas e estratégias.
+- [Materiais](https://celpe-depe.com/pt-br/materiais): materiais de apoio.
+
+## Observações
+
+- Idioma do conteúdo: português brasileiro (pt-BR).
+- As informações oficiais do exame são publicadas pelo Celpe-Bras/Inep.

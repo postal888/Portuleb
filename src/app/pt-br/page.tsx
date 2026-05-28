@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HubPathStrip } from "@/components/decor/HubPathStrip";
 import { SectionHeading } from "@/components/decor/SectionHeading";
 import { siteBrand } from "@/lib/brand";
 import { mainNav } from "@/lib/nav";
+import { SITE } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: { absolute: SITE.titleDefault },
+  alternates: { canonical: "/pt-br" },
+};
 
 const featured = [
   {

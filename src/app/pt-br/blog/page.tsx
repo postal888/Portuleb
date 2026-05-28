@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Artigos sobre estratégia de preparação para o Celpe-Bras, critérios de avaliação e dicas práticas.",
+  alternates: { canonical: "/pt-br/blog" },
 };
 
 export default function BlogPage() {

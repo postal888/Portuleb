@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Prática",
   description:
     "Praticar o formato do Celpe-Bras: ouvir, ler, escrever e drills de gramática e vocabulário.",
+  alternates: { canonical: "/pt-br/pratica" },
 };
 
 export default function PraticaPage() {

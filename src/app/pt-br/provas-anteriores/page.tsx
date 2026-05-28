@@ -6,6 +6,7 @@ import "./archive.css";
 export const metadata: Metadata = {
   title: "Provas Anteriores",
   description: "Arquivo de provas anteriores do Celpe-Bras por sessão e edição.",
+  alternates: { canonical: "/pt-br/provas-anteriores" },
 };
 
 const sessions = [

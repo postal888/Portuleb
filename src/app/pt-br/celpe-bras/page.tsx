@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CelpeExamBanner } from "@/components/celpe-bras/CelpeExamBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { CelpeInstructionList } from "@/components/celpe-bras/CelpeInstructionList";
 import { CelpeTaskStrip } from "@/components/celpe-bras/CelpeTaskStrip";
 import { SectionHeading } from "@/components/decor/SectionHeading";
@@ -13,7 +14,8 @@ import "./celpe-bras.css";
 export const metadata: Metadata = {
   title: "Celpe-Bras — Guia completo do exame",
   description:
-    "Visão geral do Celpe-Bras: partes do exame, critérios, níveis, inscrição e calendário.",
+    "Visão geral do Celpe-Bras: partes do exame, critérios de avaliação, níveis de proficiência, inscrição e calendário.",
+  alternates: { canonical: "/pt-br/celpe-bras" },
 };
 
 const quickFacts = [
@@ -65,9 +67,23 @@ const faq = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
 export default function CelpeBrasPage() {
   return (
     <div className="celpe-guide">
+      <JsonLd data={faqSchema} />
       <Breadcrumbs items={[{ label: "Início", href: "/pt-br" }, { label: "Celpe-Bras" }]} />
 
       <CelpeExamBanner />

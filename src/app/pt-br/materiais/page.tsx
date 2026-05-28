@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { SectionPlaceholder } from "@/components/SectionPlaceholder";
 
-export const metadata: Metadata = { title: "Materias" };
+export const metadata: Metadata = {
+  title: "Materiais",
+  alternates: { canonical: "/pt-br/materiais" },
+};
 
 export default function MateriaisPage() {
-  return <SectionPlaceholder title="Materias" />;
+  return <SectionPlaceholder title="Materiais" />;
 }
