@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+.next/
+out/
+build/
+dist/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env
+.env
+.env.local
+.env*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+~$*
+*.tmp
+*.part
+
+# Large Celpe-Bras downloads (keep CSV manifests in git)
+Materials/arquivos/
+Materials/download_log.csv
+cursor-instructions-copy.docx
+*-extracted.txt
+
+# TypeScript
+next-env.d.ts

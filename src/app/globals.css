@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --site-bg: #f7f6f2;
+  --site-surface: #f9f8f5;
+  --site-surface-2: #fbfbf9;
+  --site-border: #d4d1ca;
+  --site-text: #28251d;
+  --site-muted: #6e6b65;
+  --site-primary: #01696f;
+  --site-primary-hover: #0c4e54;
+  --site-primary-highlight: #d8e6e3;
+  --site-inverse: #f9f8f4;
+}
+
+@theme {
+  --color-cream: var(--site-bg);
+  --color-cream-dark: var(--site-surface);
+  --color-teal: var(--site-primary);
+  --color-teal-light: var(--site-primary-hover);
+  --color-orange: #d65a31;
+  --color-tan: var(--site-border);
+  --color-charcoal: var(--site-text);
+  --color-muted: var(--site-muted);
+  --color-inverse: var(--site-inverse);
+
+  --font-serif: var(--font-playfair), "Georgia", serif;
+  --font-sans: var(--font-source-sans), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-teal;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md bg-teal px-4 py-2 text-sm font-semibold no-underline transition-colors;
+    color: var(--site-inverse) !important;
+  }
+
+  a.btn-primary {
+    color: var(--site-inverse) !important;
+  }
+
+  .btn-primary:hover {
+    @apply bg-teal-light;
+    color: #fff !important;
+  }
+}

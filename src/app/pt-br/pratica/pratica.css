@@ -1,0 +1,463 @@
+/* Prática + Teoria hub — based on pratica-teoria-mockup.html */
+.practice-hub {
+  --practice-gold: #d19900;
+  --practice-gold-soft: #efe5c3;
+  --practice-divider: #e0ddd7;
+  --practice-faint: #98948e;
+  --practice-radius-xl: 1.5rem;
+  --practice-radius-lg: 1rem;
+  --practice-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 20px 50px rgba(0, 0, 0, 0.05);
+  --practice-content: 1180px;
+
+  margin: -2rem -1rem;
+  padding: 0 1rem 4rem;
+  background: var(--site-bg);
+  color: var(--site-text);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 640px) {
+  .practice-hub {
+    margin-left: calc(-1 * min(2rem, 5vw));
+    margin-right: calc(-1 * min(2rem, 5vw));
+    padding-left: min(2rem, 5vw);
+    padding-right: min(2rem, 5vw);
+  }
+}
+
+.practice-wrap {
+  width: min(100%, var(--practice-content));
+  margin: 0 auto;
+}
+
+.practice-hub a {
+  text-decoration: none;
+}
+
+.practice-hub a:not(.practice-btn) {
+  color: inherit;
+}
+
+.practice-hero {
+  padding: 2rem 0 1.125rem;
+}
+
+.practice-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  background: var(--site-surface);
+  border: 1px solid color-mix(in srgb, var(--site-text) 10%, transparent);
+  font-size: 0.76rem;
+  color: var(--site-muted);
+  margin-bottom: 1.125rem;
+}
+
+.practice-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.125rem;
+  align-items: stretch;
+}
+
+.practice-card {
+  background: var(--site-surface);
+  border: 1px solid color-mix(in srgb, var(--site-text) 10%, transparent);
+  border-radius: var(--practice-radius-xl);
+  box-shadow: var(--practice-shadow);
+}
+
+.practice-hero-main {
+  padding: clamp(1.5rem, 4vw, 2.625rem);
+}
+
+.practice-hero-side {
+  padding: 1.375rem;
+  display: grid;
+  gap: 0.875rem;
+  background: var(--site-surface-2);
+}
+
+.practice-kicker {
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--practice-faint);
+  margin-bottom: 0.625rem;
+}
+
+.practice-title {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(2.2rem, 4.8vw, 4.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  max-width: 11ch;
+  margin: 0;
+  color: var(--site-text);
+}
+
+.practice-lead {
+  color: var(--site-muted);
+  max-width: 61ch;
+  margin: 1rem 0 0;
+}
+
+.practice-lead strong {
+  color: var(--site-text);
+  font-weight: 600;
+}
+
+.practice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.practice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.practice-btn-primary,
+.practice-hub a.practice-btn-primary {
+  background: var(--site-primary);
+  color: var(--site-inverse) !important;
+}
+
+.practice-btn-primary:hover,
+.practice-hub a.practice-btn-primary:hover {
+  background: var(--site-primary-hover);
+  color: #fff !important;
+}
+
+.practice-btn-secondary,
+.practice-hub a.practice-btn-secondary {
+  border: 1px solid color-mix(in srgb, var(--site-text) 12%, transparent);
+  color: var(--site-text) !important;
+}
+
+.practice-btn-secondary:hover {
+  background: var(--site-primary-highlight);
+  color: var(--site-primary) !important;
+}
+
+.practice-mini {
+  padding: 0.9375rem 1rem;
+  border-radius: 1.125rem;
+  background: var(--site-bg);
+  border: 1px solid color-mix(in srgb, var(--site-text) 8%, transparent);
+}
+
+.practice-mini strong {
+  display: block;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.45rem;
+  color: var(--site-text);
+}
+
+.practice-mini span,
+.practice-mini .practice-meta-link {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--site-muted);
+}
+
+.practice-mini .practice-meta-link {
+  color: var(--site-primary) !important;
+  font-weight: 600;
+}
+
+.practice-section {
+  padding: 1.125rem 0;
+}
+
+.practice-section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.practice-section-title {
+  margin: 0;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.55rem, 2vw, 2.35rem);
+  color: var(--site-text);
+}
+
+.practice-section-title-sm {
+  font-size: 2rem;
+}
+
+.practice-section-copy {
+  color: var(--site-muted);
+  max-width: 58ch;
+  margin: 0;
+}
+
+.practice-panel {
+  padding: 1.5rem;
+}
+
+.practice-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.practice-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.practice-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.practice-tile {
+  padding: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  min-height: 255px;
+  background: var(--site-surface-2);
+  border: 1px solid color-mix(in srgb, var(--site-text) 10%, transparent);
+  border-radius: var(--practice-radius-lg);
+  transition: box-shadow 0.15s ease;
+}
+
+.practice-tile:hover {
+  box-shadow: var(--practice-shadow);
+}
+
+.practice-tile-highlight {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--site-primary-highlight) 65%, var(--site-surface-2)),
+    var(--site-surface-2)
+  );
+}
+
+.practice-tile-support {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--practice-gold-soft) 60%, var(--site-surface-2)),
+    var(--site-surface-2)
+  );
+}
+
+.practice-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--site-bg);
+  border: 1px solid color-mix(in srgb, var(--site-text) 8%, transparent);
+  font-weight: 700;
+  color: var(--site-primary);
+}
+
+.practice-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4375rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--site-primary-highlight);
+  color: var(--site-primary);
+  width: fit-content;
+}
+
+.practice-badge-gold {
+  background: var(--practice-gold-soft);
+  color: var(--practice-gold);
+}
+
+.practice-badge-neutral {
+  background: var(--site-bg);
+  color: var(--site-muted);
+}
+
+.practice-tile h3,
+.practice-theory-card h3,
+.practice-flow-card h3,
+.practice-topic-card h3 {
+  margin: 0;
+  font-size: 1.06rem;
+  line-height: 1.18;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--site-text);
+}
+
+.practice-muted {
+  color: var(--site-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.practice-meta {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--practice-divider);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--site-muted);
+}
+
+.practice-meta-link {
+  font-weight: 700;
+  color: var(--site-primary) !important;
+}
+
+.practice-split-card {
+  padding: 1.25rem;
+}
+
+.practice-stack {
+  display: grid;
+  gap: 0;
+}
+
+.practice-step-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 0.875rem 0;
+  border-top: 1px solid var(--practice-divider);
+}
+
+.practice-step-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.practice-step-name {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.2rem;
+  color: var(--site-text);
+}
+
+.practice-pill {
+  display: inline-flex;
+  padding: 0.375rem 0.625rem;
+  border-radius: 999px;
+  background: var(--site-bg);
+  border: 1px solid color-mix(in srgb, var(--site-text) 10%, transparent);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--site-muted);
+  white-space: nowrap;
+}
+
+.practice-theory-card,
+.practice-flow-card,
+.practice-topic-card {
+  padding: 1.125rem;
+  background: var(--site-surface-2);
+  border: 1px solid color-mix(in srgb, var(--site-text) 10%, transparent);
+  border-radius: var(--practice-radius-lg);
+}
+
+.practice-num {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.55rem;
+  margin-bottom: 0.5rem;
+  color: var(--site-primary);
+}
+
+.practice-linkline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-weight: 700;
+  color: var(--site-primary) !important;
+}
+
+.practice-topic-card {
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.practice-journey {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1rem;
+}
+
+.practice-breadcrumbs {
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--site-muted);
+}
+
+.practice-breadcrumbs a {
+  color: var(--site-primary) !important;
+}
+
+.practice-breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .practice-hero-grid,
+  .practice-grid-4,
+  .practice-grid-3,
+  .practice-grid-2,
+  .practice-journey {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .practice-step-row {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .practice-step-row .practice-pill {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .practice-hero-grid,
+  .practice-grid-4,
+  .practice-grid-3,
+  .practice-grid-2,
+  .practice-journey {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-section-head {
+    display: block;
+  }
+
+  .practice-title {
+    max-width: none;
+  }
+
+  .practice-step-row {
+    grid-template-columns: 1fr;
+  }
+}
