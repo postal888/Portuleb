@@ -8,9 +8,10 @@
   --site-text: #28251d;
   --site-muted: #6e6b65;
   --site-faint: #9e9b95;
-  --site-primary: #01696f;
-  --site-primary-hover: #0c4e54;
-  --site-primary-highlight: #d8e6e3;
+  --site-ink: #1e4a57;
+  --site-primary: #1e4a57;
+  --site-primary-hover: #153a44;
+  --site-primary-highlight: #dce8ea;
   --site-inverse: #f9f8f4;
   --site-accent: #d65a31;
   --site-accent-soft: #efe1c2;
@@ -269,58 +270,111 @@
     opacity: 0.5;
   }
 
+  .brand-link {
+    text-decoration: none;
+  }
+
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .brand-logo-wrap {
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 1.5px solid var(--site-ink);
+    background: var(--site-surface);
+    box-shadow: 2px 2px 0 color-mix(in srgb, var(--site-ink) 14%, transparent);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .brand-link:hover .brand-logo-wrap {
+    box-shadow: 3px 3px 0 color-mix(in srgb, var(--site-ink) 20%, transparent);
+    transform: translate(-1px, -1px);
+  }
+
+  .brand-logo-img {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .brand-name {
+    font-family: var(--font-playfair), Georgia, serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--site-ink);
+    transition: color 0.2s ease;
+  }
+
+  .brand-link:hover .brand-name {
+    color: var(--site-primary-hover);
+  }
+
+  .brand-tagline {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--site-muted);
+    letter-spacing: 0.01em;
+  }
+
+  .brand-lockup-footer .brand-name {
+    font-size: 1.35rem;
+    color: var(--site-inverse);
+  }
+
+  .brand-lockup-footer .brand-logo-wrap {
+    border-color: color-mix(in srgb, var(--site-inverse) 35%, transparent);
+    box-shadow: 2px 2px 0 color-mix(in srgb, #000 25%, transparent);
+  }
+
   .illustration-frame {
     position: relative;
-    padding: 0.75rem;
+    padding: 0.85rem;
+    background: var(--site-surface);
+    border: 2px solid var(--site-ink);
+    border-radius: var(--site-radius-lg);
+    box-shadow: 5px 5px 0 color-mix(in srgb, var(--site-ink) 10%, transparent);
+  }
+
+  .illustration-frame::before,
+  .illustration-frame::after {
+    content: "";
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--site-ink);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .illustration-frame::before {
+    top: 0.5rem;
+    left: 0.5rem;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .illustration-frame::after {
+    bottom: 0.5rem;
+    right: 0.5rem;
+    border-left: none;
+    border-top: none;
   }
 
   .illustration-frame-inner {
     position: relative;
     z-index: 1;
-  }
-
-  .illustration-frame-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1px dashed color-mix(in srgb, var(--site-primary) 22%, transparent);
-    animation: decor-spin-slow 48s linear infinite;
-  }
-
-  .illustration-float {
-    position: absolute;
-    z-index: 2;
-    display: grid;
-    place-items: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 50%;
-    font-family: var(--font-playfair), Georgia, serif;
-    font-size: 1rem;
-    font-weight: 700;
-    background: var(--site-surface);
-    border: 1px solid color-mix(in srgb, var(--site-text) 10%, transparent);
-    box-shadow: var(--site-shadow-sm);
-    color: var(--site-primary);
-  }
-
-  .illustration-float-a {
-    top: 6%;
-    right: 8%;
-    animation: decor-float 5s ease-in-out infinite;
-  }
-
-  .illustration-float-b {
-    bottom: 18%;
-    left: 4%;
-    color: var(--site-accent);
-    animation: decor-float 6s ease-in-out infinite 0.8s;
-  }
-
-  .illustration-float-c {
-    top: 38%;
-    left: -2%;
-    animation: decor-float 5.5s ease-in-out infinite 1.4s;
   }
 
   .hub-path-strip {
@@ -398,13 +452,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .illustration-frame-ring,
-  .illustration-float {
-    animation: none;
-  }
-
   .hub-card:hover,
-  .btn-primary:hover {
+  .btn-primary:hover,
+  .brand-link:hover .brand-logo-wrap {
     transform: none;
   }
 }

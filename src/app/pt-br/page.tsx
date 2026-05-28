@@ -3,6 +3,7 @@ import Link from "next/link";
 import { HubPathStrip } from "@/components/decor/HubPathStrip";
 import { IllustrationFrame } from "@/components/decor/IllustrationFrame";
 import { SectionHeading } from "@/components/decor/SectionHeading";
+import { siteBrand } from "@/lib/brand";
 import { mainNav } from "@/lib/nav";
 
 const featured = [
@@ -50,7 +51,7 @@ export default function HomePage() {
           <div>
             <span className="eyebrow">
               <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-teal" aria-hidden />
-              PortuLebre Hub
+              {siteBrand.name}
             </span>
             <h1 className="page-title page-title-display mt-4 max-w-[14ch]">
               Preparação para o Celpe-Bras
@@ -70,10 +71,10 @@ export default function HomePage() {
           </div>
           <IllustrationFrame>
             <Image
-              src="/images/hero-illustration.png"
-              alt="Ilustração: leitura, escrita e elementos do exame em português"
+              src={siteBrand.logoSrc}
+              alt={siteBrand.logoAlt}
               width={640}
-              height={480}
+              height={640}
               className="h-auto w-full"
               priority
             />

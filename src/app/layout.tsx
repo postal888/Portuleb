@@ -15,8 +15,8 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "PortuLebre Hub",
-  description: "Portal educacional para preparação do Celpe-Bras",
+  title: "CELPE-Dê Pé",
+  description: "Preparação para o Celpe-Bras — teoria, prática, provas anteriores e blog",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

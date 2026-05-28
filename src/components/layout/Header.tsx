@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { SiteLogo } from "@/components/brand/SiteLogo";
 import { mainNav } from "@/lib/nav";
 
 export function Header() {
@@ -10,16 +11,9 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative sticky top-0 z-50 border-b border-tan/25 bg-cream/90 shadow-[0_1px_0_rgba(40,37,29,0.06)] backdrop-blur-md before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-gradient-to-r before:from-transparent before:via-teal/50 before:to-transparent">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-        <Link href="/pt-br" className="group flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-teal/25 bg-teal font-serif text-lg font-bold text-inverse shadow-sm">
-            P
-          </span>
-          <span className="font-serif text-xl font-bold tracking-tight text-teal transition-colors group-hover:text-teal-light">
-            PortuLebre
-          </span>
-        </Link>
+    <header className="relative sticky top-0 z-50 border-b-2 border-[var(--site-ink)]/15 bg-cream/92 shadow-[0_2px_0_rgba(30,74,87,0.06)] backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <SiteLogo />
 
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Principal">
           {mainNav.map((item) => {
@@ -56,7 +50,7 @@ export function Header() {
 
       {open && (
         <nav
-          className="border-t border-tan/25 bg-cream-dark px-4 py-4 lg:hidden"
+          className="border-t-2 border-[var(--site-ink)]/10 bg-cream-dark px-4 py-4 lg:hidden"
           aria-label="Mobile"
         >
           <div className="flex flex-col gap-1">

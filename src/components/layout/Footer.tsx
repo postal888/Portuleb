@@ -1,15 +1,17 @@
 import Link from "next/link";
+import { SiteLogo } from "@/components/brand/SiteLogo";
+import { siteBrand } from "@/lib/brand";
 import { mainNav } from "@/lib/nav";
 
 export function Footer() {
   return (
-    <footer className="relative mt-auto overflow-hidden border-t border-teal-light/30 bg-teal text-inverse before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-inverse/30 before:to-transparent">
+    <footer className="relative mt-auto overflow-hidden border-t-2 border-[var(--site-ink)]/20 bg-[var(--site-ink)] text-inverse">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div>
-            <p className="font-serif text-2xl font-bold tracking-tight">PortuLebre Hub</p>
-            <p className="mt-2 max-w-sm text-sm leading-relaxed text-inverse/80">
-              Portal em construção — preparação para o Celpe-Bras, seção por seção.
+            <SiteLogo variant="footer" />
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-inverse/80">
+              {siteBrand.tagline} — portal em construção, seção por seção.
             </p>
           </div>
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-inverse/85">
@@ -26,7 +28,7 @@ export function Footer() {
           </ul>
         </div>
         <p className="mt-10 border-t border-inverse/15 pt-6 text-sm text-inverse/55">
-          © {new Date().getFullYear()} PortuLebre. Todos os direitos reservados.
+          © {new Date().getFullYear()} {siteBrand.name}. Todos os direitos reservados.
         </p>
       </div>
     </footer>

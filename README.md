@@ -1,6 +1,6 @@
-# PortuLebre Hub
+# CELPE-Dê Pé
 
-Portal construído **do zero**, passo a passo (não é cópia do repositório `Portulebre`).
+Portal de preparação para o Celpe-Bras, construído **do zero**, passo a passo (não é cópia do repositório `Portulebre`).
 
 ## Menu principal
 
