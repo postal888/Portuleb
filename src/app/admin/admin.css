@@ -1,0 +1,111 @@
+.admin-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--site-primary);
+}
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.admin-tab {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--site-border);
+  background: var(--site-surface);
+  color: var(--site-text);
+  cursor: pointer;
+}
+
+.admin-tab-active {
+  background: var(--site-primary-highlight);
+  border-color: color-mix(in srgb, var(--site-primary) 30%, transparent);
+  color: var(--site-primary);
+}
+
+.admin-msg {
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--site-radius-md);
+  background: var(--site-primary-highlight);
+  font-size: 0.875rem;
+}
+
+.admin-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+}
+
+.admin-split {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(12rem, 16rem) 1fr;
+}
+
+@media (max-width: 768px) {
+  .admin-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-form-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--site-muted);
+}
+
+.admin-input {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-sm);
+  background: var(--site-surface-2);
+  font-size: 0.9rem;
+  color: var(--site-text);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.admin-table th {
+  font-weight: 600;
+  color: var(--site-muted);
+}

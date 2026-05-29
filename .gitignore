@@ -19,6 +19,9 @@ yarn-error.log*
 .env.local
 .env*.local
 
+# Admin DB (local analytics + scheduled posts queue)
+data/admin/
+
 # IDE
 .idea/
 .vscode/

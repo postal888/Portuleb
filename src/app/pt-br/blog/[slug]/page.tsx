@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogArticleView } from "@/components/blog/BlogArticleView";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { blogPosts, getBlogPost } from "@/content/blog";
+import { getBlogPost, getBlogPosts } from "@/content/blog";
+
+export const dynamic = "force-dynamic";
 import { absoluteUrl, SITE } from "@/lib/site";
 import "../blog.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  return getBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -39,6 +39,7 @@ const sectionIcons: Record<string, string> = {
   "/pt-br/celpe-bras": "◆",
   "/pt-br/provas-anteriores": "◇",
   "/pt-br/pratica": "○",
+  "/pt-br/avaliacao": "◎",
   "/pt-br/teoria": "△",
   "/pt-br/blog": "✦",
   "/pt-br/materiais": "□",

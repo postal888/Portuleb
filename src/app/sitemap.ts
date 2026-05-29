@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/content/blog";
+import { getBlogPosts } from "@/content/blog";
 import { SITE } from "@/lib/site";
 
 const provasSlugs = ["2026-1"];
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "/pt-br" ? 1 : 0.7,
   }));
 
-  const blogRoutes = blogPosts.map((post) => ({
+  const blogRoutes = getBlogPosts().map((post) => ({
     url: `${SITE.url}/pt-br/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
     changeFrequency: "monthly" as const,

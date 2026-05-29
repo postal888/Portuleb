@@ -1,3 +1,4 @@
+import { PageViewBeacon } from "@/components/analytics/PageViewBeacon";
 import { PageDecor } from "@/components/decor/PageDecor";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -26,6 +27,7 @@ export default function LocaleLayout({ children }: { children: React.ReactNode }
   return (
     <>
       <JsonLd data={[organizationSchema, websiteSchema]} />
+      <PageViewBeacon />
       <PageDecor />
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header />

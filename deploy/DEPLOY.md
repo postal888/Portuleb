@@ -65,9 +65,43 @@ cd E:\GIT\Portulebre_hub
 
 Скрипт: `git pull` на сервере → `npm ci` → `npm run build` → перезапуск `celpe-de-pe`.
 
-## 5. Проверка
+## 5. Админка (`/admin`)
+
+В `.env.local` на сервере (`/var/www/celpe-de-pe/.env.local`):
+
+```env
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=<senha-forte>
+ADMIN_SECRET_KEY=<opcional-32-chars>
+CRON_SECRET=<segredo-cron>
+NEXT_PUBLIC_SITE_URL=https://celpe-depe.com
+# Opcional: Cloudflare Analytics API
+CF_API_TOKEN=
+CF_ZONE_ID=
+NEXT_PUBLIC_GA_ID=
+```
+
+Папки с правами на запись для пользователя `celpe-de-pe`:
+
+```bash
+mkdir -p /var/www/celpe-de-pe/data/admin /var/www/celpe-de-pe/data/blog/posts
+chown -R www-data:www-data /var/www/celpe-de-pe/data
+```
+
+**Cron** — публикация запланированных постов (каждые 5 мин):
+
+```bash
+crontab -e
+# добавить:
+*/5 * * * * curl -fsS -H "x-cron-secret: SEU_CRON_SECRET" https://celpe-depe.com/api/admin/cron/publish >/dev/null
+```
+
+Вход: `https://celpe-depe.com/admin/login` → дашборд, блог, расписание, трафик (SQLite + опционально Cloudflare).
+
+## 6. Проверка
 
 - Сайт: http://137.184.179.172  
+- Админка: `/admin/login`  
 - Логи: `ssh celpe-server "journalctl -u celpe-de-pe -f"`  
 - Nginx: `ssh celpe-server "nginx -t && systemctl status nginx"`
 

@@ -11,7 +11,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative sticky top-0 z-50 border-b border-[var(--site-border)] bg-cream/95 shadow-sm backdrop-blur-md">
+    <header className="relative sticky top-0 z-50 border-b border-[var(--site-border)] bg-[var(--site-header-bg)] shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <SiteLogo />
 
@@ -50,7 +50,7 @@ export function Header() {
 
       {open && (
         <nav
-          className="border-t border-[var(--site-border)] bg-cream-dark px-4 py-4 lg:hidden"
+          className="border-t border-[var(--site-border)] bg-[var(--site-header-bg)] px-4 py-4 lg:hidden"
           aria-label="Mobile"
         >
           <div className="flex flex-col gap-1">

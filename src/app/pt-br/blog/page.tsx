@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { BlogIndexView } from "@/components/blog/BlogIndexView";
-import { blogPosts } from "@/content/blog";
+import { getBlogPosts } from "@/content/blog";
+
+export const dynamic = "force-dynamic";
 import "./blog.css";
 
 export const metadata: Metadata = {
@@ -11,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  return <BlogIndexView posts={blogPosts} />;
+  return <BlogIndexView posts={getBlogPosts()} />;
 }
