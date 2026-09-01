@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { PracticeHubView } from "@/components/practice/PracticeHubView";
+import { buildPageMetadata } from "@/i18n/metadata";
 import "./pratica.css";
+import "./exercicios.css";
 
-export const metadata: Metadata = {
-  title: "Prática",
+export const metadata: Metadata = buildPageMetadata({
+  locale: "pt-br",
+  section: "practice",
+  title: "Prática Celpe-Bras: ouvir, ler e escrever",
   description:
-    "Praticar o formato do Celpe-Bras: ouvir, ler, escrever e drills de gramática e vocabulário.",
-  alternates: { canonical: "/pt-br/pratica" },
-};
+    "Prática no formato real do Celpe-Bras: compreensão auditiva com vídeos, leitura de textos anotados, produção escrita das quatro tarefas e exercícios de base.",
+});
 
 export default function PraticaPage() {
-  return <PracticeHubView />;
+  return <PracticeHubView locale="pt-br" />;
 }

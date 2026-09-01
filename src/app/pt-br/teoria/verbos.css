@@ -1,0 +1,431 @@
+/* Verbos — conjugation tables + quiz, celpe-depe design */
+.verbos-root {
+  --verbos-gold: #d19900;
+  --verbos-green: #2f8f5b;
+  --verbos-green-pale: #e7f3ec;
+  --verbos-red: #c0532f;
+  --verbos-red-pale: #f7e7e0;
+  color: var(--site-text);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.verbos-subtabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: var(--site-surface-2);
+  border: 1px solid var(--site-border);
+  margin-bottom: 1.25rem;
+}
+
+.verbos-tab {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--site-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.verbos-tab:hover {
+  color: var(--site-primary);
+}
+
+.verbos-tab.is-active {
+  background: var(--site-primary);
+  color: var(--site-inverse);
+  box-shadow: var(--site-shadow-sm);
+}
+
+.verbos-intro {
+  color: var(--site-muted);
+  margin-bottom: 1rem;
+  max-width: 60ch;
+}
+
+.verbos-warn {
+  color: var(--verbos-red);
+  background: var(--verbos-red-pale);
+  border: 1px solid color-mix(in srgb, var(--verbos-red) 25%, transparent);
+  border-radius: var(--site-radius-md);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+}
+
+.verbos-muted {
+  color: var(--site-faint);
+  font-weight: 400;
+}
+
+/* Filters */
+.verbos-filters {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.verbos-fieldset {
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-lg);
+  background: var(--site-surface);
+  padding: 0.85rem 1rem 1rem;
+  margin: 0;
+}
+
+.verbos-fieldset legend {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--site-primary);
+  padding: 0 0.4rem;
+}
+
+.verbos-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.verbos-verb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.4rem 0.85rem;
+}
+
+.verbos-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.86rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.verbos-check input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--site-primary);
+  cursor: pointer;
+}
+
+.verbos-check-verb {
+  color: var(--site-text);
+}
+
+.verbos-chip-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.55rem 0 0.7rem;
+}
+
+.verbos-mini-btn {
+  appearance: none;
+  border: 1px solid var(--site-border);
+  background: var(--site-surface);
+  color: var(--site-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.verbos-mini-btn:hover {
+  border-color: var(--site-primary);
+  color: var(--site-primary);
+}
+
+/* Tables */
+.verb-tables-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.verb-table-block {
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-lg);
+  background: var(--site-surface);
+  padding: 1.1rem 1.1rem 1.25rem;
+  box-shadow: var(--site-shadow-sm);
+}
+
+.verb-table-verb-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--site-primary);
+  margin: 0;
+}
+
+.verb-table-infinitive {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+  color: var(--site-faint);
+  margin: 0.1rem 0 0.85rem;
+}
+
+.verb-table-scroll {
+  overflow-x: auto;
+}
+
+.verb-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.verb-table thead th {
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--site-primary);
+  background: var(--site-primary-highlight);
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.verb-table thead th:first-child {
+  border-top-left-radius: var(--site-radius-sm);
+}
+.verb-table thead th:last-child {
+  border-top-right-radius: var(--site-radius-sm);
+}
+
+.verb-table tbody td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--site-border) 60%, transparent);
+  vertical-align: top;
+}
+
+.verb-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.verb-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--site-surface-2) 55%, transparent);
+}
+
+.verb-table-tempo {
+  font-weight: 600;
+  color: var(--site-text);
+  white-space: nowrap;
+}
+
+.verb-table-forma-inner {
+  white-space: pre-line;
+  color: var(--site-text);
+}
+
+.verb-table-exemplo {
+  color: var(--site-muted);
+  font-style: italic;
+}
+
+/* Example tooltip */
+.verb-exemplo-tip-host {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  border-bottom: 1px dashed color-mix(in srgb, var(--site-primary) 45%, transparent);
+}
+
+.verb-exemplo-tip-pop {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.5rem);
+  z-index: 20;
+  width: max-content;
+  max-width: 280px;
+  display: none;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--site-radius-md);
+  background: var(--site-ink);
+  color: var(--site-inverse);
+  box-shadow: var(--site-shadow-md);
+  font-style: normal;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.verb-exemplo-tip-host:hover .verb-exemplo-tip-pop,
+.verb-exemplo-tip-host:focus .verb-exemplo-tip-pop,
+.verb-exemplo-tip-host:focus-within .verb-exemplo-tip-pop {
+  display: flex;
+}
+
+.verb-exemplo-tip-head {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--verbos-gold);
+}
+
+.verb-exemplo-tip-en {
+  font-weight: 600;
+}
+
+.verb-exemplo-tip-note {
+  color: color-mix(in srgb, var(--site-inverse) 80%, transparent);
+  font-size: 0.78rem;
+}
+
+/* Quiz */
+.verbos-test-view {
+  display: grid;
+  gap: 1rem;
+}
+
+.verbos-test-row-num {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.verbos-test-row-num label {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.verbos-test-row-num input {
+  width: 5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-sm);
+  background: var(--site-surface);
+  font-size: 0.9rem;
+}
+
+.verbos-test-slots {
+  font-size: 0.88rem;
+  color: var(--site-muted);
+}
+
+.verbos-test-quiz-wrap {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 560px;
+}
+
+.verbos-test-chip {
+  display: inline-flex;
+  align-self: start;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--site-primary-highlight);
+  color: var(--site-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.verbos-test-progress {
+  font-size: 0.82rem;
+  color: var(--site-faint);
+}
+
+.verbos-test-lead {
+  font-size: 0.88rem;
+  color: var(--site-muted);
+}
+
+.verbos-test-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--site-radius-lg);
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
+}
+
+.verbos-test-tense {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--site-primary);
+}
+
+.verbos-test-person {
+  font-size: 0.9rem;
+  color: var(--site-muted);
+}
+
+.verbos-quiz-options {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 480px) {
+  .verbos-quiz-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.verbos-quiz-opt {
+  appearance: none;
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-md);
+  background: var(--site-surface);
+  color: var(--site-text);
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.verbos-quiz-opt:hover:not(:disabled) {
+  border-color: var(--site-primary);
+  background: var(--site-primary-highlight);
+}
+
+.verbos-quiz-opt:disabled {
+  cursor: default;
+}
+
+.verbos-quiz-opt.correct {
+  border-color: var(--verbos-green);
+  background: var(--verbos-green-pale);
+  color: color-mix(in srgb, var(--verbos-green) 80%, black);
+}
+
+.verbos-quiz-opt.wrong {
+  border-color: var(--verbos-red);
+  background: var(--verbos-red-pale);
+  color: color-mix(in srgb, var(--verbos-red) 80%, black);
+}
+
+.verbos-test-done {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  border-radius: var(--site-radius-lg);
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
+  max-width: 420px;
+}
+
+.verbos-test-done h3 {
+  font-size: 1.3rem;
+}
+
+.verbos-done-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}

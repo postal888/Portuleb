@@ -1,3 +1,78 @@
+/* Provas Anteriores — session cards on index */
+.archive-session-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .archive-session-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+
+.archive-session-list > li {
+  display: flex;
+  min-height: 0;
+}
+
+.archive-session-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  padding: 1.5rem;
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
+  border-radius: 1.4rem;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.15s ease;
+}
+
+.archive-session-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.archive-session-kicker {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9e9b95;
+}
+
+.archive-session-title {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--site-text);
+}
+
+.archive-session-summary {
+  flex: 1;
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--site-muted);
+  min-height: 2.9em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.archive-session-foot {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--site-primary);
+}
+
 /* Archive session pages — based on celpe-bras-2026-1-mockup.html */
 .archive {
   --archive-bg: var(--site-bg);
@@ -39,6 +114,23 @@
 .archive-wrap {
   width: min(100%, var(--archive-content));
   margin: 0 auto;
+}
+
+.archive-blog-promo {
+  background: linear-gradient(
+    135deg,
+    var(--site-primary-highlight) 0%,
+    var(--site-surface) 55%,
+    var(--site-surface) 100%
+  );
+  border: 1px solid var(--site-border);
+  border-radius: 1.4rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.archive-blog-promo:hover {
+  border-color: color-mix(in srgb, var(--site-primary) 35%, var(--site-border));
 }
 
 .archive a {

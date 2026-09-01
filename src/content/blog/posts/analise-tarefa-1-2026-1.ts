@@ -69,7 +69,7 @@ export const analiseTarefa12026_1: BlogPost = {
       type: "callout",
       title: "Trechos-chave da transcrição.",
       content:
-        "Aparecem elementos como «mapear a cadeia do alimento», «diversidade», «tamanho continental de Brasil», além de descrições de pratos como broa com requeijão moreno, frango na brasa, linguiça conservada na banha de porco e polenta feita com milho crioulo processado em moinho.",
+        "Aparecem elementos como «mapear a cadeia do alimento», «diversidade», «tamanho continental do Brasil», além de descrições de pratos como broa com requeijão moreno, frango na brasa, linguiça conservada na banha de porco e polenta feita com milho crioulo processado em moinho.",
     },
     { type: "h2", content: "Avaliação de dificuldade do áudio" },
     { type: "h3", content: "Léxico" },
@@ -129,7 +129,7 @@ export const analiseTarefa12026_1: BlogPost = {
           title: "Conceitos-chave",
           items: [
             "cadeia do alimento",
-            "tamanho continental de Brasil",
+            "tamanho continental do Brasil",
             "tradições em vias de desaparecer",
             "propriedade autossuficiente",
             "sabor bruto do milho",

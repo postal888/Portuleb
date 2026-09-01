@@ -11,7 +11,7 @@ export function PageDecor() {
       <svg className="decor-grid" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="site-dot-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-            <circle cx="1.5" cy="1.5" r="1" fill="var(--site-ink)" opacity="0.06" />
+            <circle cx="1.5" cy="1.5" r="1" fill="var(--site-primary)" opacity="0.05" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#site-dot-grid)" />

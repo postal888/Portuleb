@@ -202,6 +202,71 @@
   margin: 0;
 }
 
+.blog-video {
+  margin: 1.25rem 0;
+}
+
+.blog-video__label {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--site-text-muted);
+}
+
+.blog-video__player {
+  width: 100%;
+  max-height: 70vh;
+  border-radius: var(--blog-radius-lg);
+  background: #000;
+}
+
+.blog-video__caption {
+  margin: 0.5rem 0 0;
+  font-size: 0.88rem;
+  color: var(--site-text-muted);
+}
+
+.blog-geo-box {
+  border-radius: var(--blog-radius-lg);
+  background: var(--site-surface-2);
+  border: 1px solid var(--blog-divider);
+  padding: 0.875rem 1rem;
+  margin: 1rem 0;
+}
+
+.blog-geo-box--learn {
+  background: linear-gradient(90deg, var(--site-primary-highlight), var(--blog-accent-soft));
+}
+
+.blog-geo-box__title {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.blog-geo-box ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.blog-geo-box li {
+  margin: 0.25rem 0;
+}
+
+.blog-internal-links {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.1rem;
+}
+
+.blog-internal-links a {
+  color: var(--site-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.blog-internal-links a:hover {
+  text-decoration: underline;
+}
+
 .blog-sidebar {
   display: grid;
   gap: 1.125rem;

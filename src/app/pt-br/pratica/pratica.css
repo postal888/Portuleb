@@ -276,6 +276,16 @@
   );
 }
 
+.practice-tile-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.practice-tile-link:hover .practice-meta-link {
+  color: var(--site-primary);
+}
+
 .practice-icon {
   width: 44px;
   height: 44px;

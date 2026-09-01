@@ -1,6 +1,17 @@
-export function CelpeExamBanner() {
+import type { Locale } from "@/i18n/locales";
+
+export function CelpeExamBanner({ locale = "pt-br" }: { locale?: Locale }) {
+  const badgeLabel =
+    locale === "en" ? "Guide" : locale === "ru" ? "Гид" : "Guia";
+  const ariaLabel =
+    locale === "en"
+      ? "Visual identity inspired by the Celpe-Bras 2026/1 question booklet"
+      : locale === "ru"
+        ? "Визуальный стиль, вдохновлённый сборником заданий Celpe-Bras 2026/1"
+        : "Identidade visual inspirada no Caderno de Questões Celpe-Bras 2026/1";
+
   return (
-    <div className="celpe-exam-banner" role="img" aria-label="Identidade visual inspirada no Caderno de Questões Celpe-Bras 2026/1">
+    <div className="celpe-exam-banner" role="img" aria-label={ariaLabel}>
       <div className="celpe-exam-banner-wave" aria-hidden>
         <div className="celpe-wave celpe-wave-red" />
         <div className="celpe-wave celpe-wave-yellow" />
@@ -27,7 +38,7 @@ export function CelpeExamBanner() {
           </p>
           <p className="celpe-banner-sub">Caderno de Questões — Parte Escrita</p>
         </div>
-        <span className="celpe-page-badge">Guia</span>
+        <span className="celpe-page-badge">{badgeLabel}</span>
       </div>
     </div>
   );

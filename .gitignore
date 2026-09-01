@@ -38,11 +38,20 @@ Logo.png
 *.tmp
 *.part
 
-# Large Celpe-Bras downloads (keep CSV manifests in git)
-Materials/arquivos/
-Materials/download_log.csv
+# Local Celpe-Bras source materials — ~820 MB of exam video and PDF,
+# served from the CDN and kept out of git.
+Materials/
 cursor-instructions-copy.docx
 *-extracted.txt
 
+# Local scratch output from import/parse scripts
+tmp-*.json
+tmp-*.txt
+
+# Agent / assistant config, like .vscode and .idea above
+.claude/
+skills-lock.json
+
 # TypeScript
 next-env.d.ts
+tsconfig.tsbuildinfo

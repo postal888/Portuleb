@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Source_Sans_3 } from "next/font/google";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { PageViewBeacon } from "@/components/analytics/PageViewBeacon";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -18,9 +21,6 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: SITE.locale,
@@ -49,10 +49,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headerList = await headers();
+  const siteLocale = headerList.get("x-site-locale");
+  const lang = siteLocale === "en" || siteLocale === "ru" ? siteLocale : "pt-BR";
+
   return (
-    <html lang="pt-BR" className={sourceSans.variable}>
-      <body className="min-h-screen flex flex-col font-sans">{children}</body>
+    <html lang={lang} className={sourceSans.variable} suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col font-sans">
+        <GoogleAnalytics />
+        <PageViewBeacon />
+        {children}
+      </body>
     </html>
   );
 }

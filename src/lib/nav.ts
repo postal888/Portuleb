@@ -1,11 +1,14 @@
-export const mainNav = [
-  { href: "/pt-br/celpe-bras", label: "Celpe-Bras" },
-  { href: "/pt-br/provas-anteriores", label: "Provas Anteriores" },
-  { href: "/pt-br/pratica", label: "Prática" },
-  { href: "/pt-br/avaliacao", label: "Avaliação" },
-  { href: "/pt-br/teoria", label: "Teoria" },
-  { href: "/pt-br/blog", label: "Blog" },
-  { href: "/pt-br/materiais", label: "Materiais" },
-  { href: "/pt-br/contato", label: "Contato" },
-  { href: "/pt-br/termos", label: "Termos" },
-] as const;
+import type { Locale } from "@/i18n/locales";
+import { getUi } from "@/i18n/ui";
+import { localizedPath } from "@/lib/i18n-links";
+
+/** @deprecated Use getUi(locale).nav + localizedPath — kept for gradual migration. */
+export function getMainNav(locale: Locale = "pt-br") {
+  return getUi(locale).nav.map((item) => ({
+    href: localizedPath(locale, item.section),
+    label: item.label,
+  }));
+}
+
+/** PT-only legacy export */
+export const mainNav = getMainNav("pt-br");

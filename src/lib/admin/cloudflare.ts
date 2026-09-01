@@ -1,4 +1,4 @@
-/** Cloudflare GraphQL analytics (optional — same idea as CrackTheDeck). */
+/** Cloudflare GraphQL analytics (optional). */
 
 export function isCloudflareConfigured(): boolean {
   return Boolean(process.env.CF_API_TOKEN && process.env.CF_ZONE_ID);

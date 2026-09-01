@@ -57,21 +57,23 @@ export const theoryFlow = [
   },
 ] as const;
 
+/** Roadmap of topics being written — publicados aparecem nos eixos acima. */
 export const sampleTopics = [
   {
-    title: "Presente vs pretérito",
-    description: "Explicação, tabela, exemplos curtos e atalho para um quiz.",
+    title: "Concordância verbal",
+    description:
+      "Quando o verbo concorda com o sujeito: coletivos, sujeito posposto e «um dos que».",
   },
   {
-    title: "Artigos e contrações",
-    description: "Revisão da regra e série de micro-drills para fixar.",
+    title: "Gerúndio e particípio",
+    description: "Formas nominais, tempos compostos e o «gerundismo» que aparece na escrita.",
   },
   {
-    title: "Vocabulário de opinião",
-    description: "Palavras e estruturas úteis para usar depois na escrita.",
+    title: "«Mais» ou «mas»",
+    description: "Duas palavras quase idênticas no som e opostas na função, com teste rápido.",
   },
   {
-    title: "Estrutura do texto",
-    description: "Como organizar a resposta: abertura, desenvolvimento, fechamento.",
+    title: "Voz passiva",
+    description: "Passiva analítica e sintética, e o efeito de formalidade que ela cria no texto.",
   },
 ] as const;

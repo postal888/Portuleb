@@ -1,32 +1,8 @@
-import type { MaterialKind } from "@/lib/materials/registry";
+import type { ArchiveSession } from "./types";
 
-export type SessionTask = {
-  number: string;
-  title: string;
-  description: string;
-  state: "ok" | "missing";
-  stateLabel: string;
-  input: string;
-  materialHref: string;
-  materialAction: string;
-};
+export type { ArchiveSession, SessionMaterial, SessionTask } from "./types";
 
-export type SessionMaterial = {
-  id: string;
-  materialId: string;
-  kind: MaterialKind;
-  badge?: string;
-  badgeVariant?: "default" | "neutral" | "missing";
-  icon: string;
-  title: string;
-  description: string;
-  category: string;
-  action: string;
-  href: string;
-  dimmed: boolean;
-};
-
-export const session2026_1 = {
+export const session2026_1: ArchiveSession = {
   slug: "2026-1",
   eyebrow: "Provas Anteriores / 2026 / Sessão 1",
   title: "Celpe-Bras 2026/1",
@@ -34,6 +10,14 @@ export const session2026_1 = {
   application: "28/04 a 01/05/2026",
   resultDate: "30/06/2026",
   stats: { available: 6, missing: 0, missingLabel: "nenhum ausente" },
+  blogAnalysis: {
+    href: "/pt-br/blog/analise-tarefa-1-festival-fartura-2026-1",
+    label: "Análise da Tarefa 1 no blog",
+  },
+  guideLink: {
+    href: "/pt-br/celpe-bras",
+    label: "O que é o Celpe-Bras e como funciona o exame",
+  },
   materials: [
     {
       id: "caderno",
@@ -109,7 +93,7 @@ export const session2026_1 = {
       href: "#material-video-t1",
       dimmed: false,
     },
-  ] satisfies SessionMaterial[],
+  ],
   tasks: [
     {
       number: "Tarefa 1",
@@ -155,7 +139,7 @@ export const session2026_1 = {
       materialHref: "#material-caderno",
       materialAction: "Ver no caderno",
     },
-  ] satisfies SessionTask[],
+  ],
   oralTopics: {
     roteiros: ["20 minutos", "2 etapas", "gravação em áudio"],
     temas: [
@@ -167,6 +151,8 @@ export const session2026_1 = {
       "Vini Jr.",
     ],
   },
+  asideNote:
+    "O edital define datas e estrutura; o caderno reúne as quatro tarefas da parte escrita; roteiros e elementos provocadores cobrem a parte oral.",
   faq: [
     {
       question: "O que está completo?",

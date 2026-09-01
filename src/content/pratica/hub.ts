@@ -19,7 +19,7 @@ export const practiceTiles = [
     badgeVariant: "primary" as const,
     title: "Ouvir",
     description:
-      "Gravações, áudio/vídeo e questões de compreensão. Em breve: materiais e tarefas concretas nesta área.",
+      "Vídeos com legendas sincronizadas, glossário EN/RU e expressões anotadas para treinar compreensão oral.",
     meta: "compreensão oral",
     href: "#ouvir",
     variant: "default" as const,

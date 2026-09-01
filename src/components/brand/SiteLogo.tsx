@@ -1,15 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { siteBrand } from "@/lib/brand";
+import type { Locale } from "@/i18n/locales";
+import { localizedPath } from "@/lib/i18n-links";
 
 type SiteLogoProps = {
   variant?: "header" | "footer" | "hero";
   linked?: boolean;
+  locale?: Locale;
 };
 
 const ICON_PX = 40;
 
-export function SiteLogo({ variant = "header", linked = true }: SiteLogoProps) {
+export function SiteLogo({ variant = "header", linked = true, locale = "pt-br" }: SiteLogoProps) {
+  const homeHref = localizedPath(locale, "home");
   const isFooter = variant === "footer";
   const isHero = variant === "hero";
 
@@ -26,7 +30,7 @@ export function SiteLogo({ variant = "header", linked = true }: SiteLogoProps) {
       />
     );
     return linked ? (
-      <Link href="/pt-br" className="brand-link brand-link-hero">
+      <Link href={homeHref} className="brand-link brand-link-hero">
         {hero}
       </Link>
     ) : (
@@ -52,6 +56,11 @@ export function SiteLogo({ variant = "header", linked = true }: SiteLogoProps) {
         <span className="brand-name">{siteBrand.name}</span>
         <span className={`brand-tagline ${isFooter ? "brand-tagline-footer" : ""}`}>
           {siteBrand.tagline}
+          {locale === "en" ? (
+            <span className="brand-tagline-hint"> · one step at a time</span>
+          ) : locale === "ru" ? (
+            <span className="brand-tagline-hint"> · шаг за шагом</span>
+          ) : null}
         </span>
       </span>
     </span>
@@ -60,7 +69,7 @@ export function SiteLogo({ variant = "header", linked = true }: SiteLogoProps) {
   if (!linked) return content;
 
   return (
-    <Link href="/pt-br" className="brand-link group">
+    <Link href={homeHref} className="brand-link group">
       {content}
     </Link>
   );

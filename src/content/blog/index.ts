@@ -1,17 +1,18 @@
+import type { Locale } from "@/i18n/locales";
 import { getBlogPostBySlug, loadAllBlogPosts } from "@/lib/blog/loader";
 import type { BlogPost } from "./types";
 
-export type { BlogPost, ArticleBlock } from "./types";
+export type { BlogPost, ArticleBlock, ExamArtifactKind } from "./types";
 
-export function getBlogPosts(): BlogPost[] {
-  return loadAllBlogPosts();
+export function getBlogPosts(locale: Locale = "pt-br"): BlogPost[] {
+  return loadAllBlogPosts(locale);
 }
 
-/** @deprecated use getBlogPosts() */
-export const blogPosts = getBlogPosts();
+/** @deprecated use getBlogPosts(locale) */
+export const blogPosts = getBlogPosts("pt-br");
 
-export function getBlogPost(slug: string): BlogPost | undefined {
-  return getBlogPostBySlug(slug);
+export function getBlogPost(slug: string, locale: Locale = "pt-br"): BlogPost | undefined {
+  return getBlogPostBySlug(slug, locale);
 }
 
 export function getFeaturedPost(): BlogPost {

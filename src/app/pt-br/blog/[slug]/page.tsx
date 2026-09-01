@@ -3,86 +3,83 @@ import { notFound } from "next/navigation";
 import { BlogArticleView } from "@/components/blog/BlogArticleView";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBlogPost, getBlogPosts } from "@/content/blog";
+import { hasEnglishBlogPost, hasRussianBlogPost } from "@/lib/blog/locale-meta";
+import { articleJsonLd, breadcrumbJsonLd, buildPageMetadata } from "@/i18n/metadata";
+import { getUi } from "@/i18n/ui";
+import { localizedPath } from "@/lib/i18n-links";
+import { pathFor } from "@/i18n/route-map";
+import "../blog.css";
 
 export const dynamic = "force-dynamic";
-import { absoluteUrl, SITE } from "@/lib/site";
-import "../blog.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getBlogPosts().map((post) => ({ slug: post.slug }));
+  return getBlogPosts("pt-br").map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = getBlogPost(slug, "pt-br");
   if (!post) return { title: "Artigo não encontrado" };
 
-  const url = `/pt-br/blog/${post.slug}`;
+  const metaTitle = post.seoTitle ?? post.title;
+  const metaDescription = post.seoDescription ?? post.subtitle;
 
-  return {
-    title: post.title,
-    description: post.subtitle,
+  return buildPageMetadata({
+    locale: "pt-br",
+    section: "blogPost",
+    params: { slug },
+    title: metaTitle,
+    description: metaDescription,
+    ogType: "article",
+    publishedTime: post.publishedAt,
     keywords: post.tags,
-    alternates: { canonical: url },
-    openGraph: {
-      type: "article",
-      url,
-      title: post.title,
-      description: post.subtitle,
-      publishedTime: post.publishedAt,
-      tags: post.tags,
-      siteName: SITE.name,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.subtitle,
-    },
-  };
+    hasEnBlogPost: hasEnglishBlogPost(slug),
+    enBlogSlug: slug,
+    hasRuBlogPost: hasRussianBlogPost(slug),
+    ruBlogSlug: slug,
+  });
 }
 
 export default async function BlogArticlePage({ params }: Props) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = getBlogPost(slug, "pt-br");
   if (!post) notFound();
 
-  const url = absoluteUrl(`/pt-br/blog/${post.slug}`);
-
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
+  const ui = getUi("pt-br");
+  const path = pathFor("pt-br", "blogPost", { slug });
+  const articleSchema = articleJsonLd("pt-br", {
+    path,
     headline: post.title,
-    description: post.subtitle,
+    description: post.seoDescription ?? post.subtitle,
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
-    inLanguage: "pt-BR",
-    keywords: post.tags.join(", "),
-    articleSection: post.category,
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
-    publisher: {
-      "@type": "Organization",
-      name: SITE.name,
-      logo: { "@type": "ImageObject", url: absoluteUrl("/images/celpe-de-pe-icon.png") },
-    },
-  };
+    keywords: post.tags,
+    section: post.category,
+  });
+  const breadcrumbSchema = breadcrumbJsonLd("pt-br", [
+    { name: ui.breadcrumb.home, path: localizedPath("pt-br", "home") },
+    { name: ui.blog.navLabel, path: localizedPath("pt-br", "blog") },
+    { name: post.title },
+  ]);
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/pt-br") },
-      { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/pt-br/blog") },
-      { "@type": "ListItem", position: 3, name: post.title, item: url },
-    ],
-  };
+  const faqSchema =
+    post.faq && post.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer },
+          })),
+        }
+      : null;
 
   return (
     <>
-      <JsonLd data={[articleSchema, breadcrumbSchema]} />
-      <BlogArticleView post={post} />
+      <JsonLd data={faqSchema ? [articleSchema, breadcrumbSchema, faqSchema] : [articleSchema, breadcrumbSchema]} />
+      <BlogArticleView post={post} locale="pt-br" />
     </>
   );
 }

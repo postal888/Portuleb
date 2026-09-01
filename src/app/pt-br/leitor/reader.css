@@ -1,0 +1,351 @@
+/* Reader with auto-scroll — celpe-depe design */
+.reader-page {
+  color: var(--site-text);
+}
+
+.reader-wrap {
+  width: min(100%, 1000px);
+  margin: 0 auto;
+}
+
+.reader-breadcrumbs {
+  font-size: 0.85rem;
+  color: var(--site-muted);
+  margin-bottom: 1.25rem;
+}
+
+.reader-breadcrumbs a {
+  color: var(--site-muted);
+  text-decoration: none;
+}
+
+.reader-breadcrumbs a:hover {
+  color: var(--site-primary);
+}
+
+.reader-header {
+  margin-bottom: 1.5rem;
+}
+
+.reader-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--site-primary);
+  margin-bottom: 0.5rem;
+}
+
+.reader-h1 {
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+}
+
+.reader-lead {
+  color: var(--site-muted);
+  max-width: 62ch;
+  line-height: 1.6;
+}
+
+.reader-card {
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-lg);
+  background: var(--site-surface);
+  box-shadow: var(--site-shadow-sm);
+  padding: 1.25rem;
+}
+
+.reader-root {
+  --reader-green: #2f8f5b;
+  --reader-red: #c0532f;
+}
+
+/* Drop zone */
+.reader-drop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  min-height: 320px;
+  padding: 2.5rem 1.5rem;
+  border: 2px dashed var(--site-border);
+  border-radius: var(--site-radius-lg);
+  background: var(--site-surface-2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.reader-drop:hover,
+.reader-drop.is-drag {
+  border-color: var(--site-primary);
+  background: var(--site-primary-highlight);
+}
+
+.reader-file-input {
+  display: none;
+}
+
+.reader-drop-icon {
+  color: var(--site-primary);
+  margin-bottom: 0.25rem;
+}
+
+.reader-drop-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--site-text);
+}
+
+.reader-drop-hint {
+  font-size: 0.88rem;
+  color: var(--site-muted);
+  max-width: 44ch;
+}
+
+.reader-choose-btn {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  background: var(--site-primary);
+  color: var(--site-inverse);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.reader-error {
+  margin-top: 0.85rem;
+  color: var(--reader-red);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.reader-privacy {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--site-faint);
+  text-align: center;
+}
+
+/* Toolbar */
+.reader-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.reader-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--site-primary);
+  border-radius: 999px;
+  background: var(--site-primary);
+  color: var(--site-inverse);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.reader-play:hover {
+  filter: brightness(0.95);
+}
+
+.reader-play.is-playing {
+  background: var(--site-surface);
+  color: var(--site-primary);
+}
+
+.reader-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reader-control-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--site-muted);
+}
+
+.reader-range {
+  width: 120px;
+  accent-color: var(--site-primary);
+  cursor: pointer;
+}
+
+.reader-control-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--site-primary);
+  width: 1.25rem;
+  text-align: center;
+}
+
+.reader-step-btn {
+  appearance: none;
+  border: 1px solid var(--site-border);
+  background: var(--site-surface);
+  color: var(--site-text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--site-radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.reader-step-btn:hover {
+  border-color: var(--site-primary);
+  color: var(--site-primary);
+}
+
+.reader-toolbar-right {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.reader-mini-btn {
+  appearance: none;
+  border: 1px solid var(--site-border);
+  background: var(--site-surface);
+  color: var(--site-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.reader-mini-btn:hover {
+  border-color: var(--site-primary);
+  color: var(--site-primary);
+}
+
+/* Meta row */
+.reader-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--site-faint);
+}
+
+.reader-filename {
+  font-weight: 600;
+  color: var(--site-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60%;
+}
+
+.reader-wordcount {
+  white-space: nowrap;
+}
+
+/* Scroll / document */
+.reader-scroll {
+  height: min(70vh, 640px);
+  overflow-y: auto;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius-md);
+  background: var(--site-bg);
+  padding: 1.5rem clamp(1rem, 4vw, 2.5rem);
+  scroll-behavior: auto;
+}
+
+.reader-doc {
+  max-width: 68ch;
+  margin: 0 auto;
+  line-height: 1.85;
+  color: var(--site-text);
+}
+
+.reader-doc p {
+  margin: 0 0 1.1em;
+  text-wrap: pretty;
+}
+
+.reader-doc h1,
+.reader-doc h2,
+.reader-doc h3,
+.reader-doc h4 {
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 1.4em 0 0.6em;
+  color: var(--site-text);
+}
+
+.reader-doc h1 {
+  font-size: 1.5em;
+}
+.reader-doc h2 {
+  font-size: 1.3em;
+}
+.reader-doc h3 {
+  font-size: 1.12em;
+}
+
+.reader-doc ul,
+.reader-doc ol {
+  margin: 0 0 1.1em 1.4em;
+}
+
+.reader-doc li {
+  margin-bottom: 0.4em;
+}
+
+.reader-doc a {
+  color: var(--site-primary);
+}
+
+.reader-doc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--site-radius-sm);
+}
+
+.reader-doc table {
+  border-collapse: collapse;
+  margin: 0 0 1.1em;
+  font-size: 0.95em;
+}
+
+.reader-doc td,
+.reader-doc th {
+  border: 1px solid var(--site-border);
+  padding: 0.4em 0.6em;
+}
+
+@media (max-width: 600px) {
+  .reader-card {
+    padding: 0.85rem;
+  }
+  .reader-toolbar-right {
+    margin-left: 0;
+    width: 100%;
+  }
+  .reader-scroll {
+    height: 68vh;
+    padding: 1rem;
+  }
+}

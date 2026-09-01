@@ -1,23 +1,26 @@
 import Link from "next/link";
 import type { BlogPost } from "@/content/blog/types";
+import type { Locale } from "@/i18n/locales";
+import { getUi } from "@/i18n/ui";
+import { localizedPath } from "@/lib/i18n-links";
 
-export function BlogIndexView({ posts }: { posts: BlogPost[] }) {
+export function BlogIndexView({ posts, locale }: { posts: BlogPost[]; locale: Locale }) {
+  const ui = getUi(locale).blog;
+  const common = getUi(locale);
+
   return (
     <div className="blog-hub">
       <div className="blog-wrap">
         <nav className="blog-breadcrumbs" aria-label="Breadcrumb">
-          <Link href="/pt-br">Início</Link>
+          <Link href={localizedPath(locale, "home")}>{common.breadcrumb.home}</Link>
           <span aria-hidden> / </span>
-          <span>Blog</span>
+          <span>{ui.navLabel}</span>
         </nav>
 
         <header className="blog-hero">
-          <div className="blog-eyebrow">Blog</div>
-          <h1 className="blog-title blog-title-index">Estratégias e leituras</h1>
-          <p className="blog-subtitle">
-            Artigos sobre preparação para o Celpe-Bras: estratégia, critérios de avaliação e
-            conexão com Prática e Teoria no hub.
-          </p>
+          <div className="blog-eyebrow">{ui.navLabel}</div>
+          <h1 className="blog-title blog-title-index">{ui.indexTitle}</h1>
+          <p className="blog-subtitle">{ui.indexSubtitle}</p>
         </header>
 
         <div className="blog-index-grid">
@@ -35,7 +38,7 @@ export function BlogIndexView({ posts }: { posts: BlogPost[] }) {
                 {post.featured ? (
                   <>
                     <span aria-hidden>·</span>
-                    <span className="blog-pill">Em destaque</span>
+                    <span className="blog-pill">{ui.featuredPill}</span>
                   </>
                 ) : null}
               </div>
@@ -46,17 +49,20 @@ export function BlogIndexView({ posts }: { posts: BlogPost[] }) {
                   </span>
                 ))}
               </div>
-              <Link href={`/pt-br/blog/${post.slug}`} className="blog-card-link">
-                Ler artigo →
+              <Link
+                href={localizedPath(locale, "blogPost", { slug: post.slug })}
+                className="blog-card-link"
+              >
+                {ui.readArticle}
               </Link>
             </article>
           ))}
         </div>
 
         <p className="blog-muted" style={{ marginTop: "2rem", fontSize: "0.875rem" }}>
-          Novos artigos serão publicados nesta seção.{" "}
-          <Link href="/pt-br/celpe-bras" className="blog-meta-link">
-            Guia Celpe-Bras →
+          {ui.footerNote}{" "}
+          <Link href={localizedPath(locale, "celpeBras")} className="blog-meta-link">
+            {ui.celpeGuideLink}
           </Link>
         </p>
       </div>

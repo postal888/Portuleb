@@ -1,25 +1,39 @@
+import type { Locale } from "@/i18n/locales";
+import { materialDomId } from "@/i18n/anchors";
 import { materialPublicUrl } from "@/lib/materials/registry";
 
 type Props = {
+  locale?: Locale;
   sessionSlug: string;
   materialId: string;
   kind: "pdf" | "video" | "audio";
   title: string;
+  openInNewTabLabel?: string;
+  pdfFallbackHint?: string;
 };
 
-export function MaterialViewer({ sessionSlug, materialId, kind, title }: Props) {
+export function MaterialViewer({
+  locale = "pt-br",
+  sessionSlug,
+  materialId,
+  kind,
+  title,
+  openInNewTabLabel = "Abrir em nova aba",
+  pdfFallbackHint,
+}: Props) {
   const src = materialPublicUrl(sessionSlug, materialId);
+  const domId = materialDomId(locale, materialId);
 
   return (
-    <article id={`material-${materialId}`} className="archive-viewer-block">
+    <article id={domId} className="archive-viewer-block">
       <h3 className="archive-viewer-title">{title}</h3>
       {kind === "pdf" && (
         <object data={src} type="application/pdf" className="archive-pdf-frame" title={title}>
           <iframe src={src} title={title} className="archive-pdf-frame" />
           <p className="archive-muted">
-            O PDF não pode ser exibido aqui.{" "}
+            {pdfFallbackHint ?? "O PDF não pode ser exibido aqui."}{" "}
             <a href={src} target="_blank" rel="noopener noreferrer">
-              Abrir o caderno em nova aba
+              {openInNewTabLabel}
             </a>
           </p>
         </object>
@@ -37,7 +51,7 @@ export function MaterialViewer({ sessionSlug, materialId, kind, title }: Props) 
       )}
       <p className="archive-viewer-hint">
         <a href={src} target="_blank" rel="noopener noreferrer">
-          Abrir em nova aba
+          {openInNewTabLabel}
         </a>
       </p>
     </article>

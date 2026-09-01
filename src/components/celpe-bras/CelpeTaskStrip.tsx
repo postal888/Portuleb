@@ -2,10 +2,14 @@ import { writtenTasks2026_1 } from "@/content/celpe-bras/exam-instructions";
 
 const taskColors = ["celpe-task-1", "celpe-task-2", "celpe-task-3", "celpe-task-4"] as const;
 
-export function CelpeTaskStrip() {
+export function CelpeTaskStrip({
+  label = "Quatro tarefas da parte escrita (2026/1)",
+}: {
+  label?: string;
+}) {
   return (
     <div className="celpe-task-strip">
-      <p className="celpe-task-strip-label">Quatro tarefas da parte escrita (2026/1)</p>
+      <p className="celpe-task-strip-label">{label}</p>
       <ul className="celpe-task-grid">
         {writtenTasks2026_1.map((task, i) => (
           <li key={task.num} className={`celpe-task-chip ${taskColors[i]}`}>

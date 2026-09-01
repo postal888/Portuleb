@@ -2,58 +2,42 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArchiveSessionView } from "@/components/archive/ArchiveSessionView";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { session2026_1 } from "@/content/archive/2026-1";
-import { absoluteUrl } from "@/lib/site";
+import { archiveSlugs, getArchiveSession } from "@/content/archive";
+import { buildPageMetadata } from "@/i18n/metadata";
+import { buildArchiveSessionJsonLd } from "@/lib/seo/archive-schema";
 import "../archive.css";
-
-const sessions: Record<string, typeof session2026_1> = {
-  "2026-1": session2026_1,
-};
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return Object.keys(sessions).map((slug) => ({ slug }));
+  return archiveSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const session = sessions[slug];
+  const session = getArchiveSession(slug, "pt-br");
   if (!session) return { title: "Sessão não encontrada" };
 
-  return {
+  return buildPageMetadata({
+    locale: "pt-br",
+    section: "pastExamSession",
+    params: { slug },
     title: `${session.title} — Provas Anteriores`,
     description: session.lead,
-    alternates: { canonical: `/pt-br/provas-anteriores/${slug}` },
-  };
+  });
 }
 
 export default async function ArchiveSessionPage({ params }: Props) {
   const { slug } = await params;
-  const session = sessions[slug];
+  const session = getArchiveSession(slug, "pt-br");
   if (!session) notFound();
 
-  const url = absoluteUrl(`/pt-br/provas-anteriores/${slug}`);
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: absoluteUrl("/pt-br") },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Provas Anteriores",
-        item: absoluteUrl("/pt-br/provas-anteriores"),
-      },
-      { "@type": "ListItem", position: 3, name: session.title, item: url },
-    ],
-  };
+  const schemas = buildArchiveSessionJsonLd("pt-br", slug, session);
 
   return (
     <>
-      <JsonLd data={breadcrumbSchema} />
-      <ArchiveSessionView session={session} />
+      <JsonLd data={schemas} />
+      <ArchiveSessionView session={session} locale="pt-br" />
     </>
   );
 }

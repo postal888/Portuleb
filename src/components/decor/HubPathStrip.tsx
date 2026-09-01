@@ -1,34 +1,49 @@
 import Link from "next/link";
+import { IconCheck } from "@/components/home/HomeIcons";
 
 const steps = [
-  { href: "/pt-br/teoria", label: "Teoria", desc: "revisar base" },
-  { href: "/pt-br/pratica", label: "Prática", desc: "aplicar no formato" },
-  { href: "/pt-br/provas-anteriores", label: "Provas", desc: "materiais reais" },
+  {
+    href: "/pt-br/teoria",
+    label: "Teoria",
+    desc: "revisar a base gramatical e de vocabulário",
+    points: ["Estruturas", "Verbos", "Léxico"],
+  },
+  {
+    href: "/pt-br/pratica",
+    label: "Prática",
+    desc: "aplicar no formato do exame",
+    points: ["Leitura", "Escrita", "Áudio"],
+  },
+  {
+    href: "/pt-br/provas-anteriores",
+    label: "Provas",
+    desc: "materiais reais de edições anteriores",
+    points: ["Cadernos", "Vídeos", "Roteiros"],
+  },
 ] as const;
 
 export function HubPathStrip() {
   return (
-    <div className="hub-path-strip surface-card-muted p-4 sm:p-5">
-      <p className="text-xs font-medium tracking-wide text-[var(--site-muted)]">
-        Jornada sugerida
-      </p>
-      <ol className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-0">
+    <div className="hub-path-panel">
+      <p className="hub-path-kicker">Jornada sugerida</p>
+      <ol className="hub-path-grid home-stagger">
         {steps.map((step, i) => (
-          <li key={step.href} className="flex flex-1 items-center gap-2 sm:gap-0">
-            <Link href={step.href} className="hub-path-step group">
+          <li key={step.href} className="hub-path-item">
+            <Link href={step.href} className="hub-path-card group">
               <span className="hub-path-num">{i + 1}</span>
-              <span>
-                <span className="block font-semibold text-teal group-hover:underline">
-                  {step.label}
-                </span>
-                <span className="block text-xs text-muted">{step.desc}</span>
+              <span className="hub-path-card-body">
+                <span className="hub-path-card-title">{step.label}</span>
+                <span className="hub-path-card-desc">{step.desc}</span>
+                <ul className="hub-path-points">
+                  {step.points.map((p) => (
+                    <li key={p}>
+                      <IconCheck className="hub-path-check" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
               </span>
             </Link>
-            {i < steps.length - 1 ? (
-              <span className="hub-path-arrow hidden text-[var(--site-faint)] sm:mx-2 sm:inline" aria-hidden>
-                →
-              </span>
-            ) : null}
           </li>
         ))}
       </ol>

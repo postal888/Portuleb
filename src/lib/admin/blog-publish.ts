@@ -1,5 +1,6 @@
 import type { BlogPost } from "@/content/blog/types";
 import { saveBlogPostJson } from "@/lib/blog/loader";
+import { notifyIndexNowForBlogPost } from "@/lib/seo/indexnow";
 import {
   getDueScheduledPosts,
   markScheduledFailed,
@@ -8,6 +9,7 @@ import {
 
 export function publishBlogPost(post: BlogPost): void {
   saveBlogPostJson(post);
+  void notifyIndexNowForBlogPost(post).catch(() => undefined);
 }
 
 export function publishDueScheduledPosts(): { published: number; errors: string[] } {

@@ -90,10 +90,18 @@ chown -R www-data:www-data /var/www/celpe-de-pe/data
 
 **Cron** — публикация запланированных постов (каждые 5 мин):
 
+```powershell
+scp deploy\setup-cron.sh celpe-server:/var/www/celpe-de-pe/deploy/
+ssh celpe-server "bash /var/www/celpe-de-pe/deploy/setup-cron.sh"
+```
+
+Скрипт читает `CRON_SECRET` из `.env.local` и добавляет задачу в crontab. При деплое через `deploy.ps1` это выполняется автоматически.
+
+Вручную (если нужно):
+
 ```bash
 crontab -e
-# добавить:
-*/5 * * * * curl -fsS -H "x-cron-secret: SEU_CRON_SECRET" https://celpe-depe.com/api/admin/cron/publish >/dev/null
+# */5 * * * * curl -fsS -H "x-cron-secret: SEU_CRON_SECRET" https://celpe-depe.com/api/admin/cron/publish >/dev/null
 ```
 
 Вход: `https://celpe-depe.com/admin/login` → дашборд, блог, расписание, трафик (SQLite + опционально Cloudflare).
