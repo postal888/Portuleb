@@ -8,7 +8,7 @@ export const estrategiaMinimalista: BlogPost = {
   eyebrow: "Blog / Estratégia",
   category: "Estratégia de preparação",
   readTime: "8–10 min",
-  featured: true,
+  featured: false,
   publishedAt: "2026-05-28",
   tags: ["estratégia", "minimalismo", "Celpe-Bras", "planejamento"],
   sidebar: {
@@ -21,8 +21,8 @@ export const estrategiaMinimalista: BlogPost = {
     ],
     links: [
       { label: "Teoria → Gramática", href: "/pt-br/teoria#gramatica", hint: "revisar tempos e estruturas-chave" },
-      { label: "Prática → Polir a base", href: "/pt-br/pratica#polir-a-base-detalhe", hint: "testar verbos, tempos e artigos" },
-      { label: "Prática → Escrever", href: "/pt-br/pratica#escrever-detalhe", hint: "aplicar a estratégia na escrita" },
+      { label: "Prática → Polir a base", href: "/pt-br/pratica/polimento-de-base", hint: "testar verbos, tempos e artigos" },
+      { label: "Prática → Escrever", href: "/pt-br/pratica/producao-escrita", hint: "aplicar a estratégia na escrita" },
     ],
   },
   blocks: [

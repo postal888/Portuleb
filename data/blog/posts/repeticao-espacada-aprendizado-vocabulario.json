@@ -3,7 +3,7 @@
   "locale": "pt-br",
   "title": "Repetição espaçada: o que a ciência diz sobre fixar vocabulário",
   "seoTitle": "Repetição espaçada no estudo de português — o que a pesquisa mostra",
-  "seoDescription": "Como a repetição espaçada (SRS) ajuda a fixar vocabulário para o Celpe-Bras: evidências, intervalos ideais e como combinar com leitura e produção escrita.",
+  "seoDescription": "Como a repetição espaçada (SRS) ajuda a fixar vocabulário para o Celpe-Bras: o que dizem as evidências, quantos encontros uma palavra precisa e como combinar com leitura e produção escrita.",
   "subtitle": "SRS, encontros com palavras em contexto e produção escrita — o que funciona de verdade para reter vocabulário em português.",
   "eyebrow": "Blog / Método",
   "category": "Estratégia de preparação",
@@ -114,7 +114,7 @@
     },
     {
       "type": "p",
-      "content": "Cartões só palavra → tradução ajudam no primeiro contato, mas a Hipótese da Carga de Envolvimento (Involvement Load Hypothesis, Laufer & Hulstijn, 2001) mostra que tarefas com maior necessidade, busca e avaliação fixam melhor o léxico. Por isso a sequência ideal combina SRS com exercícios de preenchimento de lacunas e, sobretudo, produção escrita — o índice de envolvimento sobe quando você precisa usar a palavra em um texto seu."
+      "content": "Cartões só palavra → tradução ajudam no primeiro contato, mas a Hipótese da Carga de Envolvimento (Involvement Load Hypothesis, Laufer & Hulstijn, 2001) mostra que tarefas com maior necessidade, busca e avaliação fixam melhor o léxico. Por isso a sequência mais eficaz combina SRS com exercícios de preenchimento de lacunas e, sobretudo, produção escrita — o índice de envolvimento sobe quando você precisa usar a palavra em um texto seu."
     },
     {
       "type": "h3",
@@ -182,10 +182,11 @@
     {
       "type": "ul",
       "items": [
-        "Laufer, B. & Hulstijn, J. (2001). Incidental vocabulary acquisition in a second language: The construct of task-induced involvement. Applied Linguistics.",
-        "Kim, J. & Webb, S. (2022). The effects of spaced practice on L2 vocabulary learning. Language Learning.",
-        "Sisti, H. M., Glass, A. M. & Shors, T. J. Spaced training enhances memory and prefrontal cortex activity. Learning & Memory.",
-        "Swain, M. The output hypothesis and beyond: Mediating acquisition through collaborative dialogue."
+        "Laufer, B., & Hulstijn, J. (2001). Incidental Vocabulary Acquisition in a Second Language: The Construct of Task-Induced Involvement. Applied Linguistics, 22(1), 1–26.",
+        "Kim, S. K., & Webb, S. (2022). The Effects of Spaced Practice on Second Language Learning: A Meta-Analysis. Language Learning, 72(1). https://onlinelibrary.wiley.com/doi/abs/10.1111/lang.12479",
+        "Sisti, H. M., Glass, A. L., & Shors, T. J. (2007). Neurogenesis and the spacing effect: learning over time enhances memory and the survival of new neurons. Learning & Memory, 14(5), 368–375. https://pubmed.ncbi.nlm.nih.gov/17522018/",
+        "Swain, M. The output hypothesis and beyond: mediating acquisition through collaborative dialogue. Referência.",
+        "Empirical support for the Involvement Load Hypothesis (revisão, 2022). Behavioral Sciences. https://pmc.ncbi.nlm.nih.gov/articles/PMC9598591/"
       ]
     }
   ]

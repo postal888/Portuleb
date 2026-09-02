@@ -46,7 +46,7 @@ export const analiseTarefa12026_1: BlogPost = {
       },
       {
         label: "Prática → Escrever",
-        href: "/pt-br/pratica#escrever-detalhe",
+        href: "/pt-br/pratica/producao-escrita",
         hint: "produção baseada no áudio",
       },
     ],

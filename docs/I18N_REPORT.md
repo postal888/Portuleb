@@ -1,88 +1,124 @@
-# i18n implementation report (EN `/en`)
+# i18n implementation report (pt-BR / en / ru)
 
 ## Routing strategy
 
 **Parallel locale trees** (not `[locale]` with mixed segments):
 
-- `app/pt-br/...` — unchanged URLs (`/pt-br/provas-anteriores`, etc.)
-- `app/en/...` — English paths with **different segment names** (`/en/past-exams`, etc.)
+- `app/pt-br/...` — canonical content, richest tree
+- `app/en/...` — English paths with **different segment names** (`/en/past-exams`)
+- `app/ru/...` — Russian paths, transliterated segments (`/ru/proshlye-ekzameny`)
 
-Path mapping is centralized in `src/i18n/route-map.ts` (`pathFor`, `parsePathname`, `getAlternatePath`). No string replacement.
+Locales are declared in `src/i18n/locales.ts` (`LOCALES = ["pt-br", "en", "ru"]`,
+default `pt-br`). Path mapping is centralized in `src/i18n/route-map.ts`
+(`pathFor`, `parsePathname`, `getAlternatePath`, `alternatesForSection`).
+Never string-replace a locale prefix; go through `localizedPath()`.
 
-## Route map (pt-BR ↔ en)
+## Route map
 
-| Section | pt-BR | en |
-|--------|-------|-----|
-| home | `/pt-br` | `/en` |
-| celpeBras | `/pt-br/celpe-bras` | `/en/celpe-bras` |
-| pastExams | `/pt-br/provas-anteriores` | `/en/past-exams` |
-| pastExamSession | `/pt-br/provas-anteriores/{slug}` | `/en/past-exams/{slug}` |
-| practice | `/pt-br/pratica` | `/en/practice` |
-| theory | `/pt-br/teoria` | `/en/theory` |
-| blog | `/pt-br/blog` | `/en/blog` |
-| blogPost | `/pt-br/blog/{slug}` | `/en/blog/{slug}` (only if EN post exists) |
-| materials | `/pt-br/materiais` | `/en/materials` |
-| contact | `/pt-br/contato` | `/en/contact` |
-| terms | `/pt-br/termos` | `/en/terms` |
-| assessment | `/pt-br/avaliacao` | *(no EN mirror — noindex PT only)* |
+| Section | pt-BR | en | ru |
+|---|---|---|---|
+| home | `/pt-br` | `/en` | `/ru` |
+| celpeBras | `/pt-br/celpe-bras` | `/en/celpe-bras` | `/ru/celpe-bras` |
+| pastExams | `/pt-br/provas-anteriores` | `/en/past-exams` | `/ru/proshlye-ekzameny` |
+| pastExamSession | `…/{slug}` | `…/{slug}` | `…/{slug}` |
+| practice | `/pt-br/pratica` | `/en/practice` | `/ru/praktika` |
+| theory | `/pt-br/teoria` | `/en/theory` | `/ru/teoriya` |
+| reader | `/pt-br/leitor` | `/en/reader` | `/ru/chitalka` |
+| blog | `/pt-br/blog` | `/en/blog` | `/ru/blog` |
+| blogPost | `/pt-br/blog/{slug}` | `/en/blog/{slug}` * | `/ru/blog/{slug}` * |
+| materials | `/pt-br/materiais` | `/en/materials` | `/ru/materialy` |
+| contact | `/pt-br/contato` | `/en/contact` | `/ru/kontakt` |
+| terms | `/pt-br/termos` | `/en/terms` | `/ru/usloviya` |
 
-**Reserved (no public routes in v1):** `practiceListening`, `practiceReading`, `practiceWriting`, `practiceFoundation`.
+\* only for slugs registered in `EN_BLOG_SLUGS` / `RU_BLOG_SLUGS`
+(`src/lib/blog/locale.ts`). No thin placeholder translations.
 
-## Pages fully localized (UI + metadata)
+## Sections without a locale mirror
 
-- `/en` home
-- `/en/celpe-bras` (guide + FAQ EN; official booklet instructions stay PT)
-- `/en/past-exams`, `/en/past-exams/2025-1`, `/en/past-exams/2026-1`
-- `/en/practice`, `/en/theory`
-- `/en/materials`, `/en/contact`, `/en/terms`
-- `/en/blog` (EN post list only)
+These have `enMirror: false`. **Their `en` and `ru` entries deliberately hold the
+pt-BR URL**, because `pathFor()` does not consult `enMirror` — a locale-specific
+path here would render links and tiles pointing at a 404.
 
-## Partially localized (by design)
+| Section | Single URL |
+|---|---|
+| theoryTopic | `/pt-br/teoria/{slug}` |
+| examCycle | `/pt-br/celpe-bras/{cycle}` |
+| assessment | `/pt-br/avaliacao` |
+| practiceListening | `/pt-br/pratica/compreensao-auditiva` |
+| practiceReading | `/pt-br/pratica/compreensao-leitura` |
+| practiceWriting | `/pt-br/pratica/producao-escrita` |
+| practiceFoundation | `/pt-br/pratica/polimento-de-base` |
 
-- **Past exam sessions:** English chrome, FAQ, material cards; **task titles/descriptions and oral theme labels remain Portuguese** (authentic study material).
-- **Blog pilot** `analise-tarefa-1-festival-fartura-2026-1`: English analysis; `examArtifact` / `lexGrid` blocks keep Portuguese source text.
-- **Celpe-Bras EN:** `examInstructions2026_1` rendered in Portuguese with English framing.
+`getAlternatePath()` sends the locale switcher to the locale home for these
+sections, so a reader on `/en/practice` is not silently dropped onto a
+Portuguese lesson by the switcher — but in-page tiles do link to the pt-BR
+lesson, which is the only version that exists.
 
-## Intentionally not in EN
+## Localized pages
 
-- `/pt-br/avaliacao` (noindex, no EN route)
-- `/admin`, `/api/*`
-- Blog posts without `EN_BLOG_SLUGS` entry (no thin `/en/blog/...` pages)
-- Future practice sub-routes
+Fully localized (UI + metadata) in all three locales: home, `celpe-bras`,
+`past-exams` index and sessions, `practice`, `theory`, `reader`, `blog` index,
+`materials`, `contact`, `terms`.
 
-## English blog pilot
+Partially localized by design:
 
-- Slug: `analise-tarefa-1-festival-fartura-2026-1`
-- File: `src/content/blog/posts/analise-tarefa-1-festival-fartura-2026-1.en.ts`
-- Registry: `src/lib/blog/locale.ts` (`EN_BLOG_SLUGS`)
+- **Past exam sessions** — localized chrome, FAQ and material cards; task
+  titles, oral theme labels and official booklet instructions stay Portuguese
+  as authentic study material.
+- **Blog translations** — analysis is translated; `examArtifact` and `lexGrid`
+  blocks keep the Portuguese source text.
+
+Not localized at all: `/admin`, `/api/*`, theory topics, exam cycles,
+assessment, practice lesson pages.
+
+## Thin placeholder pages (open issue)
+
+`materials`, `contact` and `terms` render `SectionPlaceholder` — an `h1` plus
+one "this section will be built later" sentence — in **all three locales**, and
+`src/app/sitemap.ts` publishes all nine URLs at priority 0.6–0.7. `/en/materials`
+exists and returns 200; the problem is not a 404 but nine indexable stubs.
+Either give them content or drop them from `staticSections`.
 
 ## SEO
 
-- `buildPageMetadata()` in `src/i18n/metadata.ts`: canonical per locale, `alternates.languages` for real pairs only
-- **No `x-default` in v1**
-- Sitemap: both locales for static + archive sessions; EN blog URLs only for slugs in `EN_BLOG_SLUGS`
+- `buildPageMetadata()` in `src/i18n/metadata.ts` — canonical per locale plus
+  `alternates.languages`.
+- **`x-default` is emitted** and always points at the pt-BR path
+  (`alternatesForSection` in `route-map.ts`). Earlier revisions of this document
+  claimed there was no `x-default`; that is no longer true.
+- Alternates are emitted only for real pairs: sections without a mirror expose
+  `pt-BR` + `x-default` only, and blog posts expose `en`/`ru` only when a
+  translated post is registered.
+- `hreflang` codes: `pt-BR`, `en`, `ru` (`hreflangCode()`); `og:locale` uses
+  `pt_BR` / `en_US` / `ru_RU`.
+- Sitemap covers all three locales for static sections and archive sessions;
+  theory topics, exam cycles, practice lessons and reading articles are pt-BR
+  only.
 
-## Key files added
+## Key files
 
-- `src/i18n/locales.ts`, `route-map.ts`, `metadata.ts`, `ui/pt-br.ts`, `ui/en.ts`
-- `src/lib/i18n-links.ts`, `src/lib/blog/locale.ts`
-- `src/content/archive/en/2025-1.ts`, `2026-1.ts`, `index.ts`
-- `src/content/blog/posts/analise-tarefa-1-festival-fartura-2026-1.en.ts`
-- `src/content/home/index.ts`, `src/content/pratica/hub-en.ts`, `src/content/teoria/hub-en.ts`
+- `src/i18n/` — `locales.ts`, `route-map.ts`, `metadata.ts`, `anchors.ts`,
+  `ui/{pt-br,en,ru}.ts`
+- `src/lib/i18n-links.ts`, `src/lib/blog/locale.ts`, `src/lib/blog/locale-meta.ts`
+- `src/content/archive/{en,ru}/*`, `localize-en.ts`, `localize-ru.ts`
+- `src/content/{pratica,teoria}/hub-{en,ru}.ts`, `src/content/celpe-bras/guide-{en,ru}.ts`
 - `src/components/layout/LocaleSwitcher.tsx`, `PublicLocaleLayout.tsx`, `LocaleHtmlLang.tsx`
-- `src/app/en/**` (all public EN routes)
+- `src/proxy.ts` — sets `x-site-locale` (migrated from `middleware.ts` for Next 16)
 
-## Key files changed
+## Anchors across locales
 
-- Layout: `Header`, `Footer`, `SiteLogo`, `ArchiveSessionView`, `BlogArticleView`, `BlogIndexView`, `PracticeHubView`, `TheoryHubView`, `ArticleBlocks`, `SectionPlaceholder`
-- PT pages: metadata via `buildPageMetadata`; shared views with `locale="pt-br"`
-- `src/app/sitemap.ts`, `src/lib/blog/loader.ts`, `src/content/blog/types.ts`
-- `src/lib/nav.ts` (delegates to `getUi` + `localizedPath`)
+Section ids are locale-specific and come from `src/i18n/anchors.ts`
+(`practiceAnchors`, `theoryAnchors`, `archiveAnchors`, `materialDomId`). Never
+hardcode an id in a view: `PracticeHubView` used a literal `id="habilidades"`,
+which silently broke `/en/practice#skills` and `/ru/praktika#navyki`.
 
 ## Follow-up TODOs
 
-1. Roll out EN blog articles one-by-one (add slug to `EN_BLOG_SLUGS` + `.en.ts` post file).
-2. Expand EN `celpe-bras` page to full parity with PT guide (sections still on PT page).
-3. When practice sub-routes go live, add to `route-map` and create **both** PT and EN folders together.
-4. Optional: move shared CSS from `app/pt-br/...` to `src/styles/`.
-5. Deploy and verify hreflang in Search Console after indexing.
+1. Do **not** create thin EN/RU copies of PT articles. A translation ships only
+   with the full text; until then the slug stays out of `EN_BLOG_SLUGS` /
+   `RU_BLOG_SLUGS`.
+2. Decide the fate of the nine placeholder pages (content or out of the sitemap).
+3. Expand the EN and RU `celpe-bras` pages toward parity with the PT guide.
+4. If practice lesson pages are ever localized, create the locale folder and
+   flip `enMirror` in the same change — not one without the other.
+5. Verify hreflang and `x-default` in Search Console after the next deploy.

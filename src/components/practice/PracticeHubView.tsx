@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getPracticeHub } from "@/content/pratica";
 import type { Locale } from "@/i18n/locales";
+import { practiceAnchors } from "@/i18n/anchors";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
 
@@ -81,7 +82,7 @@ export function PracticeHubView({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="practice-section" id="habilidades">
+        <section className="practice-section" id={practiceAnchors(locale).skills}>
           <article className="practice-card practice-panel">
             <div className="practice-section-head">
               <div>

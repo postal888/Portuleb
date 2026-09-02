@@ -1,10 +1,10 @@
 {
   "slug": "celpe-bras-para-naturalizacao-brasileira",
   "locale": "pt-br",
-  "title": "Por que o Celpe-Bras é o caminho mais seguro para a naturalização brasileira",
-  "subtitle": "A prova de português é um requisito legal da naturalização — e nem todo certificado de escola serve. Entenda por que o Celpe-Bras é o argumento mais sólido no seu processo.",
-  "seoTitle": "Celpe-Bras para naturalização: por que é o argumento mais seguro",
-  "seoDescription": "A naturalização brasileira exige comprovação de português, e cerca de 55% dos pedidos são indeferidos. Entenda por que certificados de escola nem sempre são aceitos e por que o Celpe-Bras é a prova mais sólida.",
+  "title": "Celpe-Bras para naturalização brasileira: como comprovar o português",
+  "subtitle": "A prova de português é um requisito legal da naturalização ordinária, e a Portaria nº 623/2020 traz uma lista fechada de documentos aceitos. O Celpe-Bras, emitido pelo Inep, está nomeado nessa lista — certificados de escola de idiomas, não.",
+  "seoTitle": "Celpe-Bras para naturalização: documentos aceitos pelo MJSP",
+  "seoDescription": "A naturalização ordinária exige comprovar o português pela lista do art. 5º da Portaria 623/2020. O Celpe-Bras, emitido pelo Inep, está nomeado nessa lista; cursos livres e certificados de escola não são aceitos.",
   "eyebrow": "Blog / Naturalização",
   "category": "Naturalização",
   "readTime": "10–12 min",
@@ -38,7 +38,7 @@
     }
   ],
   "sidebar": {
-    "summary": "A naturalização ordinária exige comprovação de português, e o índice de indeferimento é alto. Nem todo certificado de escola é aceito pela Portaria 623/2020 — o Celpe-Bras, emitido pelo Inep, é a prova oficial mais sólida e que deixa menos margem a questionamento.",
+    "summary": "A naturalização ordinária exige comprovação de português, e o índice de indeferimento é alto. Nem todo certificado de escola é aceito pela Portaria 623/2020 — o Celpe-Bras, emitido pelo Inep, está nomeado expressamente na lista do art. 5º.",
     "audienceHeading": "Para quem é este artigo",
     "audience": [
       "Imigrantes que pretendem solicitar a naturalização brasileira",
@@ -66,7 +66,7 @@
     },
     {
       "type": "p",
-      "content": "Neste artigo, explicamos por que a parte da língua merece atenção especial no seu processo, por que nem todo certificado de escola serve, e por que, na prática, o Celpe-Bras é o argumento mais sólido que você pode levar ao Ministério da Justiça."
+      "content": "Neste artigo, explicamos por que a parte da língua merece atenção especial no seu processo, por que nem todo certificado de escola serve, e por que o Celpe-Bras, nomeado no art. 5º da Portaria 623/2020, é aceito sem depender de interpretação."
     },
     {
       "type": "h2",
@@ -129,11 +129,11 @@
     },
     {
       "type": "h2",
-      "content": "Por que o Celpe-Bras é o argumento mais sólido"
+      "content": "Por que o Celpe-Bras está na lista da Portaria"
     },
     {
       "type": "p",
-      "content": "O Celpe-Bras (Certificado de Proficiência em Língua Portuguesa para Estrangeiros) é o único exame oficial de proficiência em português do governo brasileiro, aplicado pelo Inep. Desde 2018, o MJSP o aceita expressamente como uma das formas de comprovação nos processos de naturalização. Ele tem três características que o tornam o caminho mais seguro:"
+      "content": "O Celpe-Bras (Certificado de Proficiência em Língua Portuguesa para Estrangeiros) é o único exame oficial de proficiência em português do governo brasileiro, aplicado pelo Inep. Desde 2018, o MJSP o aceita expressamente como uma das formas de comprovação nos processos de naturalização. Ele tem três características que reduzem o risco de questionamento:"
     },
     {
       "type": "ul",
@@ -145,7 +145,7 @@
     },
     {
       "type": "p",
-      "content": "Na avaliação documental do processo, isso faz diferença. Documentos que dependem de credenciamento de instituição, de equivalência ou de interpretação abrem espaço para questionamento e pedidos de complementação. O certificado do Celpe-Bras, por ser a prova oficial prevista em norma, fecha essa porta: é o argumento que deixa menos margem de dúvida sobre a parte da língua."
+      "content": "Na avaliação documental do processo, isso faz diferença. Documentos que dependem de credenciamento de instituição, de equivalência ou de interpretação abrem espaço para questionamento e pedidos de complementação. O certificado do Celpe-Bras, por estar previsto em norma, não depende dessa avaliação: consta na lista do art. 5º."
     },
     {
       "type": "geoBox",
@@ -155,7 +155,8 @@
         "O Celpe-Bras comprova a proficiência em português — uma das exigências da naturalização.",
         "Ele NÃO concede cidadania por si só: a naturalização é um ato jurídico do Ministério da Justiça, com outros requisitos (residência, antecedentes, documentação).",
         "Curso preparatório para o Celpe-Bras NÃO é comprovação: o que vale é o certificado oficial emitido pelo Inep após a aprovação no exame.",
-        "Não é qualquer curso de português que substitui o exame — a Portaria 623/2020 só aceita cursos para imigrantes em instituições de ensino superior credenciadas pelo MEC."
+        "Não é qualquer curso de português que substitui o exame — a Portaria 623/2020 só aceita cursos para imigrantes em instituições de ensino superior credenciadas pelo MEC.",
+        "Se você vem de país de língua portuguesa (Angola, Cabo Verde, Guiné-Bissau, Guiné Equatorial, Moçambique, Portugal, São Tomé e Príncipe, Timor-Leste), a comprovação de português não é exigida — art. 12, II, 'a', da Constituição Federal."
       ]
     },
     {
@@ -200,7 +201,7 @@
         "O índice de indeferimento é alto: no 1º semestre de 2025, 6.769 pedidos foram indeferidos contra 5.265 deferidos — cerca de 55% das decisões (dados oficiais do MJSP).",
         "Não há estatística oficial dos motivos de indeferimento; em nossa análise das portarias dos últimos 12 meses, aproximadamente 30% dos indeferimentos estavam ligados à comprovação de português.",
         "A Portaria 623/2020 traz uma lista taxativa de documentos; cursos comuns e certificados de 'participação' ou 'matrícula' não são aceitos.",
-        "O Celpe-Bras, emitido pelo Inep e aceito pelo MJSP desde 2018, é a comprovação oficial mais sólida e que deixa menos margem a questionamento.",
+        "O Celpe-Bras, emitido pelo Inep e aceito pelo MJSP desde 2018, está nomeado no art. 5º da Portaria 623/2020 e não depende do credenciamento de uma escola específica.",
         "Originários de países de língua portuguesa são dispensados da comprovação (art. 12 da Constituição)."
       ]
     },

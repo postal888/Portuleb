@@ -13,8 +13,8 @@ export const RU_BLOG_SLUGS = new Set(["analise-tarefa-1-festival-fartura-2026-1"
 
 export const BLOG_LOCALE_OPTIONS = [
   { id: "pt-br" as const, label: "Português", sitePath: "/pt-br/blog", hostHint: "celpe-depe.com/pt-br" },
-  { id: "en" as const, label: "English", sitePath: "/en/blog", hostHint: "en.celpe-depe.com" },
-  { id: "ru" as const, label: "Русский", sitePath: "/ru/blog", hostHint: "ru.celpe-depe.com" },
+  { id: "en" as const, label: "English", sitePath: "/en/blog", hostHint: "celpe-depe.com/en" },
+  { id: "ru" as const, label: "Русский", sitePath: "/ru/blog", hostHint: "celpe-depe.com/ru" },
 ] as const;
 
 export function resolveBlogLocale(value?: string | null): Locale {

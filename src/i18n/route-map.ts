@@ -106,35 +106,38 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
     paths: { "pt-br": "/pt-br/avaliacao", en: "/pt-br/avaliacao", ru: "/pt-br/avaliacao" },
     enMirror: false,
   },
+  // Lesson pages exist in pt-BR only. Like theoryTopic/examCycle/assessment,
+  // the en/ru entries point at the real pt-BR URL: pathFor() ignores enMirror,
+  // so a locale-specific path here would render tiles linking to a 404.
   practiceListening: {
     paths: {
       "pt-br": "/pt-br/pratica/compreensao-auditiva",
-      en: "/en/practice/listening",
-      ru: "/ru/praktika/listening",
+      en: "/pt-br/pratica/compreensao-auditiva",
+      ru: "/pt-br/pratica/compreensao-auditiva",
     },
     enMirror: false,
   },
   practiceReading: {
     paths: {
       "pt-br": "/pt-br/pratica/compreensao-leitura",
-      en: "/en/practice/reading",
-      ru: "/ru/praktika/reading",
+      en: "/pt-br/pratica/compreensao-leitura",
+      ru: "/pt-br/pratica/compreensao-leitura",
     },
     enMirror: false,
   },
   practiceWriting: {
     paths: {
       "pt-br": "/pt-br/pratica/producao-escrita",
-      en: "/en/practice/writing",
-      ru: "/ru/praktika/writing",
+      en: "/pt-br/pratica/producao-escrita",
+      ru: "/pt-br/pratica/producao-escrita",
     },
     enMirror: false,
   },
   practiceFoundation: {
     paths: {
       "pt-br": "/pt-br/pratica/polimento-de-base",
-      en: "/en/practice/foundation-polish",
-      ru: "/ru/praktika/foundation-polish",
+      en: "/pt-br/pratica/polimento-de-base",
+      ru: "/pt-br/pratica/polimento-de-base",
     },
     enMirror: false,
   },

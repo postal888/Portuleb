@@ -66,7 +66,7 @@
   "blocks": [
     {
       "type": "p",
-      "content": "Aprender português para o Celpe-Bras não é acumular regras de gramática em isolamento. A metodologia que orienta o Celpe-Dê Pé parte de três princípios confirmados por décadas de pesquisa em aquisição de segunda língua (SLA): input compreensível antes de output forçado, produção escrita que converte conhecimento passivo em ativo, e reciclagem de léxico em contextos novos — não repetição mecânica do mesmo texto.",
+      "content": "Aprender português para o Celpe-Bras não é acumular regras de gramática em isolamento. A metodologia que orienta o Celpe-Dê Pé parte de três princípios confirmados por décadas de pesquisa em aquisição de segunda língua (SLA): input compreensível antes de output forçado, produção escrita que converte conhecimento passivo em ativo, e reciclagem de léxico em contextos novos — não repetição mecânica do mesmo texto. Nada disso é pesquisa própria do Celpe-Dê Pé: cobertura léxica, Reading-While-Listening e carga de envolvimento são achados consolidados da área. O que é nosso é a aplicação desses princípios ao formato do exame.",
       "lead": true
     },
     {
@@ -155,8 +155,32 @@
       ]
     },
     {
+      "type": "h2",
+      "content": "Como aplicar isso hoje, no site"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Comece pelo diagnóstico: descubra se sua compreensão e sua escrita estão no mesmo nível antes de escolher textos — é a Fase 0 aplicada.",
+        "Faça o primeiro contato com áudio, não em silêncio: leia acompanhando a narração no leitor de textos (Fase 1).",
+        "Feche o ciclo escrevendo sobre o mesmo tema, no gênero que o exame pede — e não com frases soltas usando as palavras-alvo (Fase 4)."
+      ]
+    },
+    {
       "type": "internalLinks",
       "links": [
+        {
+          "label": "Diagnóstico de nível",
+          "href": "/pt-br/avaliacao"
+        },
+        {
+          "label": "Leitor de textos com áudio",
+          "href": "/pt-br/leitor"
+        },
+        {
+          "label": "Produção escrita",
+          "href": "/pt-br/pratica/producao-escrita"
+        },
         {
           "label": "Repetição espaçada",
           "href": "/pt-br/blog/repeticao-espacada-aprendizado-vocabulario"
@@ -164,11 +188,19 @@
         {
           "label": "Guia Celpe-Bras",
           "href": "/pt-br/celpe-bras"
-        },
-        {
-          "label": "Provas anteriores 2026/1",
-          "href": "/pt-br/provas-anteriores/2026-1"
         }
+      ]
+    },
+    {
+      "type": "h2",
+      "content": "Referências"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Nation, I. S. P. — Learning Vocabulary in Another Language (cobertura léxica necessária para compreensão sem apoio). Referência.",
+        "Swain, M. — Hipótese do output: produzir revela lacunas que a compreensão não revela. Referência.",
+        "Laufer, B.; Hulstijn, J. — Involvement Load Hypothesis, Applied Linguistics (2001): tarefas de maior envolvimento produzem melhor retenção. Referência."
       ]
     }
   ]

@@ -1,9 +1,9 @@
 {
   "slug": "dicas-celpe-bras",
   "locale": "pt-br",
-  "title": "12 Dicas para o Celpe-Bras: Como se Preparar e Passar no Exame",
+  "title": "12 dicas para se preparar para o Celpe-Bras",
   "subtitle": "Um guia prático e gratuito com estratégias reais para cada parte do exame — escrita e oral.",
-  "seoTitle": "Dicas para o Celpe-Bras: 12 estratégias que funcionam",
+  "seoTitle": "Dicas para o Celpe-Bras: 12 estratégias de preparação",
   "seoDescription": "Confira 12 dicas para o Celpe-Bras e saiba como se preparar para a parte escrita e oral sem gastar nada. Guia prático e gratuito do celpe-depe.com.",
   "eyebrow": "Blog / Dicas",
   "category": "Dicas de preparação",
@@ -145,7 +145,7 @@
     },
     {
       "type": "p",
-      "content": "A parte oral avalia compreensão, competência interacional e fluência — juntos, esses critérios valem 50% da nota oral. A adequação lexical e gramatical vale 42%, e a pronúncia apenas 8%. Isso significa que um sotaque estrangeiro não destrói sua nota, mas travar, usar frases curtas demais ou responder com monossílabos sim. Treine falar em português sobre temas variados do cotidiano brasileiro, expresse opiniões, faça perguntas de volta ao entrevistador."
+      "content": "A parte oral é avaliada por dois examinadores: o avaliador-interlocutor atribui uma nota global e o avaliador-observador usa uma grade ponderada, na qual compreensão oral, competência interacional e fluência somam 50%, a adequação lexical e gramatical 42%, e a pronúncia 8%. Como a nota final da parte oral é a média das duas avaliações, a pronúncia pesa cerca de 4% do resultado oral. Isso significa que um sotaque estrangeiro não destrói sua nota, mas travar, usar frases curtas demais ou responder com monossílabos sim. Treine falar em português sobre temas variados do cotidiano brasileiro, expresse opiniões, faça perguntas de volta ao entrevistador."
     },
     {
       "type": "h2",
@@ -220,7 +220,7 @@
     },
     {
       "type": "p",
-      "content": "Como vimos, a pronúncia vale apenas 8% da nota oral. Não desperdice energia tentando 'eliminar' seu sotaque — isso é impossível em pouco tempo e desnecessário para o exame. O que importa é ser inteligível: pronunciar as palavras de forma que o avaliador entenda sem esforço, manter o ritmo da fala e não deformar sons que mudam o significado. Pratique lendo em voz alta e gravando a si mesmo para identificar padrões que precisam de ajuste."
+      "content": "Como vimos, a pronúncia responde por 8% da grade do avaliador-observador — cerca de 4% da nota oral final. Não desperdice energia tentando 'eliminar' seu sotaque — isso é impossível em pouco tempo e desnecessário para o exame. O que importa é ser inteligível: pronunciar as palavras de forma que o avaliador entenda sem esforço, manter o ritmo da fala e não deformar sons que mudam o significado. Pratique lendo em voz alta e gravando a si mesmo para identificar padrões que precisam de ajuste."
     },
     {
       "type": "h2",
@@ -229,6 +229,17 @@
     {
       "type": "p",
       "content": "Com as dicas certas para o Celpe-Bras e dedicação consistente, você não precisa gastar nada para chegar ao exame preparado. O celpe-depe.com existe exatamente para isso: oferecer materiais de qualidade, prática guiada e acesso a provas anteriores totalmente de graça. Comece hoje — acesse o guia completo de preparação, faça uma prova anterior no tempo real e use nossa plataforma de prática guiada para identificar e corrigir seus pontos fracos antes do dia do exame."
+    },
+    {
+      "type": "h2",
+      "content": "Fontes"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Inep — Perguntas frequentes sobre o Celpe-Bras (níveis de certificação, nota final pela menor das duas partes e cálculo ponderado da nota oral). https://www.gov.br/inep/pt-br/acesso-a-informacao/perguntas-frequentes/celpe-bras",
+        "Inep — Edital do Celpe-Bras (itens sobre atribuição de notas das partes escrita e oral). https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/celpe-bras"
+      ]
     }
   ]
 }

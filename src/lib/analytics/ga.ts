@@ -12,5 +12,8 @@ declare global {
 export function trackGaPageView(path: string): void {
   const gaId = getGaId();
   if (!gaId || !path || path.startsWith("/admin")) return;
-  window.gtag?.("config", gaId, { page_path: path });
+  window.gtag?.("event", "page_view", {
+    page_path: path,
+    page_location: window.location.href,
+  });
 }
