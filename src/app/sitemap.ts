@@ -11,6 +11,9 @@ import { alternatesForSection, pathFor, type SectionKey } from "@/i18n/route-map
 import { hasEnglishBlogPost, hasRussianBlogPost } from "@/lib/blog/locale-meta";
 import { absoluteUrl, SITE } from "@/lib/site";
 
+// materials/contact/terms are SectionPlaceholder stubs in all three locales.
+// They stay reachable through the nav but are kept out of the sitemap until
+// they have real content, so we don't advertise nine thin pages for indexing.
 const staticSections: SectionKey[] = [
   "home",
   "celpeBras",
@@ -19,9 +22,6 @@ const staticSections: SectionKey[] = [
   "theory",
   "reader",
   "blog",
-  "materials",
-  "contact",
-  "terms",
 ];
 
 function entry(

@@ -71,13 +71,14 @@ Partially localized by design:
 Not localized at all: `/admin`, `/api/*`, theory topics, exam cycles,
 assessment, practice lesson pages.
 
-## Thin placeholder pages (open issue)
+## Thin placeholder pages
 
 `materials`, `contact` and `terms` render `SectionPlaceholder` — an `h1` plus
-one "this section will be built later" sentence — in **all three locales**, and
-`src/app/sitemap.ts` publishes all nine URLs at priority 0.6–0.7. `/en/materials`
-exists and returns 200; the problem is not a 404 but nine indexable stubs.
-Either give them content or drop them from `staticSections`.
+one "this section will be built later" sentence — in **all three locales**.
+All nine URLs exist and return 200 (`/en/materials` included; it was never a
+404), but they are **excluded from `staticSections` in `src/app/sitemap.ts`**
+so nine thin pages are not advertised for indexing. They remain reachable
+through the nav. Add them back to `staticSections` once they carry content.
 
 ## SEO
 
@@ -93,7 +94,7 @@ Either give them content or drop them from `staticSections`.
   `pt_BR` / `en_US` / `ru_RU`.
 - Sitemap covers all three locales for static sections and archive sessions;
   theory topics, exam cycles, practice lessons and reading articles are pt-BR
-  only.
+  only. Placeholder sections are omitted (see above).
 
 ## Key files
 
@@ -117,7 +118,8 @@ which silently broke `/en/practice#skills` and `/ru/praktika#navyki`.
 1. Do **not** create thin EN/RU copies of PT articles. A translation ships only
    with the full text; until then the slug stays out of `EN_BLOG_SLUGS` /
    `RU_BLOG_SLUGS`.
-2. Decide the fate of the nine placeholder pages (content or out of the sitemap).
+2. Give the nine placeholder pages real content, then return the sections to
+   `staticSections`. `contact` and `terms` matter most: they are trust pages.
 3. Expand the EN and RU `celpe-bras` pages toward parity with the PT guide.
 4. If practice lesson pages are ever localized, create the locale folder and
    flip `enMirror` in the same change — not one without the other.
