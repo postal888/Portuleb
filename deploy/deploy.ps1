@@ -3,7 +3,12 @@
 
 param(
     [string]$SshHost = "celpe-server",
-    [string]$RemoteDir = "/var/www/celpe-de-pe"
+    [string]$RemoteDir = "/var/www/celpe-de-pe",
+    # Exam archive (~822 MB) is already on the server and scp has no skip-unchanged
+    # logic, so it is not re-sent on a routine deploy. Pass -Materials after adding
+    # new files to Materials\Provas. Note the 2026-1 session lives only on the
+    # server under arquivos/, so never sync this folder with deletion enabled.
+    [switch]$Materials
 )
 
 $ErrorActionPreference = "Stop"
@@ -24,8 +29,13 @@ scp -r `
   "$ProjectRoot\eslint.config.mjs" `
   "${SshHost}:${RemoteDir}/"
 scp -r "$ProjectRoot\data\blog\posts" "${SshHost}:${RemoteDir}/data/blog/"
-ssh $SshHost "mkdir -p /var/materials/celpe-bras"
-scp -r "$ProjectRoot\Materials\Provas\*" "${SshHost}:/var/materials/celpe-bras/"
+if ($Materials) {
+    Write-Host "Uploading exam archive (~822 MB, no delta transfer) ..." -ForegroundColor Yellow
+    ssh $SshHost "mkdir -p /var/materials/celpe-bras"
+    scp -r "$ProjectRoot\Materials\Provas\*" "${SshHost}:/var/materials/celpe-bras/"
+} else {
+    Write-Host "Skipping exam archive (already on server; pass -Materials to upload)." -ForegroundColor DarkGray
+}
 
 scp "$ProjectRoot\deploy\setup-indexnow.sh" "${SshHost}:${RemoteDir}/deploy/setup-indexnow.sh"
 Write-Host "Writing IndexNow key to public/ (before build)..." -ForegroundColor Cyan
