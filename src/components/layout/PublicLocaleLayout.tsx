@@ -6,6 +6,7 @@ import { LocaleHtmlLang } from "@/components/layout/LocaleHtmlLang";
 import { JsonLd } from "@/components/seo/JsonLd";
 import type { Locale } from "@/i18n/locales";
 import { hreflangCode } from "@/i18n/locales";
+import { getUi } from "@/i18n/ui";
 import { absoluteUrl, SITE } from "@/lib/site";
 
 export function PublicLocaleLayout({
@@ -15,13 +16,17 @@ export function PublicLocaleLayout({
   locale: Locale;
   children: React.ReactNode;
 }) {
+  const ui = getUi(locale);
+  const schemaDescription = locale === "pt-br" ? SITE.description : ui.home.heroLead;
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE.url}/#organization`,
     name: SITE.name,
     url: SITE.url,
     logo: absoluteUrl("/images/celpe-de-pe-icon.png"),
-    description: SITE.description,
+    description: schemaDescription,
   };
 
   const websiteSchema = {
@@ -30,7 +35,7 @@ export function PublicLocaleLayout({
     name: SITE.name,
     url: SITE.url,
     inLanguage: hreflangCode(locale),
-    description: SITE.description,
+    description: schemaDescription,
   };
 
   return (
@@ -39,10 +44,13 @@ export function PublicLocaleLayout({
       <JsonLd data={[organizationSchema, websiteSchema]} />
       <PageDecor />
       <div className="relative z-10 flex min-h-screen flex-col">
+        <a href="#main-content" className="skip-to-content">
+          {ui.skipToContent}
+        </a>
         <Suspense fallback={null}>
           <Header locale={locale} />
         </Suspense>
-        <main className="site-main-inner flex-1">
+        <main id="main-content" className="site-main-inner flex-1" tabIndex={-1}>
           <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</div>
         </main>
         <Footer locale={locale} />

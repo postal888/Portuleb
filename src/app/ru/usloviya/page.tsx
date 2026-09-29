@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { SectionPlaceholder } from "@/components/SectionPlaceholder";
-import { buildPageMetadata } from "@/i18n/metadata";
+import { buildPageMetadata, noindexFollowRobots } from "@/i18n/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "ru",
   section: "terms",
   title: "Условия",
   description: "Условия использования Celpe-Dê Pé.",
+  robots: noindexFollowRobots,
 });
 
 export default function RuTermsPage() {

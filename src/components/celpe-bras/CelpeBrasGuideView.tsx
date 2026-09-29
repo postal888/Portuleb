@@ -12,8 +12,12 @@ import type { GuideAnchorKey } from "@/content/celpe-bras/guide-types";
 import { examInstructions2026_1 } from "@/content/celpe-bras/exam-instructions";
 import type { Locale } from "@/i18n/locales";
 import { materialHash } from "@/i18n/anchors";
+import { breadcrumbJsonLd } from "@/i18n/metadata";
+import { pathFor } from "@/i18n/route-map";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
+import { OFFICIAL_SOURCES } from "@/lib/seo/official-sources";
+import { absoluteUrl, SITE } from "@/lib/site";
 
 function hash(anchors: Record<GuideAnchorKey, string>, key: GuideAnchorKey) {
   return `#${anchors[key]}`;
@@ -23,6 +27,8 @@ export function CelpeBrasGuideView({ locale }: { locale: Locale }) {
   const guide = getCelpeBrasGuide(locale);
   const ui = getUi(locale);
   const { anchors } = guide;
+  /** Rank-freeze: leave RU guide schema/chrome unchanged. */
+  const enrichGeo = locale !== "ru";
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -34,11 +40,50 @@ export function CelpeBrasGuideView({ locale }: { locale: Locale }) {
     })),
   };
 
+  const path = pathFor(locale, "celpeBras");
+  const pageUrl = absoluteUrl(path);
+  const schemas = enrichGeo
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "LearningResource",
+          name: guide.hero.title,
+          headline: guide.hero.title,
+          description: guide.hero.lead,
+          datePublished: guide.datePublished ?? "2026-05-01",
+          dateModified: guide.dateModified ?? "2026-09-15",
+          inLanguage: locale === "pt-br" ? "pt-BR" : "en",
+          learningResourceType: "Guide",
+          mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+          author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+          publisher: {
+            "@type": "Organization",
+            name: SITE.name,
+            logo: {
+              "@type": "ImageObject",
+              url: absoluteUrl("/images/celpe-de-pe-icon.png"),
+            },
+          },
+          isBasedOn: OFFICIAL_SOURCES.celpeBrasInep,
+          citation: [
+            OFFICIAL_SOURCES.celpeBrasInep,
+            OFFICIAL_SOURCES.sistemaCelpeBras,
+            OFFICIAL_SOURCES.postosAplicadores,
+          ],
+        },
+        breadcrumbJsonLd(locale, [
+          { name: ui.breadcrumb.home, path: localizedPath(locale, "home") },
+          { name: "Celpe-Bras" },
+        ]),
+        faqSchema,
+      ]
+    : [faqSchema];
+
   const bookletArchiveHref = `${localizedPath(locale, "pastExamSession", { slug: guide.booklet.pastExamSlug })}${materialHash(locale, guide.booklet.materialId)}`;
 
   return (
     <div className="celpe-guide">
-      <JsonLd data={faqSchema} />
+      <JsonLd data={schemas} />
       <Breadcrumbs
         items={[
           { label: ui.breadcrumb.home, href: localizedPath(locale, "home") },
@@ -52,6 +97,11 @@ export function CelpeBrasGuideView({ locale }: { locale: Locale }) {
         <span className="eyebrow">{guide.hero.eyebrow}</span>
         <h1 className="page-title relative mt-3 text-charcoal">{guide.hero.title}</h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">{guide.hero.lead}</p>
+        {guide.independenceNote ? (
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-charcoal/70">
+            {guide.independenceNote}
+          </p>
+        ) : null}
         <div className="mt-6 flex flex-wrap gap-3">
           <a href={hash(anchors, "booklet")} className="btn-primary">
             {guide.hero.ctaBooklet}
@@ -199,6 +249,27 @@ export function CelpeBrasGuideView({ locale }: { locale: Locale }) {
             {p}
           </p>
         ))}
+        {guide.officialSources && guide.officialSources.length > 0 ? (
+          <div className="mt-4">
+            <h3 className="text-sm font-semibold text-charcoal">
+              {guide.officialSourcesTitle}
+            </h3>
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {guide.officialSources.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-[var(--celpe-blue)] hover:underline"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </section>
 
       <section className="surface-card mt-10 p-6 sm:p-8">

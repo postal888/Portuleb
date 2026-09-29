@@ -42,6 +42,7 @@ export function ArchiveSessionView({
               <div className="archive-kicker">{a.sessionKicker}</div>
               <h1>{session.title}</h1>
               <p className="archive-lead">{session.lead}</p>
+              {session.notice ? <p className="archive-notice">{session.notice}</p> : null}
               <div className="archive-cta-row">
                 <a className="archive-btn archive-btn-primary" href={`#${anchors.materials}`}>
                   {a.viewMaterials}
@@ -71,10 +72,16 @@ export function ArchiveSessionView({
               <div>
                 <div className="archive-meta-label">{a.application}</div>
                 <div className="archive-meta-value">{session.application}</div>
+                {session.applicationNote ? (
+                  <p className="archive-meta-note">{session.applicationNote}</p>
+                ) : null}
               </div>
               <div>
                 <div className="archive-meta-label">{a.result}</div>
                 <div className="archive-meta-value">{session.resultDate}</div>
+                {session.resultNote ? (
+                  <p className="archive-meta-note">{session.resultNote}</p>
+                ) : null}
               </div>
               <div className="archive-stats">
                 <div className="archive-stat">

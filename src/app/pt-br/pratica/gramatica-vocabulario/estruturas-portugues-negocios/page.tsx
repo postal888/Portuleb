@@ -16,16 +16,23 @@ export function generateMetadata(): Metadata {
 
   const path = practiceLessonPath(CATEGORY, SLUG);
   const title = lesson.meta.seoTitle;
+  const absolute = absoluteUrl(path);
 
   return {
     title,
     description: lesson.meta.seoDescription,
     keywords: lesson.meta.tags,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      languages: {
+        "pt-BR": absolute,
+        "x-default": absolute,
+      },
+    },
     openGraph: {
       type: "article",
       locale: "pt_BR",
-      url: absoluteUrl(path),
+      url: absolute,
       title,
       description: lesson.meta.seoDescription,
     },

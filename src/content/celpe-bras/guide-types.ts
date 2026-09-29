@@ -1,4 +1,5 @@
 import type { SectionKey } from "@/i18n/route-map";
+import type { OfficialSourceLink } from "@/lib/seo/official-sources";
 
 export type GuideAnchorKey =
   | "booklet"
@@ -12,6 +13,13 @@ export type GuideAnchorKey =
 
 export type CelpeBrasGuideContent = {
   anchors: Record<GuideAnchorKey, string>;
+  /** Visible independence line under the hero (PT/EN). Omit on RU while that URL is rank-frozen. */
+  independenceNote?: string;
+  /** Last substantive content revision (ISO date) for page-level schema. */
+  dateModified?: string;
+  datePublished?: string;
+  officialSourcesTitle?: string;
+  officialSources?: OfficialSourceLink[];
   hero: {
     eyebrow: string;
     title: string;

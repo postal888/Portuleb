@@ -6,9 +6,16 @@ export const session2026_1: ArchiveSession = {
   slug: "2026-1",
   eyebrow: "Provas Anteriores / 2026 / Sessão 1",
   title: "Celpe-Bras 2026/1",
-  lead: "Uma página da sessão que reúne a prova escrita, os materiais da parte oral e o edital oficial em um só lugar.",
+  lead:
+    "O Celpe-Bras é o exame oficial do Inep/MEC para obtenção do Certificado de Proficiência em Língua Portuguesa para Estrangeiros. Nesta página você encontra o caderno da prova escrita, os insumos em vídeo/áudio, a parte oral e o edital da 1ª edição de 2026.",
+  notice:
+    "celpe-depe.com é uma iniciativa independente, não vinculada institucionalmente ao Inep/MEC. Os arquivos aqui reproduzem materiais oficiais ou derivados para estudo; o acervo oficial e a inscrição ficam no Portal Gov.br e no Sistema Celpe-Bras (celpebras.inep.gov.br).",
   application: "28/04 a 01/05/2026",
+  applicationNote:
+    "Em postos aplicadores credenciados no Brasil e no exterior (lista oficial no Inep). A edição registrou 3.513 inscritos de 44 países; provas finalizadas em 1º/05/2026.",
   resultDate: "30/06/2026",
+  resultNote:
+    "Divulgação oficial no Diário Oficial da União e consulta individual no Sistema Celpe-Bras (celpebras.inep.gov.br).",
   stats: { available: 6, missing: 0, missingLabel: "nenhum ausente" },
   blogAnalysis: {
     href: "/pt-br/blog/analise-tarefa-1-festival-fartura-2026-1",
@@ -74,8 +81,9 @@ export const session2026_1: ArchiveSession = {
       badge: "Oficial",
       badgeVariant: "neutral",
       icon: "§",
-      title: "Edital 2026/1",
-      description: "Cronograma, estrutura do exame, avaliação e certificação.",
+      title: "Edital nº 8/2026 — Inep/MEC",
+      description:
+        "Edital nº 8, de 20 de fevereiro de 2026 (publicado no DOU): cronograma, inscrição, estrutura, avaliação e certificação do Celpe-Bras 2026/1.",
       category: "Edital",
       action: "Ler edital",
       href: "#material-edital",
@@ -152,17 +160,17 @@ export const session2026_1: ArchiveSession = {
     ],
   },
   asideNote:
-    "O edital define datas e estrutura; o caderno reúne as quatro tarefas da parte escrita; roteiros e elementos provocadores cobrem a parte oral.",
+    "Inscrições da edição 2026/1: 24/02 a 06/03/2026 pelo Sistema Celpe-Bras (celpebras.inep.gov.br), com regras de taxa, atendimento especializado e nome social no edital. O certificado pode ser exigido em programas como PEC-G/PEC-PLE — consulte o edital específico do programa.",
   faq: [
     {
       question: "O que está completo?",
       answer:
-        "Caderno de questões, vídeos das tarefas, roteiros, elementos provocadores e edital — todos visualizáveis nesta página.",
+        "Caderno de questões, vídeos das tarefas, roteiros, elementos provocadores e edital nº 8/2026 — todos visualizáveis nesta página.",
     },
     {
       question: "O que falta?",
       answer:
-        "Nesta edição o acervo local está completo para os arquivos listados. Novos materiais serão adicionados conforme o índice oficial.",
+        "Nesta edição o acervo local está completo para os arquivos listados. Novos materiais serão adicionados conforme o índice oficial do Inep.",
     },
     {
       question: "Como navegar?",
@@ -170,9 +178,19 @@ export const session2026_1: ArchiveSession = {
         "Use os cards para ir ao visualizador embutido (PDF, vídeo ou áudio). Cada material abre no próprio site, sem download obrigatório.",
     },
     {
-      question: "Como isso vira produto?",
+      question: "Onde me inscrevo no exame oficial?",
       answer:
-        "Cada bloco pode ganhar prática derivada, links para Celpe-Bras e exercícios baseados nos insumos da sessão.",
+        "No Sistema Celpe-Bras (celpebras.inep.gov.br), conforme o edital da edição. Este site não realiza inscrição nem emite certificado.",
+    },
+    {
+      question: "Este site é oficial?",
+      answer:
+        "Não. celpe-depe.com é preparação independente. Materiais e datas aqui ajudam o estudo; a fonte normativa é o Inep/MEC (Portal Gov.br e Diário Oficial da União).",
+    },
+    {
+      question: "Como isso vira prática de estudo?",
+      answer:
+        "Cada bloco pode gerar exercícios e análises no site (como a análise da Tarefa 1 no blog), sem substituir o acervo ou os canais oficiais do Inep.",
     },
   ],
 };

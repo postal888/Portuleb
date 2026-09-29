@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { HomeHubView } from "@/components/home/HomeHubView";
+import { HomeLandingView } from "@/components/home/HomeLandingView";
 import { buildPageMetadata } from "@/i18n/metadata";
 import { getUi } from "@/i18n/ui";
 
-export const metadata: Metadata = buildPageMetadata({
-  locale: "ru",
-  section: "home",
-  title: getUi("ru").home.metaTitle,
-  description: getUi("ru").home.heroLead,
-});
+const ui = getUi("ru").home;
+
+export const metadata: Metadata = {
+  ...buildPageMetadata({
+    locale: "ru",
+    section: "home",
+    title: ui.metaTitle,
+    description: ui.heroLead,
+  }),
+  title: { absolute: ui.metaTitle },
+};
 
 export default function RuHomePage() {
-  return <HomeHubView locale="ru" />;
+  return <HomeLandingView locale="ru" />;
 }

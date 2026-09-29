@@ -1,3 +1,4 @@
+import { GUIDE_OFFICIAL_LINKS_PT } from "@/lib/seo/official-sources";
 import type { CelpeBrasGuideContent } from "./guide-types";
 
 export const celpeGuidePt: CelpeBrasGuideContent = {
@@ -11,6 +12,12 @@ export const celpeGuidePt: CelpeBrasGuideContent = {
     registration: "inscricao-e-calendario",
     faq: "perguntas-frequentes",
   },
+  independenceNote:
+    "Celpe-Dê Pé é uma plataforma educacional independente. O exame, o edital, a inscrição e a certificação pertencem à infraestrutura oficial do Inep/MEC — este site não registra candidatos nem emite certificados.",
+  datePublished: "2026-05-01",
+  dateModified: "2026-09-15",
+  officialSourcesTitle: "Fontes oficiais",
+  officialSources: GUIDE_OFFICIAL_LINKS_PT,
   hero: {
     eyebrow: "Guia do exame",
     title: "Celpe-Bras: o que é e como se preparar para o exame",
@@ -51,7 +58,7 @@ export const celpeGuidePt: CelpeBrasGuideContent = {
   whatIs: {
     title: "O que é o Celpe-Bras",
     paragraphs: [
-      "O Celpe-Bras é o certificado oficial brasileiro de proficiência em português para estrangeiros. Ele é reconhecido pelo governo brasileiro e funciona como referência para pessoas que precisam comprovar seu nível de português em contextos acadêmicos, profissionais e institucionais.",
+      "O Celpe-Bras é o exame oficial brasileiro para a certificação da proficiência em língua portuguesa para estrangeiros. Ele é reconhecido pelo governo brasileiro e funciona como referência para pessoas que precisam comprovar seu nível de português em contextos acadêmicos, profissionais e institucionais.",
       "Mais do que verificar conhecimento isolado de gramática, o exame busca observar a capacidade de usar a língua em situações comunicativas mais amplas. Por isso, entender a lógica da prova é tão importante quanto conhecer vocabulário, estruturas e regras da língua.",
     ],
   },
@@ -98,16 +105,17 @@ export const celpeGuidePt: CelpeBrasGuideContent = {
     title: "Níveis e resultados",
     paragraphs: [
       "O exame certifica quatro níveis de proficiência: Intermediário, Intermediário Superior, Avançado e Avançado Superior. Candidatos que não atingem a pontuação mínima não recebem certificação.",
-      "Alguns centros aplicadores e materiais explicativos apresentam as faixas de pontuação da seguinte forma:",
+      "A tabela abaixo resume faixas usadas em materiais de preparação e centros aplicadores; confirme sempre os critérios vigentes no edital e nas orientações oficiais do Inep para a edição em que você se inscreve:",
     ],
     validityLabel: "Validade do certificado.",
-    validityText: "O certificado do Celpe-Bras não tem prazo de validade.",
+    validityText:
+      "Segundo as orientações públicas do Inep sobre o Celpe-Bras, o certificado não tem prazo de validade — confirme no canal oficial se a regra da sua edição for diferente.",
   },
   registration: {
     title: "Inscrição e calendário",
     paragraphs: [
-      "O Celpe-Bras é realizado, em geral, duas vezes por ano, normalmente em uma edição no primeiro semestre e outra no segundo. As inscrições, o cronograma de aplicação e a divulgação dos resultados devem ser acompanhados no sistema oficial do exame e nas comunicações do Inep e dos centros aplicadores.",
-      "Como datas e procedimentos podem mudar a cada edição, a forma mais segura de se informar é consultar sempre a página oficial do Celpe-Bras no Inep e o sistema de inscrição do exame.",
+      "O Celpe-Bras é realizado, em geral, duas vezes por ano, normalmente em uma edição no primeiro semestre e outra no segundo. As inscrições, o cronograma de aplicação e a divulgação dos resultados devem ser acompanhados no Sistema Celpe-Bras e nas comunicações do Inep e dos postos aplicadores.",
+      "Como datas e procedimentos podem mudar a cada edição, consulte sempre as fontes oficiais listadas abaixo — não use apenas este guia como norma.",
     ],
   },
   nextSteps: {
@@ -143,11 +151,11 @@ export const celpeGuidePt: CelpeBrasGuideContent = {
     },
     {
       question: "O que é o Celpe-Bras?",
-      answer: "É o exame oficial brasileiro para certificar a proficiência em português como língua estrangeira.",
+      answer: "É o exame oficial brasileiro para a certificação da proficiência em língua portuguesa para estrangeiros.",
     },
     {
       question: "O exame é reconhecido oficialmente?",
-      answer: "Sim. O Celpe-Bras é o certificado oficialmente reconhecido pelo governo brasileiro para esse fim.",
+      answer: "Sim. O Celpe-Bras é o exame oficialmente reconhecido pelo governo brasileiro para esse fim.",
     },
     {
       question: "Quais são as partes do exame?",
@@ -160,12 +168,13 @@ export const celpeGuidePt: CelpeBrasGuideContent = {
     },
     {
       question: "O certificado tem validade?",
-      answer: "Não. O certificado do Celpe-Bras não tem prazo de validade.",
+      answer:
+        "Nas orientações públicas do Inep, o certificado do Celpe-Bras não tem prazo de validade. Confirme sempre no canal oficial da sua edição.",
     },
     {
       question: "Onde acompanhar inscrição e resultados?",
       answer:
-        "No sistema oficial do exame e nas páginas oficiais do Celpe-Bras/Inep, além das orientações do centro aplicador quando necessário.",
+        "No Sistema Celpe-Bras e na página oficial do Celpe-Bras no Inep (Gov.br), além das orientações do posto aplicador quando necessário.",
     },
   ],
 };

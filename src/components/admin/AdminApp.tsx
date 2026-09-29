@@ -15,6 +15,7 @@ import { TrafficChart } from "@/components/admin/TrafficChart";
 import { AiMonitoringPanel } from "@/components/admin/AiMonitoringPanel";
 import { WritingEmailsPanel } from "@/components/admin/WritingEmailsPanel";
 import { WriterAnalyticsPanel } from "@/components/admin/WriterAnalyticsPanel";
+import { ContactMessagesPanel } from "@/components/admin/ContactMessagesPanel";
 import {
   DEFAULT_SCHEDULE_TIMEZONE,
   SCHEDULE_TIMEZONE_OPTIONS,
@@ -28,7 +29,7 @@ import {
   type ScheduleTimezoneId,
 } from "@/lib/admin/schedule-timezone";
 
-type Tab = "overview" | "blog" | "schedule" | "traffic" | "writer" | "emails" | "ai-monitoring";
+type Tab = "overview" | "blog" | "schedule" | "traffic" | "writer" | "emails" | "contact" | "ai-monitoring";
 
 type GscMetricRow = {
   clicks: number;
@@ -735,6 +736,7 @@ export function AdminApp() {
             ["traffic", "Tráfego"],
             ["writer", "Writer analytics"],
             ["emails", "E-mails"],
+            ["contact", "Contato"],
             ["ai-monitoring", "AI monitoring"],
           ] as const
         ).map(([id, label]) => (
@@ -1452,6 +1454,7 @@ export function AdminApp() {
 
       {tab === "writer" ? <WriterAnalyticsPanel /> : null}
       {tab === "emails" ? <WritingEmailsPanel /> : null}
+      {tab === "contact" ? <ContactMessagesPanel /> : null}
       {tab === "ai-monitoring" ? <AiMonitoringPanel /> : null}
     </div>
   );

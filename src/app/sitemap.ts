@@ -11,9 +11,9 @@ import { alternatesForSection, pathFor, type SectionKey } from "@/i18n/route-map
 import { hasEnglishBlogPost, hasRussianBlogPost } from "@/lib/blog/locale-meta";
 import { absoluteUrl, SITE } from "@/lib/site";
 
-// materials/contact/terms are SectionPlaceholder stubs in all three locales.
+// materials/terms are SectionPlaceholder stubs in all three locales.
 // They stay reachable through the nav but are kept out of the sitemap until
-// they have real content, so we don't advertise nine thin pages for indexing.
+// they have real content, so we don't advertise thin pages for indexing.
 const staticSections: SectionKey[] = [
   "home",
   "writing",
@@ -23,6 +23,7 @@ const staticSections: SectionKey[] = [
   "theory",
   "reader",
   "blog",
+  "contact",
 ];
 
 function entry(
@@ -52,6 +53,8 @@ function entry(
   };
 }
 
+export const revalidate = 3600;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const routes: MetadataRoute.Sitemap = [];
@@ -80,12 +83,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     );
   }
 
+  // Never drop past-exam hubs or session URLs — they carry the organic impressions.
+  // /avaliacao is noindex; keep it out of the sitemap so Google does not recrawl a blocked URL.
   for (const section of [
     "practiceListening",
     "practiceReading",
     "practiceWriting",
     "practiceFoundation",
-    "assessment",
   ] as const) {
     routes.push(entry(pathFor("pt-br", section), now, "monthly", 0.55, section));
   }

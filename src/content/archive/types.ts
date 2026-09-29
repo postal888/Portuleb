@@ -33,8 +33,14 @@ export type ArchiveSession = {
   eyebrow: string;
   title: string;
   lead: string;
+  /** Short disclaimer under the lead (e.g. site is independent of Inep). */
+  notice?: string;
   application: string;
+  /** Extra precision under the application date (posts, countries). */
+  applicationNote?: string;
   resultDate: string;
+  /** Extra precision under the result date (DOU / system). */
+  resultNote?: string;
   stats: { available: number; missing: number; missingLabel: string };
   blogAnalysis?: { href: string; label: string };
   /** Internal SEO link to the exam guide hub. */

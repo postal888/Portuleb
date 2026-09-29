@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import { SectionPlaceholder } from "@/components/SectionPlaceholder";
+import { ContactView } from "@/components/contact/ContactView";
 import { buildPageMetadata } from "@/i18n/metadata";
+import { getUi } from "@/i18n/ui";
+
+const ui = getUi("en").contact;
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
   section: "contact",
-  title: "Contact",
-  description: "Contact Celpe-Dê Pé.",
+  title: ui.title,
+  description: ui.lead,
 });
 
 export default function EnContactPage() {
-  return (
-    <SectionPlaceholder
-      locale="en"
-      title="Contact"
-      description="This section will be built in a later step."
-    />
-  );
+  return <ContactView locale="en" />;
 }

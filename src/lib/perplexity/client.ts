@@ -160,18 +160,30 @@ export async function callSonar(options: {
   }
 
   const data = (await res.json().catch(() => null)) as Record<string, unknown> | null;
+  const apiMsg =
+    data && typeof data.error === "object" && data.error && "message" in data.error
+      ? String((data.error as { message?: string }).message ?? "")
+      : "";
+  const apiType =
+    data && typeof data.error === "object" && data.error && "type" in data.error
+      ? String((data.error as { type?: string }).type ?? "")
+      : "";
 
-  if (res.status === 429) {
-    throw new PerplexityApiError(429, "rate_limited", "rate_limited");
+  if (res.status === 429 || apiType === "insufficient_quota") {
+    throw new PerplexityApiError(
+      res.status === 429 ? 429 : 402,
+      apiMsg || "Perplexity quota exceeded — check billing at perplexity.ai/settings/api",
+      "insufficient_quota",
+    );
   }
   if (res.status === 401) {
-    throw new PerplexityApiError(401, "Perplexity unauthorized (401)", "unauthorized");
+    throw new PerplexityApiError(
+      401,
+      apiMsg || "Perplexity unauthorized (401) — check API key",
+      "unauthorized",
+    );
   }
   if (res.status >= 400) {
-    const apiMsg =
-      data && typeof data.error === "object" && data.error && "message" in data.error
-        ? String((data.error as { message?: string }).message ?? "")
-        : "";
     throw new PerplexityApiError(
       res.status,
       apiMsg || `perplexity_error_${res.status}`,

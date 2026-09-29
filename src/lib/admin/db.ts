@@ -16,6 +16,7 @@ function runAdminMigrations(database: Database.Database) {
   migrateScheduledBlogPosts(database);
   migrateAiMonitoringRuns(database);
   migrateWritingEmails(database);
+  migrateContactMessages(database);
   migrateWriterObservability(database);
 }
 
@@ -130,6 +131,69 @@ function migrateWritingEmails(database: Database.Database) {
     );
     CREATE INDEX IF NOT EXISTS idx_writing_emails_last_seen ON writing_emails(last_seen);
   `);
+}
+
+function migrateContactMessages(database: Database.Database) {
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS contact_messages (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      email TEXT NOT NULL,
+      message TEXT NOT NULL,
+      locale TEXT,
+      status TEXT NOT NULL DEFAULT 'new',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_contact_messages_created ON contact_messages(created_at);
+    CREATE INDEX IF NOT EXISTS idx_contact_messages_status ON contact_messages(status);
+  `);
+}
+
+export type ContactMessageRow = {
+  id: number;
+  name: string | null;
+  email: string;
+  message: string;
+  locale: string | null;
+  status: string;
+  created_at: string;
+};
+
+export function recordContactMessage(input: {
+  name?: string;
+  email: string;
+  message: string;
+  locale?: string;
+}): number {
+  const email = input.email.trim().toLowerCase();
+  const message = input.message.trim();
+  const name = input.name?.trim() || null;
+  if (!email || !message) return 0;
+  const database = getAdminDb();
+  const result = database
+    .prepare(
+      `INSERT INTO contact_messages (name, email, message, locale)
+       VALUES (?, ?, ?, ?)`,
+    )
+    .run(name, email, message, input.locale?.trim() || null);
+  return Number(result.lastInsertRowid);
+}
+
+export function listContactMessages(limit = 300): ContactMessageRow[] {
+  const database = getAdminDb();
+  return database
+    .prepare(
+      `SELECT * FROM contact_messages ORDER BY created_at DESC, id DESC LIMIT ?`,
+    )
+    .all(limit) as ContactMessageRow[];
+}
+
+export function markContactMessageRead(id: number): boolean {
+  const database = getAdminDb();
+  const result = database
+    .prepare(`UPDATE contact_messages SET status = 'read' WHERE id = ? AND status = 'new'`)
+    .run(id);
+  return result.changes > 0;
 }
 
 export type WritingEmailRow = {

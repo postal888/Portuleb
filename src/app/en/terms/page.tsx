@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { SectionPlaceholder } from "@/components/SectionPlaceholder";
-import { buildPageMetadata } from "@/i18n/metadata";
+import { buildPageMetadata, noindexFollowRobots } from "@/i18n/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
   section: "terms",
   title: "Terms",
   description: "Terms of use for Celpe-Dê Pé.",
+  robots: noindexFollowRobots,
 });
 
 export default function EnTermsPage() {

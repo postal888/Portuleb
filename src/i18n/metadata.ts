@@ -4,6 +4,26 @@ import { hreflangCode, ogLocale } from "./locales";
 import { alternatesForSection, pathFor, type SectionKey } from "./route-map";
 import { absoluteUrl, SITE } from "@/lib/site";
 
+/** Thin stubs and 404s. googleBot must be set or the root layout keeps index:true. */
+export const noindexFollowRobots = {
+  index: false,
+  follow: true,
+  googleBot: { index: false, follow: true },
+} as const satisfies Metadata["robots"];
+
+function robotsWithGoogleBot(robots: Metadata["robots"]): Metadata["robots"] {
+  if (!robots || typeof robots !== "object" || robots.index !== false) return robots;
+  const prev = typeof robots.googleBot === "object" && robots.googleBot ? robots.googleBot : {};
+  return {
+    ...robots,
+    googleBot: {
+      ...prev,
+      index: false,
+      follow: prev.follow ?? robots.follow ?? true,
+    },
+  };
+}
+
 type PageMetaInput = {
   locale: Locale;
   section: SectionKey;
@@ -62,7 +82,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     title,
     description,
     keywords,
-    robots,
+    robots: robotsWithGoogleBot(robots),
     alternates,
     openGraph: {
       type: ogType,

@@ -44,7 +44,7 @@ export function SiteLogo({ variant = "header", linked = true, locale = "pt-br" }
     <span className={`brand-lockup ${isFooter ? "brand-lockup-footer" : ""}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`${siteBrand.logoIconSrc}?v=3`}
+        src={`${siteBrand.logoMarkSrc}?v=1`}
         alt=""
         width={iconPx}
         height={iconPx}

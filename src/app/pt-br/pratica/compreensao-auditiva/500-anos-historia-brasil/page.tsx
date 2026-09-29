@@ -15,15 +15,22 @@ export function generateMetadata(): Metadata {
   if (!article) return { title: "Vídeo não encontrado" };
 
   const path = `/pt-br/pratica/${CATEGORY}/${SLUG}`;
+  const absolute = absoluteUrl(path);
   return {
     title: article.meta.seoTitle,
     description: article.meta.seoDescription,
     keywords: article.meta.tags,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      languages: {
+        "pt-BR": absolute,
+        "x-default": absolute,
+      },
+    },
     openGraph: {
       type: "article",
       locale: "pt_BR",
-      url: absoluteUrl(path),
+      url: absolute,
       title: article.meta.seoTitle,
       description: article.meta.seoDescription,
     },

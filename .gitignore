@@ -46,7 +46,8 @@ Logo.png
 
 # Local Celpe-Bras source materials — ~820 MB of exam video and PDF,
 # served from the CDN and kept out of git.
-Materials/
+# Anchored: unanchored, Git for Windows also matches src/app/en/materials/ case-insensitively.
+/Materials/
 cursor-instructions-copy.docx
 *-extracted.txt
 

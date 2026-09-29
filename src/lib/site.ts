@@ -6,7 +6,7 @@ export const SITE = {
   titleDefault: "Celpe-Dê Pé — Preparação para o Celpe-Bras",
   titleTemplate: "%s — Celpe-Dê Pé",
   description:
-    "Preparação gratuita para o Celpe-Bras: teoria, prática, provas anteriores e análises. Estude de graça e prepare-se para o exame.",
+    "Preparação gratuita para o Celpe-Bras: descubra seu nível de escrita, estude teoria e prática, resolva provas anteriores e leia análises.",
   locale: "pt_BR",
   ogImage: "/images/og-default.png",
   twitter: "",

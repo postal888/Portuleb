@@ -18,11 +18,11 @@ export function Header({ locale }: { locale: Locale }) {
   const onWriter = pathname === writingHref || pathname.startsWith(`${writingHref}/`);
 
   return (
-    <header className="relative sticky top-0 z-50 border-b border-[var(--site-border)] bg-[var(--site-header-bg)] shadow-sm backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <header className="site-header relative sticky top-0 z-50">
+      <div className="site-header-inner mx-auto flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <SiteLogo locale={locale} />
 
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Principal">
+        <nav className="hidden min-w-0 flex-nowrap items-center gap-0 lg:flex" aria-label="Principal">
           {nav.map((item) => {
             const href = localizedPath(locale, item.section);
             const active = pathname.startsWith(href);
@@ -73,10 +73,10 @@ export function Header({ locale }: { locale: Locale }) {
 
       {open ? (
         <nav
-          className="border-t border-[var(--site-border)] bg-[var(--site-header-bg)] px-4 py-4 lg:hidden"
+          className="border-t border-[var(--site-border)] bg-[var(--site-header-bg)] px-4 py-4 sm:px-6 lg:hidden"
           aria-label="Mobile"
         >
-          <div className="flex flex-col gap-1">
+          <div className="site-header-inner mx-auto flex flex-col gap-1">
             {nav.map((item) => {
               const href = localizedPath(locale, item.section);
               const active = pathname.startsWith(href);

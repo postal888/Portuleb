@@ -6,13 +6,24 @@ export const session2026_1_en: ArchiveSession = {
   ...session2026_1,
   eyebrow: "Past exams / 2026 / Session 1",
   title: "Celpe-Bras 2026/1",
-  lead: "Written exam materials, oral interaction scripts, official notice, and embedded PDFs, video, and audio in one place.",
+  lead:
+    "Celpe-Bras is Brazil’s official Inep/MEC exam for the Certificate of Proficiency in Portuguese for Foreigners. This page gathers the written booklet, video/audio inputs, oral materials, and the 2026/1 notice.",
+  notice:
+    "celpe-depe.com is an independent project, not affiliated with Inep/MEC. Files here reproduce official or study materials; official registration and archives remain on Portal Gov.br and the Celpe-Bras System (celpebras.inep.gov.br).",
   application: "Apr 28 – May 1, 2026",
+  applicationNote:
+    "At accredited test centers in Brazil and abroad (official list on Inep). The edition had 3,513 candidates from 44 countries; exams finished on May 1, 2026.",
   resultDate: "Jun 30, 2026",
+  resultNote:
+    "Official publication in the Federal Official Gazette (DOU) and individual lookup in the Celpe-Bras System (celpebras.inep.gov.br).",
   stats: { available: 6, missing: 0, missingLabel: "none missing" },
   blogAnalysis: {
     href: "/en/blog/analise-tarefa-1-festival-fartura-2026-1",
     label: "Task 1 analysis (blog)",
+  },
+  guideLink: {
+    href: "/en/celpe-bras",
+    label: "What Celpe-Bras is and how the exam works",
   },
   materials: session2026_1.materials.map((m) => ({
     ...m,
@@ -26,7 +37,7 @@ export const session2026_1_en: ArchiveSession = {
             : m.id === "elementos"
               ? "Prompt elements"
               : m.id === "edital"
-                ? "Notice 2026/1"
+                ? "Notice No. 8/2026 — Inep/MEC"
                 : m.id === "video-t1"
                   ? "Task 1 video"
                   : m.title,
@@ -40,7 +51,7 @@ export const session2026_1_en: ArchiveSession = {
             : m.id === "elementos"
               ? "Set of 20 themes for face-to-face interaction."
               : m.id === "edital"
-                ? "Schedule, exam structure, assessment and certification."
+                ? "Notice No. 8 of February 20, 2026 (published in the DOU): schedule, registration, structure, assessment, and certification for Celpe-Bras 2026/1."
                 : m.id === "video-t1"
                   ? "Festival Fartura — video input for the written task."
                   : m.description,
@@ -80,7 +91,7 @@ export const session2026_1_en: ArchiveSession = {
           : "View in booklet",
   })),
   asideNote:
-    "The notice sets dates and structure; the booklet covers the four written tasks; scripts and prompt elements support the oral part.",
+    "2026/1 registration: Feb 24–Mar 6, 2026 via the Celpe-Bras System (celpebras.inep.gov.br), including fee, specialized assistance, and social-name rules in the notice. The certificate may be required for programs such as PEC-G/PEC-PLE — check each program’s own notice.",
   oralTopics: {
     roteiros: ["20 minutes", "2 stages", "audio recording"],
     temas: session2026_1.oralTopics.temas,
@@ -89,12 +100,12 @@ export const session2026_1_en: ArchiveSession = {
     {
       question: "What is complete?",
       answer:
-        "Question booklet, task videos, interaction scripts, prompt elements, and notice — all viewable on this page.",
+        "Question booklet, task videos, interaction scripts, prompt elements, and Notice No. 8/2026 — all viewable on this page.",
     },
     {
       question: "What is missing?",
       answer:
-        "This edition is complete in the local archive for the files listed. New materials will be added when published officially.",
+        "This edition is complete in the local archive for the files listed. New materials will be added when published officially by Inep.",
     },
     {
       question: "How do I navigate?",
@@ -102,9 +113,19 @@ export const session2026_1_en: ArchiveSession = {
         "Use the cards to open the embedded viewer (PDF, video, or audio). Each file opens on-site; download is optional.",
     },
     {
+      question: "Where do I register for the official exam?",
+      answer:
+        "In the Celpe-Bras System (celpebras.inep.gov.br), according to each edition’s notice. This site does not register candidates or issue certificates.",
+    },
+    {
+      question: "Is this site official?",
+      answer:
+        "No. celpe-depe.com is independent preparation. Materials and dates here support study; the normative source is Inep/MEC (Portal Gov.br and the Federal Official Gazette).",
+    },
+    {
       question: "How does this connect to practice?",
       answer:
-        "Each block can later link to practice drills, Celpe-Bras guides, and exercises based on these inputs.",
+        "Each block can feed exercises and analyses on the site (such as the Task 1 blog analysis), without replacing Inep’s official archive or channels.",
     },
   ],
 };

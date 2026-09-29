@@ -86,6 +86,24 @@ export function IconCheck({ className }: IconProps) {
   );
 }
 
+export function IconPen({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M4 20 8.5 19 19.5 8a2 2 0 0 0-2.8-2.8L5.7 16.2 4 20z" />
+      <path d="M14.2 6.5 17.5 9.8" />
+    </Svg>
+  );
+}
+
+export function IconMail({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3.5" y="6" width="17" height="12.5" rx="2" />
+      <path d="M4 8.2 12 13.2 20 8.2" />
+    </Svg>
+  );
+}
+
 export function IconArrowRight({ className }: IconProps) {
   return (
     <Svg className={className}>

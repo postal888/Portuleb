@@ -1,3 +1,4 @@
+import { GUIDE_OFFICIAL_LINKS_EN } from "@/lib/seo/official-sources";
 import type { CelpeBrasGuideContent } from "./guide-types";
 
 export const celpeGuideEn: CelpeBrasGuideContent = {
@@ -11,6 +12,12 @@ export const celpeGuideEn: CelpeBrasGuideContent = {
     registration: "registration-and-calendar",
     faq: "faq",
   },
+  independenceNote:
+    "Celpe-Dê Pé is an independent educational platform. The exam, notices, registration and certification belong to Inep/MEC. This site does not register candidates or issue certificates.",
+  datePublished: "2026-05-01",
+  dateModified: "2026-09-15",
+  officialSourcesTitle: "Official sources",
+  officialSources: GUIDE_OFFICIAL_LINKS_EN,
   hero: {
     eyebrow: "Exam guide",
     title: "Celpe-Bras: complete exam guide",
@@ -51,7 +58,7 @@ export const celpeGuideEn: CelpeBrasGuideContent = {
   whatIs: {
     title: "What is the Celpe-Bras",
     paragraphs: [
-      "The Celpe-Bras is Brazil's official certificate of Portuguese proficiency for foreigners. It is recognised by the Brazilian government and used when you need to prove your level of Portuguese in academic, professional or institutional contexts.",
+      "The Celpe-Bras is Brazil's official exam for the certification of proficiency in Portuguese as a foreign language. It is recognised by the Brazilian government and used when you need to prove your level of Portuguese in academic, professional or institutional contexts.",
       "The exam looks beyond isolated grammar knowledge: it observes how you use the language in broader communicative situations. Understanding the exam logic matters as much as vocabulary, structures and rules.",
     ],
   },
@@ -98,16 +105,17 @@ export const celpeGuideEn: CelpeBrasGuideContent = {
     title: "Levels and results",
     paragraphs: [
       "The exam certifies four levels: Intermediate, Upper Intermediate, Advanced and Upper Advanced. Candidates below the minimum score are not certified.",
-      "Many test centres and explanatory materials present score bands as follows:",
+      "The table below summarises bands used in prep materials and test centres; always confirm the criteria in the official notice and Inep guidance for your edition:",
     ],
     validityLabel: "Certificate validity.",
-    validityText: "The Celpe-Bras certificate does not expire.",
+    validityText:
+      "According to Inep’s public guidance on Celpe-Bras, the certificate does not expire — confirm on the official channel if your edition differs.",
   },
   registration: {
     title: "Registration and calendar",
     paragraphs: [
-      "The Celpe-Bras is usually held twice a year, often once in the first and once in the second semester. Follow registration, exam dates and results on the official system and Inep / test-centre communications.",
-      "Because dates and procedures can change each edition, always check the official Celpe-Bras page on Inep and the registration system.",
+      "The Celpe-Bras is usually held twice a year, often once in the first and once in the second semester. Follow registration, exam dates and results on the Celpe-Bras System and Inep / test-centre communications.",
+      "Because dates and procedures can change each edition, always use the official sources listed below — do not treat this guide as the normative source.",
     ],
   },
   nextSteps: {
@@ -162,11 +170,11 @@ export const celpeGuideEn: CelpeBrasGuideContent = {
     {
       question: "What is the Celpe-Bras?",
       answer:
-        "It is Brazil's official exam to certify proficiency in Portuguese as a foreign language.",
+        "It is Brazil's official exam for the certification of proficiency in Portuguese as a foreign language.",
     },
     {
       question: "Is the exam officially recognised?",
-      answer: "Yes. It is the certificate officially recognised by the Brazilian government.",
+      answer: "Yes. It is the official exam recognised by the Brazilian government for this purpose.",
     },
     {
       question: "What are the exam parts?",
@@ -179,12 +187,13 @@ export const celpeGuideEn: CelpeBrasGuideContent = {
     },
     {
       question: "Does the certificate expire?",
-      answer: "No. The Celpe-Bras certificate does not expire.",
+      answer:
+        "According to Inep’s public guidance, the Celpe-Bras certificate does not expire. Always confirm on the official channel for your edition.",
     },
     {
       question: "Where to follow registration and results?",
       answer:
-        "On the official exam system and Celpe-Bras/Inep pages, plus your test centre when needed.",
+        "On the Celpe-Bras System and the official Celpe-Bras page on Inep (Gov.br), plus your test centre when needed.",
     },
   ],
 };
