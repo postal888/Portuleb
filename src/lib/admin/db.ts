@@ -1,19 +1,22 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
+import { migrateWriterObservability } from "@/lib/writer/schema-ddl";
 
-const DATA_DIR = path.join(process.cwd(), "data", "admin");
-const DB_PATH = path.join(DATA_DIR, "admin.db");
+const DB_PATH = process.env.ADMIN_DB_PATH?.trim() || path.join(process.cwd(), "data", "admin", "admin.db");
 
 let db: Database.Database | null = null;
 
 function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  const dir = path.dirname(DB_PATH);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
 function runAdminMigrations(database: Database.Database) {
   migrateScheduledBlogPosts(database);
   migrateAiMonitoringRuns(database);
+  migrateWritingEmails(database);
+  migrateWriterObservability(database);
 }
 
 export function getAdminDb(): Database.Database {
@@ -113,6 +116,54 @@ function migrateAiMonitoringRuns(database: Database.Database) {
     database.exec(`ALTER TABLE ai_monitoring_runs ADD COLUMN provider TEXT NOT NULL DEFAULT 'sonar'`);
     database.exec(`CREATE INDEX IF NOT EXISTS idx_ai_monitoring_provider ON ai_monitoring_runs(provider)`);
   }
+}
+
+function migrateWritingEmails(database: Database.Database) {
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS writing_emails (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE,
+      submissions INTEGER NOT NULL DEFAULT 1,
+      last_task_id TEXT,
+      first_seen TEXT NOT NULL DEFAULT (datetime('now')),
+      last_seen TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_writing_emails_last_seen ON writing_emails(last_seen);
+  `);
+}
+
+export type WritingEmailRow = {
+  id: number;
+  email: string;
+  submissions: number;
+  last_task_id: string | null;
+  first_seen: string;
+  last_seen: string;
+};
+
+export function recordWritingEmail(email: string, taskId?: string) {
+  const normalized = email.trim().toLowerCase();
+  if (!normalized) return;
+  const database = getAdminDb();
+  database
+    .prepare(
+      `INSERT INTO writing_emails (email, last_task_id)
+       VALUES (?, ?)
+       ON CONFLICT(email) DO UPDATE SET
+         submissions = submissions + 1,
+         last_task_id = excluded.last_task_id,
+         last_seen = datetime('now')`,
+    )
+    .run(normalized, taskId ?? null);
+}
+
+export function listWritingEmails(limit = 500): WritingEmailRow[] {
+  const database = getAdminDb();
+  return database
+    .prepare(
+      `SELECT * FROM writing_emails ORDER BY last_seen DESC, id DESC LIMIT ?`,
+    )
+    .all(limit) as WritingEmailRow[];
 }
 
 function migrateScheduledBlogPosts(database: Database.Database) {

@@ -1,7 +1,14 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 
-const DISALLOW_PRIVATE = ["/api/", "/admin"];
+const DISALLOW_PRIVATE = [
+  "/api/",
+  "/admin",
+  "/pt-br/home-mock",
+  "/pt-br/writing/report/",
+  "/en/writing/report/",
+  "/ru/writing/report/",
+];
 
 /** Block AI training / extended crawlers. */
 const TRAINING_BOTS = [

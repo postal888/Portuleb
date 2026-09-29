@@ -16,6 +16,7 @@ import { absoluteUrl, SITE } from "@/lib/site";
 // they have real content, so we don't advertise nine thin pages for indexing.
 const staticSections: SectionKey[] = [
   "home",
+  "writing",
   "celpeBras",
   "pastExams",
   "practice",
@@ -61,7 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         pathFor("pt-br", section),
         now,
         "weekly",
-        section === "home" ? 1 : 0.7,
+        section === "home" ? 1 : section === "writing" ? 0.85 : 0.7,
         section,
       ),
     );
@@ -69,7 +70,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entry(pathFor("en", section), now, "weekly", section === "home" ? 0.9 : 0.65, section),
     );
     routes.push(
-      entry(pathFor("ru", section), now, "weekly", section === "home" ? 0.85 : 0.6, section),
+      entry(
+        pathFor("ru", section),
+        now,
+        "weekly",
+        section === "home" ? 0.85 : section === "writing" ? 0.75 : 0.6,
+        section,
+      ),
     );
   }
 

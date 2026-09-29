@@ -17,6 +17,7 @@ export type SectionKey =
   | "contact"
   | "terms"
   | "assessment"
+  | "writing"
   | "practiceListening"
   | "practiceReading"
   | "practiceWriting"
@@ -105,6 +106,10 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
   assessment: {
     paths: { "pt-br": "/pt-br/avaliacao", en: "/pt-br/avaliacao", ru: "/pt-br/avaliacao" },
     enMirror: false,
+  },
+  writing: {
+    paths: { "pt-br": "/pt-br/escrever", en: "/en/writing", ru: "/ru/pismo" },
+    enMirror: true,
   },
   // Lesson pages exist in pt-BR only. Like theoryTopic/examCycle/assessment,
   // the en/ru entries point at the real pt-BR URL: pathFor() ignores enMirror,

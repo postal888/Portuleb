@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SiteLogo } from "@/components/brand/SiteLogo";
 import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
+import { PortugueseAccentBar } from "@/components/writing/PortugueseAccentBar";
 import type { Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
@@ -13,6 +14,8 @@ export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const nav = getUi(locale).nav;
+  const writingHref = localizedPath(locale, "writing");
+  const onWriter = pathname === writingHref || pathname.startsWith(`${writingHref}/`);
 
   return (
     <header className="relative sticky top-0 z-50 border-b border-[var(--site-border)] bg-[var(--site-header-bg)] shadow-sm backdrop-blur-md">
@@ -66,6 +69,7 @@ export function Header({ locale }: { locale: Locale }) {
           </button>
         </div>
       </div>
+      {onWriter ? <PortugueseAccentBar locale={locale} /> : null}
 
       {open ? (
         <nav

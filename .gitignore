@@ -22,6 +22,12 @@ yarn-error.log*
 # Admin DB (local analytics + scheduled posts queue)
 data/admin/
 
+# Writing submissions (essay + report per e-mail)
+data/writing/
+
+# Daily copies made by deploy/backup-writer.mjs (base + JSON copies)
+data/backups/
+
 # IDE
 .idea/
 .vscode/

@@ -13,6 +13,8 @@ import {
 import { mapDailyField, mapLocalViews } from "@/lib/admin/chart-data";
 import { TrafficChart } from "@/components/admin/TrafficChart";
 import { AiMonitoringPanel } from "@/components/admin/AiMonitoringPanel";
+import { WritingEmailsPanel } from "@/components/admin/WritingEmailsPanel";
+import { WriterAnalyticsPanel } from "@/components/admin/WriterAnalyticsPanel";
 import {
   DEFAULT_SCHEDULE_TIMEZONE,
   SCHEDULE_TIMEZONE_OPTIONS,
@@ -26,7 +28,7 @@ import {
   type ScheduleTimezoneId,
 } from "@/lib/admin/schedule-timezone";
 
-type Tab = "overview" | "blog" | "schedule" | "traffic" | "ai-monitoring";
+type Tab = "overview" | "blog" | "schedule" | "traffic" | "writer" | "emails" | "ai-monitoring";
 
 type GscMetricRow = {
   clicks: number;
@@ -731,6 +733,8 @@ export function AdminApp() {
             ["blog", "Blog"],
             ["schedule", "Agendados"],
             ["traffic", "Tráfego"],
+            ["writer", "Writer analytics"],
+            ["emails", "E-mails"],
             ["ai-monitoring", "AI monitoring"],
           ] as const
         ).map(([id, label]) => (
@@ -1446,6 +1450,8 @@ export function AdminApp() {
         </div>
       ) : null}
 
+      {tab === "writer" ? <WriterAnalyticsPanel /> : null}
+      {tab === "emails" ? <WritingEmailsPanel /> : null}
       {tab === "ai-monitoring" ? <AiMonitoringPanel /> : null}
     </div>
   );
