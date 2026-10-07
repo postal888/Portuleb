@@ -8,12 +8,15 @@ import { analiseTarefa12026_1_en } from "@/content/blog/posts/analise-tarefa-1-f
 import { analiseTarefa12026_1_ru } from "@/content/blog/posts/analise-tarefa-1-festival-fartura-2026-1.ru";
 import { estrategiaMinimalista } from "@/content/blog/posts/estrategia-minimalista";
 import { repeticaoEspacada_en } from "@/content/blog/posts/repeticao-espacada-aprendizado-vocabulario.en";
+import { temasCelpeBras1998_2026 } from "@/content/blog/posts/temas-do-celpe-bras-1998-2026";
+import { temasCelpeBras1998_2026_en } from "@/content/blog/posts/temas-do-celpe-bras-1998-2026.en";
+import { temasCelpeBras1998_2026_ru } from "@/content/blog/posts/temas-do-celpe-bras-1998-2026.ru";
 
 const JSON_DIR = path.join(process.cwd(), "data", "blog", "posts");
 
-const bundledPostsPt: BlogPost[] = [analiseTarefa12026_1, estrategiaMinimalista];
-const bundledPostsEn: BlogPost[] = [analiseTarefa12026_1_en, repeticaoEspacada_en];
-const bundledPostsRu: BlogPost[] = [analiseTarefa12026_1_ru];
+const bundledPostsPt: BlogPost[] = [temasCelpeBras1998_2026, analiseTarefa12026_1, estrategiaMinimalista];
+const bundledPostsEn: BlogPost[] = [temasCelpeBras1998_2026_en, analiseTarefa12026_1_en, repeticaoEspacada_en];
+const bundledPostsRu: BlogPost[] = [temasCelpeBras1998_2026_ru, analiseTarefa12026_1_ru];
 
 function jsonFilePath(slug: string, locale: Locale): string {
   const fileName = locale === "pt-br" ? `${slug}.json` : `${slug}.${locale}.json`;

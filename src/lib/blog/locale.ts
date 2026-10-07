@@ -6,10 +6,14 @@ import type { BlogPost } from "@/content/blog/types";
 export const EN_BLOG_SLUGS = new Set([
   "analise-tarefa-1-festival-fartura-2026-1",
   "repeticao-espacada-aprendizado-vocabulario",
+  "temas-do-celpe-bras-1998-2026",
 ]);
 
 /** Slugs with a bundled Russian article. */
-export const RU_BLOG_SLUGS = new Set(["analise-tarefa-1-festival-fartura-2026-1"]);
+export const RU_BLOG_SLUGS = new Set([
+  "analise-tarefa-1-festival-fartura-2026-1",
+  "temas-do-celpe-bras-1998-2026",
+]);
 
 export const BLOG_LOCALE_OPTIONS = [
   { id: "pt-br" as const, label: "Português", sitePath: "/pt-br/blog", hostHint: "celpe-depe.com/pt-br" },

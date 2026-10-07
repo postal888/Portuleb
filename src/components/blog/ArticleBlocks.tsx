@@ -123,6 +123,39 @@ export function ArticleBlocks({ blocks, locale }: { blocks: ArticleBlock[]; loca
                 ))}
               </ul>
             );
+          case "figure":
+            return (
+              <figure key={index} className="blog-figure">
+                <img src={block.src} alt={block.alt} />
+                {block.caption ? <figcaption>{block.caption}</figcaption> : null}
+              </figure>
+            );
+          case "table":
+            return (
+              <div key={index} className="blog-table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      {block.headers.map((header) => (
+                        <th key={header} scope="col">
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block.rows.map((row) => (
+                      <tr key={row.join("|")}>
+                        {row.map((cell) => (
+                          <td key={cell}>{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {block.caption ? <p className="blog-table-caption">{block.caption}</p> : null}
+              </div>
+            );
           default:
             return null;
         }

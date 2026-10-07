@@ -40,6 +40,9 @@ type PageMetaInput = {
   hasRuBlogPost?: boolean;
   ruBlogSlug?: string;
   robots?: Metadata["robots"];
+  /** Overrides the site default Open Graph image. Path or absolute URL. */
+  ogImage?: string;
+  ogImageAlt?: string;
 };
 
 export function buildPageMetadata(input: PageMetaInput): Metadata {
@@ -57,6 +60,8 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     hasRuBlogPost,
     ruBlogSlug,
     robots,
+    ogImage,
+    ogImageAlt,
   } = input;
 
   const canonicalPath = pathFor(locale, section, params);
@@ -92,13 +97,22 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
       title,
       description,
       ...(publishedTime ? { publishedTime } : {}),
-      images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: SITE.name }],
+      images: [
+        ogImage
+          ? {
+              url: ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage),
+              width: 1200,
+              height: 630,
+              alt: ogImageAlt ?? SITE.name,
+            }
+          : { url: SITE.ogImage, width: 1200, height: 630, alt: SITE.name },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [SITE.ogImage],
+      images: [ogImage ? (ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage)) : SITE.ogImage],
     },
   };
 }
@@ -141,6 +155,7 @@ export function articleJsonLd(
     dateModified?: string;
     keywords?: string[];
     section?: string;
+    image?: string;
   },
 ) {
   const url = absoluteUrl(input.path);
@@ -154,6 +169,9 @@ export function articleJsonLd(
     inLanguage: hreflangCode(locale),
     keywords: input.keywords?.join(", "),
     articleSection: input.section,
+    ...(input.image
+      ? { image: input.image.startsWith("http") ? input.image : absoluteUrl(input.image) }
+      : {}),
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     author: { "@type": "Organization", name: SITE.name, url: SITE.url },
     publisher: {

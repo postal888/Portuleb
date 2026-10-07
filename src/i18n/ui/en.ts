@@ -99,7 +99,7 @@ export const enUi = {
     stepWrite: "write",
     stepEmail: "email",
     stepLevel: "level",
-    ctaWrite: "Write now",
+    ctaWrite: "Check my CELPE-BRAS writing",
     ctaQuiet: "I'd rather take exam 2026/1",
     pathsLabel: "Four paths",
     doorGuideTitle: "What is Celpe-Bras",
@@ -131,14 +131,80 @@ export const enUi = {
     photoFeatSite: "Person exploring the site",
   },
   writing: {
-    metaTitle: "Free AI writing check for Celpe-Bras",
+    metaTitle: "Free CELPE-BRAS writing correction with AI | Celpe-Dê Pé",
     metaDescription:
-      "Free AI correction: the assessment appears on this screen right away. Independent of Inep; it does not replace the official exam score. Leave your email to see the result.",
+      "Write a CELPE-BRAS-style task and receive free AI feedback, criterion-based corrections and an estimate of your Portuguese writing level.",
     breadcrumbHome: "Home",
     breadcrumbHere: "Writing",
     eyebrow: "Written exam",
-    title: "Write and find your level",
-    lead: "Free AI correction: the assessment appears on this screen right away. Celpe-Dê Pé is independent of Inep; this does not replace the official exam score. Leave your email to see the result.",
+    title: "Free CELPE-BRAS writing correction with AI",
+    lead: "Complete a CELPE-BRAS-style writing task and get instant feedback on task fulfillment, genre, cohesion, grammar and vocabulary.",
+    disclaimer:
+      "Celpe-Dê Pé is independent of Inep. This educational assessment does not replace an official exam score.",
+    startWriting: "Start writing",
+    emailNotice:
+      "We use your email to unlock the result on this screen. When sending is on, you also get a link to reopen the assessment.",
+    howTitle: "How the correction works",
+    how: [
+      {
+        title: "Choose a task",
+        body: "Select a prompt in the format of the CELPE-BRAS written section.",
+      },
+      {
+        title: "Write your text",
+        body: "Answer in Portuguese, with the genre, purpose and reader in mind.",
+      },
+      {
+        title: "Get the feedback",
+        body: "See the criterion scores, strengths, issues and an estimate of your level.",
+      },
+    ],
+    criteriaTitle: "What the correction assesses",
+    criteria: [
+      {
+        title: "Task fulfillment",
+        body: "Whether the text meets the purpose and answers what was asked.",
+      },
+      {
+        title: "Genre and audience",
+        body: "Whether the format, tone and relationship with the reader fit.",
+      },
+      {
+        title: "Cohesion and organization",
+        body: "Whether the ideas are connected and clearly organized.",
+      },
+      {
+        title: "Grammar and vocabulary",
+        body: "Whether the language is clear and precise.",
+      },
+      {
+        title: "Estimated level",
+        body: "An educational indication of performance, with no official value.",
+      },
+    ],
+    faqTitle: "Frequently asked questions",
+    faq: [
+      {
+        q: "Is the correction free?",
+        a: "Yes. You can submit the text and receive an educational assessment with AI.",
+      },
+      {
+        q: "Is this an official CELPE-BRAS score?",
+        a: "No. Celpe-Dê Pé is independent of Inep, and the result does not replace the official exam assessment.",
+      },
+      {
+        q: "What kind of text can I write?",
+        a: "The prompts follow the communicative format of the CELPE-BRAS written section, with a defined purpose, genre and reader.",
+      },
+      {
+        q: "Does the text have to be in Portuguese?",
+        a: "Yes. The answer should be written in Portuguese, as in the exam.",
+      },
+      {
+        q: "What appears in the result?",
+        a: "The result shows the estimated level, scores for task fulfillment, source comprehension, organization and language, corrected passages with explanations, and what from the source was used or was not in the source. It is not an official Inep score.",
+      },
+    ],
     promptLangNote: "Write the text in Portuguese — as in the exam.",
     promptKicker: "Prompt",
     promptGenre: "Genre:",
@@ -147,7 +213,7 @@ export const enUi = {
       "Escreva um texto de divulgação do Festival Fartura para a seção de gastronomia de um jornal. Apresente o festival e convide o leitor a conhecer a diversidade da culinária brasileira.",
     promptMeta: "Genre: announcement / invitation · 15–20 minutes",
     labelText: "Your text",
-    placeholder: "Start writing here. You don't need the email yet — the text comes first…",
+    placeholder: "Start writing here…",
     wordOne: "word",
     wordFew: "words",
     wordMany: "words",
@@ -157,11 +223,13 @@ export const enUi = {
     taskPickerLabel: "Task:",
     labelEmail: "Email to see the evaluation",
     emailPlaceholder: "you@email.com…",
-    gateOpen: "The result appears on this screen right away. The email only unlocks that view.",
-    gateClosed: "The email field opens after the first lines — so you can start writing without friction.",
+    gateOpen:
+      "We use your email to unlock the result on this screen. When sending is on, you also get a link to reopen the assessment.",
+    gateClosed:
+      "We use your email to unlock the result on this screen. The field opens after the first lines.",
     errorShort: "Write at least {min} words — the exam text is not short either.",
     errorEmail: "Leave a valid email to see the evaluation.",
-    submit: "See the free evaluation",
+    submit: "Check my writing for free",
     submitHint: "Write at least {min} words and leave a valid email.",
     accentsLabel: "Portuguese accents",
     accentsInsert: "Insert",

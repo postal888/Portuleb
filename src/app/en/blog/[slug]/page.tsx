@@ -40,6 +40,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     enBlogSlug: slug,
     hasRuBlogPost: hasRussianBlogPost(slug),
     ruBlogSlug: slug,
+    ogImage: post.coverImage,
+    ogImageAlt: post.coverAlt,
   });
 }
 
@@ -58,6 +60,7 @@ export default async function EnBlogArticlePage({ params }: Props) {
     datePublished: post.publishedAt,
     keywords: post.tags,
     section: post.category,
+    image: post.coverImage,
   });
   const breadcrumbSchema = breadcrumbJsonLd("en", [
     { name: ui.breadcrumb.home, path: localizedPath("en", "home") },

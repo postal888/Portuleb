@@ -420,14 +420,16 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
           </section>
         ) : null}
 
-        <EssayWorkbench
-          originalText={text}
-          analysis={result.analysis}
-          meta={result.meta}
-          locale={locale}
-          debug={result.debug}
-          onReset={() => setResult(null)}
-        />
+        <div aria-live="polite">
+          <EssayWorkbench
+            originalText={text}
+            analysis={result.analysis}
+            meta={result.meta}
+            locale={locale}
+            debug={result.debug}
+            onReset={() => setResult(null)}
+          />
+        </div>
       </div>
     );
   }
@@ -448,6 +450,10 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
         <p className="home-mock-eyebrow">{t.eyebrow}</p>
         <h1 className="home-writer-title">{t.title}</h1>
         <p className="home-writer-lead">{t.lead}</p>
+        <p className="home-writer-disclaimer">{t.disclaimer}</p>
+        <a className="home-writer-jump" href="#writing-editor">
+          {t.startWriting}
+        </a>
         <div className="home-writer-task-picker">
           <label className="home-writer-label" htmlFor="writer-task">
             {t.taskPickerLabel}
@@ -497,6 +503,7 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
       </article>
 
       <form
+        id="writing-editor"
         className="home-writer-form home-rise home-rise-delay-2"
         onSubmit={handleSubmit}
         aria-busy={checking}
@@ -582,7 +589,7 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
             aria-describedby={emailDescribedBy}
           />
           <p id="writer-email-hint" className="home-writer-gate-hint">
-            {canAskEmail ? t.gateOpen : t.gateClosed}
+            {canAskEmail ? t.emailNotice : t.gateClosed}
           </p>
         </div>
 
@@ -604,6 +611,10 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
           </p>
         ) : null}
 
+        <p className="sr-only" role="status" aria-live="polite">
+          {checking ? t.checking : ""}
+        </p>
+
         <button
           type="submit"
           className={`home-mock-cta home-writer-submit${checking ? " is-busy" : ""}`}
@@ -613,6 +624,50 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
           {checking ? t.checking : t.submit}
         </button>
       </form>
+
+      <WriterGuide t={t} />
+    </div>
+  );
+}
+
+function WriterGuide({ t }: { t: ReturnType<typeof getUi>["writing"] }) {
+  return (
+    <div className="home-writer-guide">
+      <section className="home-writer-block" aria-labelledby="writer-how-title">
+        <h2 id="writer-how-title">{t.howTitle}</h2>
+        <ol className="home-writer-steps">
+          {t.how.map((step) => (
+            <li key={step.title}>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="home-writer-block" aria-labelledby="writer-criteria-title">
+        <h2 id="writer-criteria-title">{t.criteriaTitle}</h2>
+        <ul className="home-writer-criteria">
+          {t.criteria.map((item) => (
+            <li key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="home-writer-block" aria-labelledby="writer-faq-title">
+        <h2 id="writer-faq-title">{t.faqTitle}</h2>
+        <div className="home-writer-faq">
+          {t.faq.map((item) => (
+            <div key={item.q}>
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

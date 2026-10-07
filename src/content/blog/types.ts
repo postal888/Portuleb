@@ -10,6 +10,8 @@ export type ArticleBlock =
   | { type: "video"; src: string; title?: string; caption?: string }
   | { type: "geoBox"; title: string; items: string[]; variant?: "summary" | "learn" }
   | { type: "internalLinks"; links: { label: string; href: string }[] }
+  | { type: "figure"; src: string; alt: string; caption?: string }
+  | { type: "table"; caption?: string; headers: string[]; rows: string[][] }
   | { type: "lexGrid"; columns: { title: string; items: string[] }[]; lang?: "pt" }
   /** Authentic exam source — never translated on EN pages. */
   | { type: "examArtifact"; kind: ExamArtifactKind; content: string; title?: string };
@@ -32,6 +34,9 @@ export type BlogPost = {
   featured: boolean;
   publishedAt: string;
   tags: string[];
+  /** Open Graph cover. Path under /public, ideally 1200×630. */
+  coverImage?: string;
+  coverAlt?: string;
   faq?: BlogFaqItem[];
   sidebar: {
     summary: string;

@@ -100,7 +100,7 @@ export const ptBrUi = {
     stepWrite: "escrever",
     stepEmail: "e-mail",
     stepLevel: "nível",
-    ctaWrite: "Escrever agora",
+    ctaWrite: "Corrigir minha redação",
     ctaQuiet: "Prefiro a prova 2026/1",
     pathsLabel: "Quatro caminhos",
     doorGuideTitle: "O que é o Celpe-Bras",
@@ -132,14 +132,80 @@ export const ptBrUi = {
     photoFeatSite: "Pessoa explorando o site",
   },
   writing: {
-    metaTitle: "Correção gratuita com IA para o Celpe-Bras",
+    metaTitle: "Correção de redação CELPE-BRAS grátis com IA | Celpe-Dê Pé",
     metaDescription:
-      "Correção gratuita com IA: a avaliação aparece na hora na tela. Independente do Inep; não substitui a nota oficial do exame. Deixe o e-mail para ver o resultado.",
+      "Escreva uma tarefa no formato do CELPE-BRAS e receba uma correção grátis com IA, feedback por critérios e uma estimativa do seu nível de escrita.",
     breadcrumbHome: "Início",
     breadcrumbHere: "Escrever",
     eyebrow: "Prova escrita",
-    title: "Escreva e descubra seu nível",
-    lead: "Correção gratuita com IA: a avaliação aparece na hora na tela. O Celpe-Dê Pé é independente do Inep; isto não substitui a nota oficial do exame. Deixe o e-mail para ver o resultado.",
+    title: "Correção de redação CELPE-BRAS grátis com IA",
+    lead: "Escreva uma tarefa no formato do CELPE-BRAS e receba na hora feedback sobre adequação à proposta, gênero textual, coesão, gramática e vocabulário.",
+    disclaimer:
+      "O Celpe-Dê Pé é independente do Inep. A avaliação é educativa e não substitui a nota oficial do exame.",
+    startWriting: "Começar a escrever",
+    emailNotice:
+      "Usaremos seu e-mail para liberar o resultado nesta tela. Quando o envio está ativo, você também recebe um link para reabrir a avaliação.",
+    howTitle: "Como funciona a correção",
+    how: [
+      {
+        title: "Escolha uma tarefa",
+        body: "Selecione uma proposta no formato da parte escrita do CELPE-BRAS.",
+      },
+      {
+        title: "Escreva seu texto",
+        body: "Responda em português considerando o gênero, o objetivo e o interlocutor indicados.",
+      },
+      {
+        title: "Receba o feedback",
+        body: "Veja a avaliação por critérios, os pontos fortes, os problemas encontrados e uma estimativa do seu nível.",
+      },
+    ],
+    criteriaTitle: "O que a correção avalia",
+    criteria: [
+      {
+        title: "Adequação à proposta",
+        body: "Se o texto cumpre o propósito e responde ao que foi solicitado.",
+      },
+      {
+        title: "Gênero e interlocução",
+        body: "Se o formato, o tom e a relação com o leitor estão adequados.",
+      },
+      {
+        title: "Coesão e organização",
+        body: "Se as ideias estão conectadas e organizadas com clareza.",
+      },
+      {
+        title: "Gramática e vocabulário",
+        body: "Se o uso da língua permite uma comunicação clara e precisa.",
+      },
+      {
+        title: "Nível estimado",
+        body: "Uma indicação educativa do desempenho, sem valor oficial.",
+      },
+    ],
+    faqTitle: "Perguntas frequentes",
+    faq: [
+      {
+        q: "A correção é gratuita?",
+        a: "Sim. Você pode enviar o texto e receber uma avaliação educativa com IA.",
+      },
+      {
+        q: "Esta é uma nota oficial do CELPE-BRAS?",
+        a: "Não. O Celpe-Dê Pé é independente do Inep, e o resultado não substitui a avaliação oficial do exame.",
+      },
+      {
+        q: "Que tipo de texto posso escrever?",
+        a: "As propostas seguem o formato comunicativo da parte escrita do CELPE-BRAS, com objetivo, gênero e interlocutor definidos.",
+      },
+      {
+        q: "O texto deve ser escrito em português?",
+        a: "Sim. A resposta deve ser escrita em português, como na prova.",
+      },
+      {
+        q: "O que aparece no resultado?",
+        a: "O resultado mostra o nível estimado, notas de adequação à proposta, compreensão do insumo, organização e adequação linguística, trechos corrigidos com explicações e o que foi aproveitado ou não estava no insumo. Não é a nota oficial do Inep.",
+      },
+    ],
     promptLangNote: "",
     promptKicker: "Proposta",
     promptGenre: "Gênero:",
@@ -148,7 +214,7 @@ export const ptBrUi = {
       "Escreva um texto de divulgação do Festival Fartura para a seção de gastronomia de um jornal. Apresente o festival e convide o leitor a conhecer a diversidade da culinária brasileira.",
     promptMeta: "Gênero: anúncio / convite · 15–20 minutos",
     labelText: "Seu texto",
-    placeholder: "Comece a escrever aqui. Não precisa do e-mail agora — primeiro o texto…",
+    placeholder: "Comece a escrever aqui…",
     wordOne: "palavra",
     wordFew: "palavras",
     wordMany: "palavras",
@@ -158,12 +224,13 @@ export const ptBrUi = {
     taskPickerLabel: "Proposta:",
     labelEmail: "E-mail para ver a avaliação",
     emailPlaceholder: "voce@email.com…",
-    gateOpen: "O resultado aparece na hora na tela. O e-mail só libera essa visualização.",
+    gateOpen:
+      "Usaremos seu e-mail para liberar o resultado nesta tela. Quando o envio está ativo, você também recebe um link para reabrir a avaliação.",
     gateClosed:
-      "O campo do e-mail abre depois das primeiras linhas — para você começar a escrever sem fricção.",
+      "Usaremos seu e-mail para liberar o resultado nesta tela. O campo abre depois das primeiras linhas.",
     errorShort: "Escreva pelo menos {min} palavras — no exame o texto também não é curto.",
     errorEmail: "Deixe um e-mail válido para ver a avaliação.",
-    submit: "Ver avaliação gratuita",
+    submit: "Corrigir minha redação grátis",
     submitHint: "Escreva pelo menos {min} palavras e deixe um e-mail válido.",
     accentsLabel: "Acentos do português",
     accentsInsert: "Inserir",

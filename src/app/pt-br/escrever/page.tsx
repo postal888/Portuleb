@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import { HomeWriterMock } from "@/components/home/HomeWriterMock";
-import { buildPageMetadata } from "@/i18n/metadata";
-import { getUi } from "@/i18n/ui";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { writerMetadata, writerPageJsonLd } from "@/lib/seo/writer-page-schema";
 
-const ui = getUi("pt-br").writing;
-
-export const metadata: Metadata = buildPageMetadata({
-  locale: "pt-br",
-  section: "writing",
-  title: ui.metaTitle,
-  description: ui.metaDescription,
-});
+export const metadata: Metadata = writerMetadata("pt-br");
 
 export default function EscreverPage() {
-  return <HomeWriterMock locale="pt-br" />;
+  return (
+    <>
+      <JsonLd data={writerPageJsonLd("pt-br")} />
+      <HomeWriterMock locale="pt-br" />
+    </>
+  );
 }

@@ -39,6 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     enBlogSlug: slug,
     hasRuBlogPost: hasRussianBlogPost(slug),
     ruBlogSlug: slug,
+    ogImage: post.coverImage,
+    ogImageAlt: post.coverAlt,
   });
 }
 
@@ -56,6 +58,7 @@ export default async function BlogArticlePage({ params }: Props) {
     datePublished: post.publishedAt,
     keywords: post.tags,
     section: post.category,
+    image: post.coverImage,
   });
   const breadcrumbSchema = breadcrumbJsonLd("pt-br", [
     { name: ui.breadcrumb.home, path: localizedPath("pt-br", "home") },
