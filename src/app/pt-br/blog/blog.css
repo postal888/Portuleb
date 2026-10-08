@@ -166,14 +166,12 @@
 
 .blog-article-card p {
   margin: 0.625rem 0;
-  max-width: 70ch;
   color: var(--site-text);
 }
 
 .blog-article-card ul {
   margin: 0.5rem 0 0.5rem 1.1rem;
   padding: 0;
-  max-width: 70ch;
 }
 
 .blog-article-card li {
