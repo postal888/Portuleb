@@ -35,22 +35,145 @@ export function normalizeCelpe(raw: unknown): CelpeTaskScore | undefined {
   };
 }
 
-function factHit(text: string, fact: string): boolean {
-  const hay = text
+const TRANSCRIPT_STOP = new Set([
+  "tambem",
+  "porque",
+  "quando",
+  "entao",
+  "durante",
+  "exemplo",
+  "pessoas",
+  "pessoa",
+  "justamente",
+  "atraves",
+  "primeiro",
+  "segundo",
+  "terceiro",
+  "sempre",
+  "depois",
+  "antes",
+  "fazer",
+  "feito",
+  "podem",
+  "vamos",
+  "voces",
+  "gente",
+  "coisa",
+  "coisas",
+  "muito",
+  "pouco",
+  "ainda",
+  "mesmo",
+  "sobre",
+  "entre",
+  "falante",
+  "musica",
+  "proximo",
+  "candidato",
+  "escreva",
+  "texto",
+  "tarefa",
+]);
+
+function fold(text: string): string {
+  return text
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
-  const needles = fact
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
+}
+
+function contentWords(text: string): string[] {
+  return fold(text)
+    .replace(/falante\s+\d+/g, " ")
+    .replace(/\[[^\]]*\]/g, " ")
+    .split(/[^a-z0-9]+/)
+    .filter((word) => word.length >= 6 && !TRANSCRIPT_STOP.has(word));
+}
+
+function clip(sentence: string): string {
+  const clean = sentence.replace(/\s+/g, " ").trim();
+  return clean.length > 110 ? `${clean.slice(0, 107)}...` : clean;
+}
+
+function factHit(text: string, fact: string): boolean {
+  const hay = fold(text);
+  const needles = fold(fact)
     .split(/[/,]| e /)
     .map((part) => part.trim())
     .filter((part) => part.length >= 5);
   return needles.some((needle) => hay.includes(needle.slice(0, 18)));
 }
 
+function mockFromTranscript(text: string, task: WritingTask): CelpeTaskScore {
+  const essay = fold(text);
+  const sentences = task.sourceText
+    .replace(/\[[^\]]*\]/g, " ")
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.replace(/Falante\s+\d+:/gi, "").trim())
+    .filter((sentence) => contentWords(sentence).length >= 3);
+
+  const uniqueSentences: string[] = [];
+  const seen = new Set<string>();
+  for (const sentence of sentences) {
+    const key = fold(sentence).slice(0, 80);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    uniqueSentences.push(sentence);
+  }
+
+  const hits = uniqueSentences.filter((sentence) => {
+    const words = [...new Set(contentWords(sentence))];
+    const found = words.filter((word) => essay.includes(word));
+    return found.length >= 2 && found.length / words.length >= 0.34;
+  });
+  const missed = uniqueSentences.filter((sentence) => !hits.includes(sentence));
+  const coverage = uniqueSentences.length ? hits.length / uniqueSentences.length : 0;
+
+  const promptWords = [...new Set(contentWords(task.prompt))];
+  const promptHits = promptWords.filter((word) => essay.includes(word)).length;
+  const promptRatio = promptWords.length ? promptHits / promptWords.length : 0;
+
+  const comprehension = 1 + coverage * 4;
+  const fulfillment = 1.5 + promptRatio * 2 + Math.min(1.5, coverage * 3);
+  const language = text.length > 400 ? 3 : 2;
+  const organization = text.split(/\n+/).length > 1 ? 3.5 : 3;
+  const scores = [fulfillment, comprehension, organization, language];
+  const average = scores.reduce((sum, score) => sum + score, 0) / 4;
+  const relevant = coverage >= 0.28 && promptRatio >= 0.15;
+
+  return {
+    estimatedLevel: levelFromAverage(average),
+    taskFulfillment: {
+      score: clampScore(fulfillment),
+      comment: relevant
+        ? "O texto se aproxima do que o enunciado pede e se apoia na gravação."
+        : "A proposta está só parcialmente cumprida: o texto não cobre o que o enunciado pede a partir da gravação.",
+    },
+    sourceComprehension: {
+      score: clampScore(comprehension),
+      comment:
+        coverage >= 0.28
+          ? "Há informações da transcrição no texto, reorganizadas para a tarefa."
+          : "Pouca coisa da transcrição do vídeo ou do áudio aparece. A relevância ao insumo fica fraca.",
+    },
+    organization: {
+      score: clampScore(organization),
+      comment: "Organização aceitável para treino; a banca ainda espera parágrafos com função clara.",
+    },
+    language: {
+      score: clampScore(language),
+      comment: "A língua comunica, mas não é o único critério — a tarefa e o insumo pesam mais.",
+    },
+    usedFacts: hits.slice(0, 4).map(clip),
+    missedFacts: missed.slice(0, 4).map(clip),
+    inventedFacts: [],
+    overallComment:
+      "Estimativa local: a relevância foi medida pela transcrição da gravação e pelo enunciado, não pela lista curta de fatos.",
+  };
+}
+
 export function mockCelpeScore(text: string, task: WritingTask): CelpeTaskScore {
+  if (task.sourceMedia) return mockFromTranscript(text, task);
   const used = task.keyFacts.filter((fact) => factHit(text, fact));
   const missed = task.keyFacts.filter((fact) => !factHit(text, fact));
   const genreHit =

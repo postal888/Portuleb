@@ -60,7 +60,7 @@ const FEATURED_BLOG_SLUG = "analise-tarefa-1-festival-fartura-2026-1";
 
 export function HomeLandingView({ locale }: { locale: Locale }) {
   const t = getUi(locale).home;
-  const writingHref = localizedPath(locale, "writing");
+  const writingHref = localizedPath(locale, "practiceWriting");
   const provaHref = localizedPath(locale, "pastExamSession", { slug: "2026-1" });
   const blogHref = localizedPath(locale, "blogPost", { slug: FEATURED_BLOG_SLUG });
 

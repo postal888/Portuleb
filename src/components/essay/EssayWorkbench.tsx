@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { renderPlainCorrected } from "@/lib/essay/renderer";
 import { explanationOf } from "@/lib/essay/types";
 import type {
@@ -152,40 +152,10 @@ function EssayTabs({
   current: Tab;
   onChange: (id: Tab) => void;
 }) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const [clip, setClip] = useState("inset(0 100% 0 0 round 999px)");
-  const [ready, setReady] = useState(false);
   const visible = tabs.filter((item) => !item.hidden);
 
-  const updateClip = useCallback(() => {
-    const overlay = overlayRef.current;
-    const active = rootRef.current?.querySelector<HTMLElement>(".essay-tab.is-on");
-    if (!overlay || !active) return;
-    const box = overlay.getBoundingClientRect();
-    const pill = active.getBoundingClientRect();
-    setClip(
-      `inset(${pill.top - box.top}px ${box.right - pill.right}px ${box.bottom - pill.bottom}px ${pill.left - box.left}px round 999px)`,
-    );
-  }, []);
-
-  useLayoutEffect(() => {
-    updateClip();
-    const frame = window.requestAnimationFrame(() => setReady(true));
-    const root = rootRef.current;
-    if (!root || typeof ResizeObserver === "undefined") {
-      return () => window.cancelAnimationFrame(frame);
-    }
-    const observer = new ResizeObserver(updateClip);
-    observer.observe(root);
-    return () => {
-      window.cancelAnimationFrame(frame);
-      observer.disconnect();
-    };
-  }, [current, updateClip, visible.length]);
-
   return (
-    <div className="essay-tabs" ref={rootRef}>
+    <div className="essay-tabs">
       <div className="essay-tabs-row" role="tablist">
         {visible.map((item) => (
           <button
@@ -198,18 +168,6 @@ function EssayTabs({
           >
             {item.label}
           </button>
-        ))}
-      </div>
-      <div
-        ref={overlayRef}
-        className={`essay-tabs-on${ready ? " is-ready" : ""}`}
-        style={{ clipPath: clip }}
-        aria-hidden
-      >
-        {visible.map((item) => (
-          <span key={item.id} className="essay-tab">
-            {item.label}
-          </span>
         ))}
       </div>
     </div>

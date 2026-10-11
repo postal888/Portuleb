@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { PracticeWritingView } from "@/components/practice/PracticeWritingView";
+import { WritingCatalog } from "@/components/practice/WritingCatalog";
 import { buildPageMetadata } from "@/i18n/metadata";
 import "@/app/pt-br/pratica/pratica.css";
+import "@/components/practice/escrita-nav.css";
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "pt-br",
   section: "practiceWriting",
-  title: "Produção escrita do Celpe-Bras e critérios",
+  title: "Escrita: tarefas da parte escrita do Celpe-Bras",
   description:
-    "Praticar a produção escrita das quatro tarefas do Celpe-Bras com avaliação alinhada aos critérios oficiais da banca: adequação, coesão e adequação linguística.",
+    "Escolha uma tarefa da parte escrita por edição, leia os modelos de texto e escreva com o vídeo, o áudio ou o texto de apoio.",
 });
 
 export default function EscreverPage() {
-  return <PracticeWritingView locale="pt-br" />;
+  return <WritingCatalog />;
 }

@@ -86,24 +86,11 @@
   border: 1px solid color-mix(in srgb, var(--site-primary) 8%, transparent);
 }
 
-.essay-tabs-row,
-.essay-tabs-on {
+.essay-tabs-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
   padding: 0.2rem;
-}
-
-.essay-tabs-on {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  clip-path: inset(0 100% 0 0 round 999px);
-}
-
-.essay-tabs-on.is-ready {
-  transition: clip-path 200ms var(--ease-out);
 }
 
 .essay-tab {
@@ -113,13 +100,9 @@
   font-weight: 600;
 }
 
-.essay-tabs-on .essay-tab {
+.essay-tab.is-on {
   background: var(--site-primary);
   color: var(--site-inverse);
-  border-color: transparent;
-}
-
-.essay-tab.is-on {
   border-color: transparent;
 }
 
@@ -688,7 +671,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .essay-work-btn:hover,
-  .essay-tab:hover {
+  .essay-tab:hover:not(.is-on) {
     border-color: color-mix(in srgb, var(--site-primary) 24%, transparent);
   }
 
@@ -707,7 +690,6 @@
 @media (prefers-reduced-motion: reduce) {
   .essay-work-btn,
   .essay-tab,
-  .essay-tabs-on,
   .essay-fn-link[data-tip]::after,
   .essay-bar-fill {
     transition: none;

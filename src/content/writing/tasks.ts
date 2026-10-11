@@ -1,4 +1,6 @@
-export const WRITING_TASK_IDS = [
+import { HISTORICAL_WRITING_TASK_IDS, HISTORICAL_WRITING_TASKS } from "./historical-tasks";
+
+const CURATED_WRITING_TASK_IDS = [
   "mandacaru-2025-2",
   "vendedor-sincero-2025-2",
   "nota-musical-2025-1",
@@ -7,14 +9,14 @@ export const WRITING_TASK_IDS = [
   "amor-aceitacao-2024-2",
   "zona-livre-2023-2",
   "cotas-usp-2023-2",
-  "kaka-jecupe-2000-1",
-  "hans-rio-2000-2",
 ] as const;
+
+export const WRITING_TASK_IDS = [...CURATED_WRITING_TASK_IDS, ...HISTORICAL_WRITING_TASK_IDS] as const;
 
 export type WritingTaskId = (typeof WRITING_TASK_IDS)[number];
 
 export type WritingTask = {
-  id: WritingTaskId;
+  id: string;
   cycle: string;
   number: string;
   title: string;
@@ -26,11 +28,15 @@ export type WritingTask = {
   sourceKicker: string;
   sourceTitle: string;
   sourceText: string;
+  /** Scanned page of the question booklet. Shown instead of sourceText. */
+  sourceImage?: string;
+  /** Video or audio the candidate writes from. Transcript stays in sourceText. */
+  sourceMedia?: { kind: "video" | "audio"; src: string };
   keyFacts: string[];
   mustDo: string[];
 };
 
-export const WRITING_TASKS: Record<WritingTaskId, WritingTask> = {
+const CURATED_WRITING_TASKS = {
   "mandacaru-2025-2": {
     id: "mandacaru-2025-2",
     cycle: "2025/2",
@@ -305,76 +311,12 @@ export const WRITING_TASKS: Record<WritingTaskId, WritingTask> = {
       "ressaltar os argumentos das ações afirmativas",
     ],
   },
-  "kaka-jecupe-2000-1": {
-    id: "kaka-jecupe-2000-1",
-    cycle: "2000/1",
-    number: "Tarefa 3",
-    title: "500 anos de desencontros",
-    shortLabel: "2000/1 · T3",
-    genre: "recomendações a governantes",
-    audience: "governantes do século XXI",
-    timeHint: "15–20 minutos",
-    prompt:
-      "Leia os segmentos de texto retirados de entrevista dada por Kaká Werá Jecupe à revista Isto É, em 21 de julho de 1999. Se você pudesse fazer três sugestões aos governantes do século XXI, para que pudéssemos viver em um mundo que equilibrasse o ser com o ter, o progresso com a natureza, o que recomendaria? Apoie-se nas ideias do entrevistado.",
-    sourceKicker: "Insumo · caderno oficial 2000/1",
-    sourceTitle: "500 Anos de Desencontros — Kaká Werá Jecupe",
-    sourceText: [
-      "Para o escritor Kaká Jecupe, a semente do distanciamento entre brancos e índios está na estrutura das sociedades: uma cultua o ter e a outra o ser.",
-      "Kaká Werá Jecupe é um caso raríssimo de escritor no Brasil. Índio tapuia, ou txucarramãe (guerreiro sem arma), como ele prefere, filho legítimo dos ancestrais habitantes das terras descobertas pelos portugueses, resolveu romper o silêncio de cinco séculos e escrever a história vista pela ótica dos que habitavam o Novo Mundo há milhares de anos.",
-      "ISTO É — O Brasil está se preparando para comemorar seus 500 anos. Para os povos indígenas, são anos de descoberta ou de invasão?",
-      "Kaká Werá Jecupe — De desencontro. Desencontro que provocou e continua provocando situações gravíssimas. A realidade atual indígena não é fácil.",
-      "ISTO É — E qual é a razão desse desencontro?",
-      "Kaká — A semente desse desencontro está numa sociedade que tem na sua estrutura de cultura a questão do ter e encontrou uma cultura aqui voltada para o ser.",
-      "ISTO É — Os europeus chegaram trazendo o progresso, trataram os que estavam aqui como primitivos. Como você pensa esta relação?",
-      "Kaká — Para quem fundamenta a sua cultura no ter, a noção de progresso está em ver ao seu redor o acúmulo de bens materiais. A noção de progresso dos indígenas está em desenvolver a sua capacidade criativa, a sua expressão no mundo. É preciso que a civilização olhe para os índios com menos prepotência, até para perceber que ela está em colapso.",
-    ].join("\n\n"),
-    keyFacts: [
-      "desencontro entre a cultura do ter e a do ser",
-      "duas noções de progresso",
-      "recomendações que equilibrem ser, ter e natureza",
-    ],
-    mustDo: [
-      "escrever três recomendações a governantes",
-      "equilibrar ser e ter, progresso e natureza",
-      "apoiar-se na entrevista, não em slogans vazios",
-    ],
-  },
-  "hans-rio-2000-2": {
-    id: "hans-rio-2000-2",
-    cycle: "2000/2",
-    number: "Tarefa 3",
-    title: "Mensagem eletrônica",
-    shortLabel: "2000/2 · T3",
-    genre: "mensagem eletrônica",
-    audience: "Hans, amigo estrangeiro",
-    timeHint: "15–20 minutos",
-    prompt:
-      "Imagine que você mora no Rio de Janeiro e, às 7h da manhã de um sábado, abre seu correio eletrônico, encontrando a seguinte mensagem enviada na sexta-feira por um amigo estrangeiro que está no Brasil. Você, que está livre no fim de semana, abre o jornal, lê as informações sobre o tempo e, baseando-se nelas, responda imediatamente a mensagem de seu amigo e dê sua opinião sobre a programação planejada por ele.",
-    sourceKicker: "Insumo · caderno oficial 2000/2",
-    sourceTitle: "Mensagem de Hans + previsão do tempo",
-    sourceText: [
-      "Oi.",
-      "Estou viajando pela Amazônia há dez dias e já terminei a reportagem que vim fazer aqui. Amanhã de manhã, estou pensando em pegar um voo direto de Manaus para o Rio de Janeiro. Deu vontade de rever os amigos e curtir a cidade. Se você achar boa ideia, amanhã de tarde, podemos ir ao Pão de Açúcar para ver a cidade lá do alto. Na outra vez que estive no Rio, não deu tempo, lembra? No domingo de noite, acho que vou seguir viagem para o nordeste, onde pretendo ficar uma semana. Quero muito sol e praia antes de voltar para Munique. O que acha da programação? Responda o mais cedo possível.",
-      "Até breve.",
-      "Hans",
-      "O TEMPO — Somar Meteorologia (página seguinte do caderno)",
-      "A nebulosidade aumenta e ocorre chuva isolada em forma de pancadas, devido à propagação de uma frente fria de fraca atividade próxima ao litoral do Estado.",
-      "Previsão para os próximos 5 dias do Rio de Janeiro (hoje, amanhã, segunda, terça e quarta): variação entre sol, nebulosidade e chuva isolada.",
-      "Notas por região no caderno: Região Sul, tempo ameno; Região Sudeste, tempo estável, com temperaturas elevadas no Rio; Região Centro-Oeste, tempo seco; Região Norte, pancadas de chuva; Região Nordeste, continuação de tempo seco, com sol.",
-    ].join("\n\n"),
-    keyFacts: [
-      "o plano de viagem do Hans",
-      "o tempo no Rio e no Nordeste",
-      "opinião sobre a programação",
-    ],
-    mustDo: [
-      "responder imediatamente por e-mail",
-      "usar a previsão do tempo",
-      "dar opinião sobre a programação de Hans",
-      "escrever como amigo que mora no Rio",
-    ],
-  },
 };
+
+export const WRITING_TASKS = {
+  ...CURATED_WRITING_TASKS,
+  ...Object.fromEntries(HISTORICAL_WRITING_TASKS.map((task) => [task.id, task])),
+} as Record<WritingTaskId, WritingTask>;
 
 export const DEFAULT_WRITING_TASK_ID: WritingTaskId = "mandacaru-2025-2";
 
@@ -389,4 +331,36 @@ export function getWritingTask(id?: string | null): WritingTask {
 
 export function listWritingTasks(): WritingTask[] {
   return WRITING_TASK_IDS.map((id) => WRITING_TASKS[id]);
+}
+
+function cycleRank(cycle: string): number {
+  const match = cycle.match(/(\d{4})\/(\d+)(?:\.(\d+))?/);
+  if (!match) return 0;
+  return Number(match[1]) * 1000 + Number(match[2]) * 10 + Number(match[3] ?? 0);
+}
+
+export const WRITING_CATALOG_HREF = "/pt-br/pratica/producao-escrita";
+export const WRITING_MODELOS_HREF = "/pt-br/pratica/producao-escrita/modelos";
+
+export function writingTaskHref(taskId: string): string {
+  return `${WRITING_CATALOG_HREF}/${taskId}`;
+}
+
+export function findWritingTask(cycle: string, number: string): WritingTask | undefined {
+  return listWritingTasks().find((task) => task.cycle === cycle && task.number === number);
+}
+
+export function writingTasksByCycle(): { cycle: string; tasks: WritingTask[] }[] {
+  const groups = new Map<string, WritingTask[]>();
+  for (const task of listWritingTasks()) {
+    const list = groups.get(task.cycle) ?? [];
+    list.push(task);
+    groups.set(task.cycle, list);
+  }
+  return [...groups.entries()]
+    .sort(([a], [b]) => cycleRank(b) - cycleRank(a))
+    .map(([cycle, tasks]) => ({
+      cycle,
+      tasks: [...tasks].sort((a, b) => a.number.localeCompare(b.number, "pt")),
+    }));
 }

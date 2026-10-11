@@ -1,4 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { getWritingTask } from "@/content/writing/tasks";
+import { mockCelpeScore } from "@/lib/essay/celpe";
 import { buildEssayCheckPrompts } from "@/lib/essay/prompt";
 import { normalizeCorrections, parseCheckEssayRequest, wordCount } from "@/lib/essay/schema";
 import { explanationOf, shortExplanationOf } from "@/lib/essay/types";
@@ -103,6 +105,39 @@ describe("язык объяснений в промпте", () => {
     expect(system).not.toMatch(/Never Russian/);
     expect(system).not.toMatch(/Never English/);
     expect(system).not.toContain("explanationRu");
+  });
+
+  it("видео и аудио оцениваются по транскрипции и по enunciado", () => {
+    const video = getWritingTask("2026-1-t1");
+    const videoPrompt = buildEssayCheckPrompts(request(), video);
+    expect(videoPrompt.system).toContain("TRANSCRIPTION OF THE VIDEO");
+    expect(videoPrompt.user).toContain("---TRANSCRIPTION OF THE VIDEO---");
+    expect(videoPrompt.user).toContain(video.prompt);
+    expect(videoPrompt.user).not.toContain("KEY FACTS THE ESSAY SHOULD USE");
+    expect(videoPrompt.user.split("No próximo fim de semana").length - 1).toBe(1);
+
+    const audio = getWritingTask("2026-1-t2");
+    expect(buildEssayCheckPrompts(request(), audio).user).toContain("---TRANSCRIPTION OF THE AUDIO---");
+
+    const text = getWritingTask("mandacaru-2025-2");
+    const textPrompt = buildEssayCheckPrompts(request(), text).user;
+    expect(textPrompt).toContain("---SOURCE TEXT (INSUMO)---");
+    expect(textPrompt).toContain("KEY FACTS THE ESSAY SHOULD USE");
+  });
+
+  it("локальная оценка видео опирается на транскрипцию, а не на короткий keyFact", () => {
+    const task = getWritingTask("2026-1-t1");
+    const onTopic = [
+      "O Festival Fartura é um festival de gastronomia no Jockey Club, em parceria com a Folha.",
+      "As expedições mapeiam a cadeia do alimento, do campo ao prato, e os visitantes podem provar broa com requeijão e frango na brasa.",
+      "Há aulas de receitas e uma feirinha de produtos. Daniel Castelli, de Canela, faz polenta de milho crioulo.",
+    ].join(" ");
+    const offTopic =
+      "A biblioteca municipal precisa de novos livros infantis e de um horário maior aos sábados para os estudantes do bairro.";
+    const relevant = mockCelpeScore(onTopic, task);
+    const unrelated = mockCelpeScore(offTopic, task);
+    expect(relevant.sourceComprehension.score).toBeGreaterThan(unrelated.sourceComprehension.score);
+    expect(relevant.taskFulfillment.score).toBeGreaterThan(unrelated.taskFulfillment.score);
   });
 
   it("форма JSON в промпте использует канонические имена", () => {

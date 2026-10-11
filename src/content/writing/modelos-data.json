@@ -1,0 +1,1206 @@
+{
+  "title": "Modelos de texto por tipo de tarefa",
+  "intro": "Nas 124 tarefas das edições de 2010 a 2026, quatro situações respondem por 110. Cada uma tem um modelo: a estrutura, um exemplo resolvido com uma tarefa real, as frases que ajudam e outras tarefas para treinar.",
+  "questionsTitle": "Antes de escolher o modelo, responda a quatro perguntas",
+  "questions": [
+    {
+      "q": "Quem sou eu?",
+      "a": "O papel vem no enunciado: gerente, professor, morador, leitor."
+    },
+    {
+      "q": "Para quem escrevo?",
+      "a": "Leitores em geral (A), alguém que decide (B), o meu grupo (C), o jornal ou o autor (D)."
+    },
+    {
+      "q": "Para quê?",
+      "a": "Apresentar, pedir, orientar ou opinar."
+    },
+    {
+      "q": "O que tenho de incluir?",
+      "a": "Conte os pontos do enunciado: quase sempre são dois ou três."
+    }
+  ],
+  "types": [
+    {
+      "id": "A",
+      "title": "Apresentar ao público",
+      "where": "Tarefas 1 e 2 (vídeo e áudio) · 34 das 124 tarefas",
+      "summary": "Você divulga um lugar, um projeto, um evento ou um livro para leitores que não conhece: os visitantes de um site, os leitores de um jornal, os seguidores de um blog.",
+      "genres": "texto para site ou blog, matéria, notícia, texto de divulgação, panfleto, texto de catálogo, post",
+      "promptWords": "apresente, divulgue, informe, explique, destaque, incentive os leitores a…",
+      "structure": [
+        {
+          "label": "Título",
+          "text": "[Tema] + [o que chama a atenção]"
+        },
+        {
+          "label": "Abertura",
+          "text": "[Nome do lugar / projeto / evento] é [definição em uma frase]. [Um dado ou fato do vídeo ou do áudio que desperte interesse]."
+        },
+        {
+          "label": "Ponto 1",
+          "text": "[Primeiro ponto pedido no enunciado: a história, a origem, como funciona]. Criado em [ano] por [quem], o projeto [o que faz]."
+        },
+        {
+          "label": "Ponto 2",
+          "text": "[Segundo ponto pedido: características, atrações, vantagens]. Entre os destaques estão [item 1] e [item 2]. Além disso, [item 3]."
+        },
+        {
+          "label": "Fecho",
+          "text": "[Chamada ao leitor]: vale a pena [conhecer / visitar / participar]. Para isso, basta [como, onde, quando]."
+        }
+      ],
+      "structureNote": "Não é uma carta: sem saudação e sem assinatura. O título faz parte do texto.",
+      "exampleLabel": "Edição 2025/1 · Tarefa 1 · Visitação ao Parque Estrada de Santos",
+      "exampleCycle": "2025/1",
+      "exampleNumber": "Tarefa 1",
+      "examplePrompt": "Você mantém um site de dicas de ecoturismo. Escreva um texto sobre o Parque Serra do Mar para ser publicado nesse site, informando as principais características naturais e históricas do Parque, com o propósito de estimular os turistas a visitarem a Estrada Velha de Santos.",
+      "exampleRows": [
+        {
+          "label": "Título",
+          "text": "Caminhos do Mar: natureza e história a pé pela Estrada Velha de Santos"
+        },
+        {
+          "label": "Abertura",
+          "text": "Você sabia que é possível descer a Serra do Mar caminhando por uma estrada onde não passam carros desde 1985? A antiga Estrada de Santos, que liga São Paulo à Baixada Santista, hoje se chama Caminhos do Mar e fica dentro do Parque Estadual Serra do Mar, entre São Bernardo do Campo e Cubatão."
+        },
+        {
+          "label": "Ponto 1 · natureza",
+          "text": "O parque tem 332 mil hectares de Mata Atlântica e vai do Rio de Janeiro até Pedro de Toledo, no Vale do Ribeira. Pelo caminho, o visitante encontra cachoeiras, muito verde e uma vista impressionante do mar. A região abriga espécies ameaçadas de extinção, como a onça-parda, que já foi vista na estrada com dois filhotes."
+        },
+        {
+          "label": "Ponto 2 · história",
+          "text": "O passeio também é uma aula de história. Ao longo dos nove quilômetros há monumentos construídos em 1922, que serviam de ponto de repouso: era ali que os motoristas paravam para colocar água no radiador. No meio da mata estão ainda as pedras da Calçada do Lorena, do final do século XVIII, por onde Dom Pedro I subiu em setembro de 1822, a caminho de proclamar a Independência do Brasil."
+        },
+        {
+          "label": "Fecho",
+          "text": "Vale a pena reservar um dia para essa caminhada. As visitas precisam ser agendadas e são acompanhadas por monitores, que explicam os monumentos e a flora. Vá preparado para andar bastante: a serra espera por você!"
+        }
+      ],
+      "exampleNote": "Resposta-modelo escrita para este guia, com cerca de 230 palavras; as informações vêm do vídeo da prova. Não é uma resposta oficial nem um texto de examinando.",
+      "phrases": [
+        {
+          "title": "Para abrir",
+          "items": [
+            "Você já ouviu falar de…?",
+            "Quem passa por [lugar] talvez não imagine que…",
+            "Desde [ano], [projeto] vem…",
+            "[Número] pessoas já…"
+          ]
+        },
+        {
+          "title": "Para desenvolver",
+          "items": [
+            "O projeto funciona da seguinte forma: …",
+            "Um dos diferenciais é…",
+            "Segundo [quem fala no vídeo], …",
+            "Além de [A], o local também oferece [B]."
+          ]
+        },
+        {
+          "title": "Para chamar o leitor",
+          "items": [
+            "Não deixe de…",
+            "Para participar, basta…",
+            "Se você procura [algo], esta é uma ótima opção.",
+            "Vale a visita!"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "label": "Matéria ou notícia",
+          "text": "Título e primeiro parágrafo com o quê, quem, onde e quando. Terceira pessoa, sem falar com «você»."
+        },
+        {
+          "label": "Post de blog ou texto para site",
+          "text": "Título, tom próximo, pode usar «você» e a primeira pessoa."
+        },
+        {
+          "label": "Texto de divulgação, panfleto, catálogo",
+          "text": "Título ou slogan, frases curtas, benefícios em destaque, chamada final."
+        },
+        {
+          "label": "Coluna ou depoimento",
+          "text": "Primeira pessoa: conte a experiência e termine com o convite ao leitor."
+        }
+      ],
+      "checklist": [
+        "O texto tem título.",
+        "Você fala com leitores em geral, não com uma pessoa.",
+        "Todos os pontos do enunciado aparecem (conte-os antes de escrever).",
+        "As informações vêm do vídeo ou do áudio, com as suas palavras.",
+        "Se o enunciado diz «incentive», o texto termina com uma chamada."
+      ],
+      "tasks": [
+        {
+          "cycle": "2010/1",
+          "number": "Tarefa 3",
+          "genre": "post de blog",
+          "title": "Banho de Lua"
+        },
+        {
+          "cycle": "2011/1",
+          "number": "Tarefa 2",
+          "genre": "texto de divulgação",
+          "title": "Novo Livro de Boris Fausto"
+        },
+        {
+          "cycle": "2011/2",
+          "number": "Tarefa 1",
+          "genre": "texto para jornal escolar",
+          "title": "Festa Popular"
+        },
+        {
+          "cycle": "2012/1",
+          "number": "Tarefa 2",
+          "genre": "texto informativo (catálogo)",
+          "title": "Ecomoda"
+        },
+        {
+          "cycle": "2012/2",
+          "number": "Tarefa 1",
+          "genre": "post de blog",
+          "title": "Copacabana comemora 120 anos"
+        },
+        {
+          "cycle": "2012/2",
+          "number": "Tarefa 3",
+          "genre": "texto para site",
+          "title": "Empreguetes"
+        },
+        {
+          "cycle": "2013/1",
+          "number": "Tarefa 2",
+          "genre": "texto para pôster",
+          "title": "Cultivando Água Boa"
+        },
+        {
+          "cycle": "2013/1",
+          "number": "Tarefa 3",
+          "genre": "texto para catálogo",
+          "title": "Bolinhos dos Sonhos"
+        },
+        {
+          "cycle": "2013/2",
+          "number": "Tarefa 3",
+          "genre": "texto de propaganda",
+          "title": "Turismo de Inclusão"
+        },
+        {
+          "cycle": "2014/1",
+          "number": "Tarefa 1",
+          "genre": "texto de apresentação de cardápio",
+          "title": "Café"
+        },
+        {
+          "cycle": "2014/1",
+          "number": "Tarefa 2",
+          "genre": "coluna de revista",
+          "title": "Cinematerna"
+        },
+        {
+          "cycle": "2015/1",
+          "number": "Tarefa 1",
+          "genre": "artigo para jornal de bairro",
+          "title": "Café na Vila Madalena"
+        },
+        {
+          "cycle": "2015/1",
+          "number": "Tarefa 2",
+          "genre": "texto para site",
+          "title": "Cães-guia"
+        },
+        {
+          "cycle": "2016/1",
+          "number": "Tarefa 1",
+          "genre": "depoimento para site",
+          "title": "Ciências sem Fronteiras"
+        },
+        {
+          "cycle": "2016/1.2",
+          "number": "Tarefa 1",
+          "genre": "depoimento para revista",
+          "title": "Exporta Fácil Correios"
+        },
+        {
+          "cycle": "2016/1.2",
+          "number": "Tarefa 2",
+          "genre": "texto de abertura de site",
+          "title": "Calendário indígena"
+        },
+        {
+          "cycle": "2016/2",
+          "number": "Tarefa 1",
+          "genre": "matéria para site",
+          "title": "Museu da Imigração"
+        },
+        {
+          "cycle": "2016/2",
+          "number": "Tarefa 3",
+          "genre": "post de blog",
+          "title": "Cadastro de hortas"
+        },
+        {
+          "cycle": "2017/1",
+          "number": "Tarefa 1",
+          "genre": "notícia",
+          "title": "Festival Gastronômico de Tiradentes"
+        },
+        {
+          "cycle": "2017/2",
+          "number": "Tarefa 1",
+          "genre": "texto de divulgação para site",
+          "title": "Funcionário da Prefeitura de Florianópolis-SC"
+        },
+        {
+          "cycle": "2017/2",
+          "number": "Tarefa 3",
+          "genre": "texto de apresentação de campanha",
+          "title": "Serra da Capivara"
+        },
+        {
+          "cycle": "2019/1",
+          "number": "Tarefa 1",
+          "genre": "texto de apresentação para site",
+          "title": "História da Arte"
+        },
+        {
+          "cycle": "2019/1",
+          "number": "Tarefa 2",
+          "genre": "texto de divulgação para redes sociais",
+          "title": "Passeios virtuais"
+        },
+        {
+          "cycle": "2019/2",
+          "number": "Tarefa 1",
+          "genre": "matéria para site da escola",
+          "title": "Línguas indígenas"
+        },
+        {
+          "cycle": "2019/2",
+          "number": "Tarefa 2",
+          "genre": "panfleto",
+          "title": "Redes de apoio à amamentação"
+        },
+        {
+          "cycle": "2022/2",
+          "number": "Tarefa 1",
+          "genre": "postagem para site",
+          "title": "Brasilidade - Mandioca"
+        },
+        {
+          "cycle": "2022/2",
+          "number": "Tarefa 2",
+          "genre": "panfleto",
+          "title": "Paraíso na Terra"
+        },
+        {
+          "cycle": "2023/1",
+          "number": "Tarefa 2",
+          "genre": "coluna de opinião",
+          "title": "Mulher e futebol"
+        },
+        {
+          "cycle": "2023/1",
+          "number": "Tarefa 3",
+          "genre": "texto de divulgação/convite",
+          "title": "Ciência cidadã"
+        },
+        {
+          "cycle": "2023/2",
+          "number": "Tarefa 1",
+          "genre": "texto de divulgação para site",
+          "title": "Alimentos integrais"
+        },
+        {
+          "cycle": "2025/1",
+          "number": "Tarefa 1",
+          "genre": "texto para site de ecoturismo",
+          "title": "Visitação ao Parque Estrada de Santos"
+        },
+        {
+          "cycle": "2025/1",
+          "number": "Tarefa 2",
+          "genre": "coluna para website",
+          "title": "A Última Floresta"
+        },
+        {
+          "cycle": "2025/2",
+          "number": "Tarefa 3",
+          "genre": "texto de homenagem para site",
+          "title": "Assentamento Mandacaru"
+        },
+        {
+          "cycle": "2026/1",
+          "number": "Tarefa 1",
+          "genre": "artigo para jornal",
+          "title": "Festival Fartura"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "Pedir ou propor a quem decide",
+      "where": "Tarefa 3, sobretudo · 31 das 124 tarefas",
+      "summary": "Você escreve a alguém que pode dizer sim ou não: o chefe, a diretoria, o prefeito, uma secretaria, empresas que podem patrocinar. O texto de apoio fornece os argumentos.",
+      "genres": "carta, e-mail, carta aberta, requerimento, proposta, relatório ou texto para a diretoria",
+      "promptWords": "solicite, sugira, proponha, indique, convença, justifique",
+      "structure": [
+        {
+          "label": "Cabeçalho",
+          "text": "[Local e data] (em carta) / Assunto: [o pedido em poucas palavras] (em e-mail)"
+        },
+        {
+          "label": "Vocativo",
+          "text": "Prezado(a) Senhor(a) [cargo],"
+        },
+        {
+          "label": "Quem e por quê",
+          "text": "Sou [o papel dado no enunciado] e escrevo para [solicitar / sugerir / propor] [o pedido em uma frase]."
+        },
+        {
+          "label": "Contexto",
+          "text": "[Apresente o projeto ou o problema]. Conforme a reportagem [título], [dado ou fato do texto]."
+        },
+        {
+          "label": "Justificativa",
+          "text": "Essa iniciativa traria [benefício] para [a empresa / a escola / a cidade]. Em primeiro lugar, [argumento 1]. Além disso, [argumento 2]."
+        },
+        {
+          "label": "Pedido",
+          "text": "Diante disso, [solicito / proponho] que [ação concreta]. Coloco-me à disposição para apresentar mais detalhes."
+        },
+        {
+          "label": "Fecho",
+          "text": "Atenciosamente,\n[Nome fictício]\n[Cargo ou papel]"
+        }
+      ],
+      "structureNote": "Assine com um nome fictício e o papel do enunciado. O Caderno de Respostas não pode trazer o seu nome verdadeiro.",
+      "exampleLabel": "Edição 2022/2 · Tarefa 3 · Boneca Indígena",
+      "exampleCycle": "2022/2",
+      "exampleNumber": "Tarefa 3",
+      "examplePrompt": "Você é Diretor de Marketing de uma loja de brinquedos. Com base na reportagem sobre as bonecas We’e’ena Tikuna, elabore um e-mail à diretoria de vendas sugerindo a inclusão das bonecas indígenas no catálogo de produtos da loja. Em seu texto, apresente as características das bonecas, o que elas representam, e as vantagens que elas podem trazer para a imagem da empresa.",
+      "exampleRows": [
+        {
+          "label": "Cabeçalho",
+          "text": "Assunto: Sugestão de novo produto: bonecas We’e’ena Tikuna"
+        },
+        {
+          "label": "Vocativo",
+          "text": "Prezada Diretoria de Vendas,"
+        },
+        {
+          "label": "Quem e por quê",
+          "text": "Como Diretor de Marketing, escrevo para sugerir a inclusão das bonecas We’e’ena Tikuna em nosso catálogo de produtos."
+        },
+        {
+          "label": "Contexto · ponto 1",
+          "text": "As bonecas foram criadas pela designer e empresária indígena We’e’ena Tikuna, em homenagem à sua aldeia de origem, Umariaçu, no Amazonas. Cada uma leva de três a cinco dias para ficar pronta e é feita com algodão cru, fibra vegetal de tururi e grafismos do povo Tikuna. Há vários modelos, com roupas e formas diferentes."
+        },
+        {
+          "label": "Contexto · ponto 2",
+          "text": "Mais do que brinquedos, elas contam uma história: apresentam às crianças a cultura indígena sem os estereótipos que aparecem nos livros e representam um corpo real, fora dos padrões habituais. Como diz a criadora, quem compra leva não só uma boneca de pano, mas uma história."
+        },
+        {
+          "label": "Justificativa · ponto 3",
+          "text": "Para a nossa loja, as vantagens são claras. Em primeiro lugar, a marca ficaria associada à diversidade e ao respeito pelos povos indígenas. Além disso, ofereceríamos às famílias e às escolas um produto com valor educativo, diferente do que já existe no mercado."
+        },
+        {
+          "label": "Pedido",
+          "text": "Diante disso, proponho que avaliemos uma primeira encomenda para o próximo catálogo. Coloco-me à disposição para apresentar a proposta em reunião."
+        },
+        {
+          "label": "Fecho",
+          "text": "Atenciosamente,\nCarlos Mendes\nDiretor de Marketing"
+        }
+      ],
+      "exampleNote": "Resposta-modelo escrita para este guia, com cerca de 200 palavras; as informações vêm da reportagem da prova. Não é uma resposta oficial nem um texto de examinando.",
+      "phrases": [
+        {
+          "title": "Para abrir",
+          "items": [
+            "Venho, por meio desta, [solicitar]…",
+            "Escrevo em nome de [grupo]…",
+            "Na qualidade de [papel], gostaria de…"
+          ]
+        },
+        {
+          "title": "Para justificar",
+          "items": [
+            "Como mostra a reportagem, …",
+            "Entre os benefícios, destaco…",
+            "A experiência de [lugar] mostra que…",
+            "Trata-se de uma iniciativa de [baixo custo / grande alcance]."
+          ]
+        },
+        {
+          "title": "Para pedir",
+          "items": [
+            "Solicito, portanto, que…",
+            "Gostaria de sugerir que…",
+            "Conto com o apoio de [instituição] para…"
+          ]
+        },
+        {
+          "title": "Para fechar",
+          "items": [
+            "Agradeço desde já a atenção.",
+            "Fico à disposição para esclarecimentos.",
+            "Certo(a) de poder contar com a sua colaboração, despeço-me."
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "label": "E-mail",
+          "text": "Linha de assunto, vocativo, sem local e data. Fecho com nome e cargo."
+        },
+        {
+          "label": "Carta formal",
+          "text": "Local e data, vocativo, corpo, fecho e assinatura."
+        },
+        {
+          "label": "Carta aberta",
+          "text": "Título «Carta aberta a [destinatário]». Usa «nós», expõe o problema diante do público e cobra medidas. Termina com local, data e quem assina."
+        },
+        {
+          "label": "Requerimento, proposta, relatório",
+          "text": "Cabeçalho (Para, De, Assunto), parágrafos curtos, linguagem impessoal. O requerimento termina com «Nestes termos, pede deferimento»."
+        }
+      ],
+      "checklist": [
+        "O interlocutor aparece no vocativo, com o cargo.",
+        "O pedido está escrito de forma explícita: o que exatamente você quer.",
+        "Os argumentos vêm do texto de apoio e mostram o interesse do interlocutor.",
+        "Tratamento formal: o senhor, a senhora.",
+        "Fecho e assinatura com o papel, não com o seu nome."
+      ],
+      "tasks": [
+        {
+          "cycle": "2010/2",
+          "number": "Tarefa 2",
+          "genre": "relatório",
+          "title": "Indústria da tecnologia"
+        },
+        {
+          "cycle": "2011/1",
+          "number": "Tarefa 3",
+          "genre": "texto para a diretoria",
+          "title": "Cosméticos para homens"
+        },
+        {
+          "cycle": "2012/1",
+          "number": "Tarefa 1",
+          "genre": "texto aos prefeitos",
+          "title": "Pescando Letras"
+        },
+        {
+          "cycle": "2012/1",
+          "number": "Tarefa 3",
+          "genre": "carta (reivindicação)",
+          "title": "Faxina no Céu"
+        },
+        {
+          "cycle": "2012/1",
+          "number": "Tarefa 4",
+          "genre": "carta de patrocínio",
+          "title": "Anuncie no samba-enredo e salve o Carnaval"
+        },
+        {
+          "cycle": "2013/1",
+          "number": "Tarefa 1",
+          "genre": "e-mail ao diretor",
+          "title": "Projeto Horta Ecológica"
+        },
+        {
+          "cycle": "2013/2",
+          "number": "Tarefa 1",
+          "genre": "introdução de processo (ofício)",
+          "title": "O Céu de Brasília"
+        },
+        {
+          "cycle": "2013/2",
+          "number": "Tarefa 2",
+          "genre": "carta aos diretores",
+          "title": "Escola Aberta"
+        },
+        {
+          "cycle": "2014/1",
+          "number": "Tarefa 3",
+          "genre": "carta de apresentação",
+          "title": "Biblioteca Comunitária Ilê Ará"
+        },
+        {
+          "cycle": "2014/2",
+          "number": "Tarefa 3",
+          "genre": "carta de candidatura",
+          "title": "Conheça o mundo e ajude a mudá-lo"
+        },
+        {
+          "cycle": "2015/1",
+          "number": "Tarefa 3",
+          "genre": "carta ao prefeito",
+          "title": "Os eletrossensíveis"
+        },
+        {
+          "cycle": "2015/2",
+          "number": "Tarefa 3",
+          "genre": "e-mail de pedido de patrocínio",
+          "title": "Projeto Favela Orgânica"
+        },
+        {
+          "cycle": "2015/2",
+          "number": "Tarefa 4",
+          "genre": "carta aberta",
+          "title": "Azulejos valiosos"
+        },
+        {
+          "cycle": "2016/1",
+          "number": "Tarefa 2",
+          "genre": "e-mail ao gerente",
+          "title": "Tecnoboné"
+        },
+        {
+          "cycle": "2016/1",
+          "number": "Tarefa 3",
+          "genre": "texto de proposta ao diretor",
+          "title": "Meu escritório é em casa"
+        },
+        {
+          "cycle": "2017/1",
+          "number": "Tarefa 3",
+          "genre": "carta de solicitação de apoio",
+          "title": "ONG Areia"
+        },
+        {
+          "cycle": "2019/2",
+          "number": "Tarefa 3",
+          "genre": "e-mail de pedido de apoio",
+          "title": "Sustentabilidade"
+        },
+        {
+          "cycle": "2021/1",
+          "number": "Tarefa 3",
+          "genre": "requerimento",
+          "title": "Enciclopédia Negra"
+        },
+        {
+          "cycle": "2022/2",
+          "number": "Tarefa 3",
+          "genre": "e-mail à diretoria",
+          "title": "Boneca Indígena"
+        },
+        {
+          "cycle": "2023/1",
+          "number": "Tarefa 1",
+          "genre": "e-mail",
+          "title": "Geladeiroteca"
+        },
+        {
+          "cycle": "2023/2",
+          "number": "Tarefa 2",
+          "genre": "e-mail à diretoria",
+          "title": "O valor de uma boa soneca"
+        },
+        {
+          "cycle": "2023/2",
+          "number": "Tarefa 3",
+          "genre": "texto de inscrição em concurso",
+          "title": "Zona livre para incluir"
+        },
+        {
+          "cycle": "2023/2",
+          "number": "Tarefa 4",
+          "genre": "carta aberta",
+          "title": "Cotas para professores negros e indígenas na universidade"
+        },
+        {
+          "cycle": "2024/1",
+          "number": "Tarefa 3",
+          "genre": "e-mail de indicação",
+          "title": "Rapper indígena"
+        },
+        {
+          "cycle": "2024/2",
+          "number": "Tarefa 3",
+          "genre": "e-mail à coordenação",
+          "title": "Biojoias"
+        },
+        {
+          "cycle": "2024/2.2",
+          "number": "Tarefa 1",
+          "genre": "carta à Secretaria de Ensino",
+          "title": "Aulas práticas"
+        },
+        {
+          "cycle": "2025/1",
+          "number": "Tarefa 3",
+          "genre": "e-mail ao prefeito",
+          "title": "Nota Musical que Salva"
+        },
+        {
+          "cycle": "2025/2",
+          "number": "Tarefa 1",
+          "genre": "carta de proposta",
+          "title": "Armários Coletivos"
+        },
+        {
+          "cycle": "2026/1",
+          "number": "Tarefa 2",
+          "genre": "carta aberta",
+          "title": "Cardápio QR Code"
+        },
+        {
+          "cycle": "2026/1",
+          "number": "Tarefa 3",
+          "genre": "e-mail à escola",
+          "title": "Cantigas de roda"
+        },
+        {
+          "cycle": "2026/1",
+          "number": "Tarefa 4",
+          "genre": "proposta à diretoria",
+          "title": "Desigualdade racial na mídia brasileira"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "Informar ou mobilizar o seu grupo",
+      "where": "Tarefa 2, sobretudo · 23 das 124 tarefas",
+      "summary": "Você escreve para pessoas com quem tem um vínculo: funcionários, colegas, vizinhos, associados, pais de alunos, clientes. Explica algo e diz o que fazer.",
+      "genres": "e-mail aos funcionários, carta aos vizinhos ou associados, texto para mural, informativo, guia, convite",
+      "promptWords": "informe, explique, oriente, instrua, convide, incentive a participar",
+      "structure": [
+        {
+          "label": "Vocativo",
+          "text": "[Prezados colegas / Caros vizinhos / Senhores pais / Prezados associados],"
+        },
+        {
+          "label": "Motivo",
+          "text": "Como [papel], escrevo para [informar sobre / convidá-los para] [tema]."
+        },
+        {
+          "label": "O que é",
+          "text": "[Explique o que está acontecendo ou o que é a iniciativa]: [informações do áudio ou do texto]."
+        },
+        {
+          "label": "O que muda para vocês",
+          "text": "[Vantagens ou orientações]. Para isso:\n• [orientação 1]\n• [orientação 2]\n• [orientação 3]"
+        },
+        {
+          "label": "Chamada",
+          "text": "Contamos com a participação de todos. [O que fazer, como e até quando]."
+        },
+        {
+          "label": "Fecho",
+          "text": "[Um abraço / Atenciosamente],\n[Nome fictício], [papel]"
+        }
+      ],
+      "structureNote": "O tom depende do papel: um gerente escreve aos funcionários de um jeito, um vizinho aos vizinhos de outro.",
+      "exampleLabel": "Edição 2020/1 · Tarefa 2 · Fake news",
+      "exampleCycle": "2020/1",
+      "exampleNumber": "Tarefa 2",
+      "examplePrompt": "Na condição de gerente de recursos humanos de uma empresa, você percebeu que notícias falsas vêm sendo compartilhadas por colegas de trabalho. Escreva, com base nas informações do áudio, um e-mail para os funcionários a fim de instruí-los sobre como identificar e evitar a propagação de fake news.",
+      "exampleRows": [
+        {
+          "label": "Assunto",
+          "text": "Assunto: Como reconhecer e não espalhar notícias falsas"
+        },
+        {
+          "label": "Vocativo",
+          "text": "Prezados colegas,"
+        },
+        {
+          "label": "Motivo",
+          "text": "Como gerente de Recursos Humanos, percebi que algumas notícias falsas têm circulado entre nós. Escrevo para compartilhar orientações simples sobre como reconhecê-las e evitar que se espalhem."
+        },
+        {
+          "label": "Ponto 1 · identificar",
+          "text": "Desconfiem de uma notícia que reúne três sinais. Primeiro, ela parece ter alguma lógica: mistura fragmentos de verdade para plantar a dúvida. Segundo, vem com uma manchete escandalosa, que apela para a emoção e desarma o nosso senso crítico. Terceiro, aparece em todos os lugares ao mesmo tempo, o que dá a impressão de que todo mundo está falando disso."
+        },
+        {
+          "label": "Ponto 2 · evitar",
+          "text": "Ao receber uma mensagem assim:\n• não compartilhem: quebrem a corrente;\n• pesquisem a manchete na internet junto com a palavra «boato»;\n• respondam a quem enviou, indicando a fonte que mostra que a informação é falsa."
+        },
+        {
+          "label": "Chamada",
+          "text": "Como lembra o comentarista Luciano Pires, fake news são como ervas daninhas: não basta aparar, é preciso arrancar pela raiz. Conto com a colaboração de todos."
+        },
+        {
+          "label": "Fecho",
+          "text": "Atenciosamente,\nAna Ribeiro\nGerente de Recursos Humanos"
+        }
+      ],
+      "exampleNote": "Resposta-modelo escrita para este guia, com cerca de 170 palavras; as informações vêm do áudio da prova. Não é uma resposta oficial nem um texto de examinando.",
+      "phrases": [
+        {
+          "title": "Para abrir",
+          "items": [
+            "Gostaria de compartilhar com vocês…",
+            "Como muitos já sabem, …",
+            "Tenho uma novidade para a nossa [escola / empresa / rua]: …"
+          ]
+        },
+        {
+          "title": "Para explicar",
+          "items": [
+            "A proposta é simples: …",
+            "Na prática, isso significa que…",
+            "Funciona assim: …"
+          ]
+        },
+        {
+          "title": "Para orientar",
+          "items": [
+            "Recomendo que…",
+            "Fiquem atentos a…",
+            "Antes de [ação], verifiquem…",
+            "Evitem…"
+          ]
+        },
+        {
+          "title": "Para mobilizar e fechar",
+          "items": [
+            "Para participar, basta…",
+            "Conto com a colaboração de todos.",
+            "Qualquer dúvida, estou à disposição."
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "label": "E-mail interno",
+          "text": "Linha de assunto, tom semiformal, «vocês»."
+        },
+        {
+          "label": "Carta a vizinhos ou associados",
+          "text": "Data, vocativo, tom próximo, «nós»."
+        },
+        {
+          "label": "Texto para mural ou informativo",
+          "text": "Título, parágrafos curtos, sem vocativo. Quem assina é a instituição: «A Direção»."
+        },
+        {
+          "label": "Guia ou panfleto de orientações",
+          "text": "Título, itens numerados, verbos no imperativo: «Verifique», «Evite»."
+        },
+        {
+          "label": "Convite",
+          "text": "Quem convida, para quê, quem é o convidado e por que vale a pena ir."
+        }
+      ],
+      "checklist": [
+        "Você fala com «vocês»: um grupo que conhece.",
+        "Usa «nós» quando faz parte do grupo.",
+        "O tom combina com o seu papel.",
+        "As orientações são práticas e claras.",
+        "O texto termina dizendo o que fazer."
+      ],
+      "tasks": [
+        {
+          "cycle": "2010/1",
+          "number": "Tarefa 1",
+          "genre": "carta",
+          "title": "Dia do Trabalhador"
+        },
+        {
+          "cycle": "2011/1",
+          "number": "Tarefa 1",
+          "genre": "texto para mural",
+          "title": "Alimentação Saudável"
+        },
+        {
+          "cycle": "2011/2",
+          "number": "Tarefa 2",
+          "genre": "texto para boletim informativo",
+          "title": "Acessibilidade"
+        },
+        {
+          "cycle": "2013/1",
+          "number": "Tarefa 4",
+          "genre": "e-mail aos funcionários",
+          "title": "Viagem a Dois"
+        },
+        {
+          "cycle": "2014/2",
+          "number": "Tarefa 2",
+          "genre": "texto de divulgação para site",
+          "title": "Hot Spot"
+        },
+        {
+          "cycle": "2015/2",
+          "number": "Tarefa 1",
+          "genre": "texto para guia de prevenção",
+          "title": "Uso do cinto de segurança"
+        },
+        {
+          "cycle": "2015/2",
+          "number": "Tarefa 2",
+          "genre": "texto informativo para mural",
+          "title": "Professores do Brasil"
+        },
+        {
+          "cycle": "2016/1.2",
+          "number": "Tarefa 3",
+          "genre": "texto de apresentação de projeto",
+          "title": "Uso da madeira"
+        },
+        {
+          "cycle": "2016/2",
+          "number": "Tarefa 2",
+          "genre": "e-mail à equipe",
+          "title": "Como lidar com a ansiedade no trabalho"
+        },
+        {
+          "cycle": "2017/2",
+          "number": "Tarefa 2",
+          "genre": "convite",
+          "title": "Uma mulher de luz"
+        },
+        {
+          "cycle": "2018/1",
+          "number": "Tarefa 2",
+          "genre": "artigo para site",
+          "title": "Motociclistas profissionais"
+        },
+        {
+          "cycle": "2019/1",
+          "number": "Tarefa 3",
+          "genre": "carta aos associados",
+          "title": "Parklets"
+        },
+        {
+          "cycle": "2020/1",
+          "number": "Tarefa 1",
+          "genre": "relatório",
+          "title": "PRATODOMUNDO"
+        },
+        {
+          "cycle": "2020/1",
+          "number": "Tarefa 2",
+          "genre": "e-mail aos funcionários",
+          "title": "Fake news"
+        },
+        {
+          "cycle": "2020/1",
+          "number": "Tarefa 3",
+          "genre": "carta aos moradores",
+          "title": "Feira de trocas"
+        },
+        {
+          "cycle": "2020/1",
+          "number": "Tarefa 4",
+          "genre": "informativo aos pais",
+          "title": "Smartphones e aprendizagem"
+        },
+        {
+          "cycle": "2021/1",
+          "number": "Tarefa 1",
+          "genre": "e-mail aos clientes",
+          "title": "Como montar uma mala"
+        },
+        {
+          "cycle": "2021/1",
+          "number": "Tarefa 2",
+          "genre": "carta-convite aos vizinhos",
+          "title": "Trabalho voluntário"
+        },
+        {
+          "cycle": "2024/2",
+          "number": "Tarefa 1",
+          "genre": "texto para rede social da empresa",
+          "title": "Cultura da aceleração"
+        },
+        {
+          "cycle": "2024/2",
+          "number": "Tarefa 2",
+          "genre": "texto para guia literário",
+          "title": "Raduan Nassar"
+        },
+        {
+          "cycle": "2024/2.2",
+          "number": "Tarefa 2",
+          "genre": "guia para clientes",
+          "title": "Comportamento animal"
+        },
+        {
+          "cycle": "2024/2.2",
+          "number": "Tarefa 3",
+          "genre": "carta aos vizinhos",
+          "title": "O mundo é o que você come"
+        },
+        {
+          "cycle": "2025/2",
+          "number": "Tarefa 2",
+          "genre": "carta aos associados",
+          "title": "Selo Arte"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Opinar sobre um texto",
+      "where": "Tarefa 4 · 22 das 124 tarefas",
+      "summary": "Você leu um artigo, uma crônica ou uma reportagem e responde com a sua posição: ao jornal, ao autor ou aos leitores.",
+      "genres": "carta do leitor, artigo de opinião, carta aberta, mensagem ao autor",
+      "promptWords": "posicione-se, defenda seu ponto de vista, concorde ou discorde, discuta, retome os argumentos",
+      "structure": [
+        {
+          "label": "Vocativo",
+          "text": "[Prezado editor / À redação da revista … / Prezada (autora)],"
+        },
+        {
+          "label": "Texto e posição",
+          "text": "Li o artigo «[título]», de [autor], publicado em [veículo], e [concordo com / discordo de / concordo em parte com] a ideia de que [tese do autor]."
+        },
+        {
+          "label": "Retomada",
+          "text": "O autor afirma que [argumento do texto]. [De fato, … / Embora isso seja verdade em parte, …]."
+        },
+        {
+          "label": "Seu argumento",
+          "text": "[Argumento próprio] + [exemplo: a sua experiência ou o seu país, se o enunciado pedir]."
+        },
+        {
+          "label": "Conclusão",
+          "text": "Por isso, acredito que [posição final]. Seria importante que [sugestão]."
+        },
+        {
+          "label": "Fecho",
+          "text": "Atenciosamente,\n[Nome fictício], [cidade ou profissão]"
+        }
+      ],
+      "structureNote": "A posição aparece já no primeiro parágrafo. Antes de responder, retome pelo menos um argumento do texto.",
+      "exampleLabel": "Edição 2019/2 · Tarefa 4 · Caixinha de som",
+      "exampleCycle": "2019/2",
+      "exampleNumber": "Tarefa 4",
+      "examplePrompt": "Depois de ler o texto Caixinha de som: hit e polêmica do verão, você decidiu escrever para a seção Cartas do Leitor do jornal Estadão, defendendo seu ponto de vista em relação às questões levantadas por Felipe Mortara.",
+      "exampleRows": [
+        {
+          "label": "Vocativo",
+          "text": "Prezado editor,"
+        },
+        {
+          "label": "Texto e posição",
+          "text": "Li o texto «Caixinhas de som: hit e polêmica do verão», de Felipe Mortara, e compartilho a preocupação do autor: a liberdade de quem quer ouvir música na praia não pode passar por cima da liberdade de quem prefere ouvir o mar."
+        },
+        {
+          "label": "Retomada",
+          "text": "O autor lembra que a praia é pública e que cada um tem o direito de se divertir como quiser. É verdade. Mas, quando cada guarda-sol tenta impor o seu volume, o espaço deixa de ser de todos e passa a ser de quem tem a caixa mais potente."
+        },
+        {
+          "label": "Seu argumento",
+          "text": "Não acredito, porém, que a melhor saída seja proibir e apreender os aparelhos, como já se faz no Guarujá. Na praia que frequento no meu país, há trechos em que a música é permitida e outros reservados ao silêncio, e a convivência melhora quando as regras são claras. Antes de qualquer lei, vale o conselho de André do Val, citado no texto: começar com uma conversa amigável e pedir para abaixar o som, não para desligar."
+        },
+        {
+          "label": "Conclusão",
+          "text": "Por isso, acredito que o caminho está no bom senso e em regras simples, como volume moderado e distância razoável dos vizinhos de areia. Seria importante que as prefeituras orientassem os banhistas antes de multá-los."
+        },
+        {
+          "label": "Fecho",
+          "text": "Atenciosamente,\nHelena Novak\nleitora, Florianópolis"
+        }
+      ],
+      "exampleNote": "Resposta-modelo escrita para este guia, com cerca de 210 palavras; as informações vêm do texto da prova. Não é uma resposta oficial nem um texto de examinando.",
+      "phrases": [
+        {
+          "title": "Para tomar posição",
+          "items": [
+            "Concordo plenamente com…",
+            "Discordo do autor quando afirma que…",
+            "Em parte, o autor tem razão; no entanto, …"
+          ]
+        },
+        {
+          "title": "Para retomar o texto",
+          "items": [
+            "Segundo o texto, …",
+            "Como lembra [autor], …",
+            "O artigo levanta uma questão importante: …"
+          ]
+        },
+        {
+          "title": "Para argumentar",
+          "items": [
+            "Em primeiro lugar, … Além disso, …",
+            "Por outro lado, …",
+            "Prova disso é…",
+            "Na minha experiência, …",
+            "No meu país, …"
+          ]
+        },
+        {
+          "title": "Para concluir",
+          "items": [
+            "Portanto, …",
+            "Em suma, …",
+            "Cabe a [quem] [fazer o quê]."
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "label": "Carta do leitor",
+          "text": "Dirigida à redação ou ao autor. Cita título e autor, é breve, assinada por um leitor."
+        },
+        {
+          "label": "Artigo de opinião",
+          "text": "Título, sem vocativo, tese no primeiro parágrafo, conclusão forte. Assinatura com nome e credencial."
+        },
+        {
+          "label": "Carta aberta",
+          "text": "Título «Carta aberta», fala ao público, tom de apelo ao debate."
+        },
+        {
+          "label": "Crônica (caso especial)",
+          "text": "Quando o enunciado pede a versão de um personagem: primeira pessoa, narre os fatos e termine com a posição."
+        }
+      ],
+      "checklist": [
+        "O texto e o autor são mencionados.",
+        "A sua posição está clara desde o início.",
+        "Um argumento do texto é retomado antes da resposta.",
+        "Há argumentos seus, não só resumo.",
+        "Os pedidos extras estão cumpridos: comparar com o seu país, contar experiências, sugerir atitudes."
+      ],
+      "tasks": [
+        {
+          "cycle": "2010/1",
+          "number": "Tarefa 4",
+          "genre": "carta de opinião",
+          "title": "Carta a um jovem internauta"
+        },
+        {
+          "cycle": "2011/2",
+          "number": "Tarefa 4",
+          "genre": "post no blog (argumentativo)",
+          "title": "Mão Pesada"
+        },
+        {
+          "cycle": "2012/2",
+          "number": "Tarefa 2",
+          "genre": "artigo de opinião",
+          "title": "Sua carreira"
+        },
+        {
+          "cycle": "2012/2",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "A morte do automóvel"
+        },
+        {
+          "cycle": "2013/2",
+          "number": "Tarefa 4",
+          "genre": "artigo de opinião",
+          "title": "Morar Sozinho"
+        },
+        {
+          "cycle": "2014/2",
+          "number": "Tarefa 4",
+          "genre": "artigo de opinião",
+          "title": "Leitura e tecnologia"
+        },
+        {
+          "cycle": "2015/1",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Pais do lar"
+        },
+        {
+          "cycle": "2016/1",
+          "number": "Tarefa 4",
+          "genre": "artigo de opinião",
+          "title": "A era da solidão acompanhada"
+        },
+        {
+          "cycle": "2016/2",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Shopping em casa"
+        },
+        {
+          "cycle": "2017/1",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Bibliotecas"
+        },
+        {
+          "cycle": "2017/2",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Alunos ricos deveriam pagar pela universidade pública?"
+        },
+        {
+          "cycle": "2018/1",
+          "number": "Tarefa 1",
+          "genre": "artigo de opinião",
+          "title": "A urna eletrônica"
+        },
+        {
+          "cycle": "2018/1",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Gênero e comida"
+        },
+        {
+          "cycle": "2019/1",
+          "number": "Tarefa 4",
+          "genre": "carta à autora",
+          "title": "Sofrimentos inevitáveis"
+        },
+        {
+          "cycle": "2019/2",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Caixinha de som"
+        },
+        {
+          "cycle": "2021/1",
+          "number": "Tarefa 4",
+          "genre": "carta aberta",
+          "title": "Testes em animais"
+        },
+        {
+          "cycle": "2022/2",
+          "number": "Tarefa 4",
+          "genre": "mensagem ao autor",
+          "title": "O fantasma da varíola"
+        },
+        {
+          "cycle": "2023/1",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Chat GPT e IA"
+        },
+        {
+          "cycle": "2024/1",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Seu desejo é um algoritmo"
+        },
+        {
+          "cycle": "2024/2",
+          "number": "Tarefa 4",
+          "genre": "carta ao jornal",
+          "title": "Amor é aceitação"
+        },
+        {
+          "cycle": "2024/2.2",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Patinetes"
+        },
+        {
+          "cycle": "2025/1",
+          "number": "Tarefa 4",
+          "genre": "carta do leitor",
+          "title": "Eu mereço"
+        }
+      ]
+    }
+  ],
+  "other": "As outras 14 tarefas misturam esses tipos: mensagens a uma única pessoa (um amigo, um cliente, um professor), depoimentos e crônicas. Para elas, parta do modelo mais próximo e ajuste o vocativo e o tom.",
+  "note": "Os modelos foram elaborados a partir da análise dos enunciados das provas de 2010 a 2026. São um ponto de partida: adapte sempre ao papel, ao interlocutor e ao propósito de cada tarefa."
+}

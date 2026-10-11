@@ -6,8 +6,10 @@ import { EssayWorkbench } from "@/components/essay/EssayWorkbench";
 import { mockDisplay, mockDisplayCyrillic } from "@/components/home/home-mock-font";
 import {
   DEFAULT_WRITING_TASK_ID,
+  WRITING_CATALOG_HREF,
+  writingTasksByCycle,
   getWritingTask,
-  listWritingTasks,
+  isWritingTaskId,
   type WritingTaskId,
 } from "@/content/writing/tasks";
 import type { CheckEssayMeta, EssayAnalysis } from "@/lib/essay/types";
@@ -94,11 +96,22 @@ function fill(template: string, vars: Record<string, string | number>) {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => String(vars[key] ?? ""));
 }
 
-export function HomeWriterMock({ locale }: { locale: Locale }) {
+export function HomeWriterMock({
+  locale,
+  placement = "writing",
+  fixedTaskId,
+}: {
+  locale: Locale;
+  placement?: "writing" | "practice";
+  fixedTaskId?: WritingTaskId;
+}) {
   const t = getUi(locale).writing;
   const homeHref = localizedPath(locale, "home");
-  const tasks = listWritingTasks();
-  const [taskId, setTaskId] = useState<WritingTaskId>(DEFAULT_WRITING_TASK_ID);
+  const practiceHref = localizedPath(locale, "practice");
+  const practiceLabel = getUi(locale).nav.find((item) => item.section === "practice")?.label ?? "Prática";
+  const escritaLabel = locale === "en" ? "Writing" : locale === "ru" ? "Письмо" : "Escrita";
+  const taskGroups = writingTasksByCycle();
+  const [taskId, setTaskId] = useState<WritingTaskId>(fixedTaskId ?? DEFAULT_WRITING_TASK_ID);
   const task = getWritingTask(taskId);
   const [text, setText] = useState("");
   const [email, setEmail] = useState("");
@@ -170,7 +183,19 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
     }
   }
 
-  function selectTask(nextId: WritingTaskId) {
+  useEffect(() => {
+    if (!fixedTaskId || fixedTaskId === taskIdRef.current) return;
+    setTaskId(fixedTaskId);
+    taskIdRef.current = fixedTaskId;
+    trackerRef.current?.setTaskId(fixedTaskId);
+    setText("");
+    setResult(null);
+    setError("");
+    setErrorSource(null);
+  }, [fixedTaskId]);
+
+  function selectTask(nextId: string) {
+    if (!isWritingTaskId(nextId)) return;
     setTaskId(nextId);
     taskIdRef.current = nextId;
     trackerRef.current?.setTaskId(nextId);
@@ -443,53 +468,105 @@ export function HomeWriterMock({ locale }: { locale: Locale }) {
       <nav className="home-writer-nav" aria-label="Breadcrumb">
         <Link href={homeHref}>{t.breadcrumbHome}</Link>
         <span aria-hidden> / </span>
-        <span>{t.breadcrumbHere}</span>
+        {placement === "practice" ? (
+          <>
+            <Link href={practiceHref}>{practiceLabel}</Link>
+            <span aria-hidden> / </span>
+            {fixedTaskId ? (
+              <>
+                <Link href={WRITING_CATALOG_HREF}>{escritaLabel}</Link>
+                <span aria-hidden> / </span>
+                <span>{task.shortLabel}</span>
+              </>
+            ) : (
+              <span>{escritaLabel}</span>
+            )}
+          </>
+        ) : (
+          <span>{t.breadcrumbHere}</span>
+        )}
       </nav>
 
       <header className="home-writer-head home-rise">
-        <p className="home-mock-eyebrow">{t.eyebrow}</p>
-        <h1 className="home-writer-title">{t.title}</h1>
-        <p className="home-writer-lead">{t.lead}</p>
+        <p className="home-mock-eyebrow">{fixedTaskId ? task.shortLabel : t.eyebrow}</p>
+        <h1 className="home-writer-title">{fixedTaskId ? task.title : t.title}</h1>
+        <p className="home-writer-lead">{fixedTaskId ? task.genre : t.lead}</p>
         <p className="home-writer-disclaimer">{t.disclaimer}</p>
         <a className="home-writer-jump" href="#writing-editor">
           {t.startWriting}
         </a>
-        <div className="home-writer-task-picker">
-          <label className="home-writer-label" htmlFor="writer-task">
-            {t.taskPickerLabel}
-          </label>
-          <select
-            id="writer-task"
-            className="home-writer-task"
-            value={taskId}
-            onChange={(event) => selectTask(event.target.value as WritingTaskId)}
-          >
-            {tasks.map((item) => (
-              <option key={item.id} value={item.id} lang="pt-BR">
-                {item.number} — {item.title}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            className="home-writer-rotate"
-            onClick={() => {
-              const index = tasks.findIndex((item) => item.id === taskId);
-              const next = tasks[(index + 1 + tasks.length) % tasks.length];
-              if (next) selectTask(next.id);
-            }}
-          >
-            {t.nextTask}
-          </button>
-        </div>
+        {fixedTaskId ? (
+          <p className="home-writer-task-picker">
+            <Link className="home-writer-rotate" href={WRITING_CATALOG_HREF}>
+              Todas as tarefas
+            </Link>
+          </p>
+        ) : (
+          <div className="home-writer-task-picker">
+            <label className="home-writer-label" htmlFor="writer-task">
+              {t.taskPickerLabel}
+            </label>
+            <select
+              id="writer-task"
+              className="home-writer-task"
+              value={taskId}
+              onChange={(event) => selectTask(event.target.value)}
+            >
+              {taskGroups.map((group) => (
+                <optgroup key={group.cycle} label={group.cycle}>
+                  {group.tasks.map((item) => (
+                    <option key={item.id} value={item.id} lang="pt-BR">
+                      {item.number} — {item.title}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+            <button
+              type="button"
+              className="home-writer-rotate"
+              onClick={() => {
+                const ordered = taskGroups.flatMap((group) => group.tasks);
+                const index = ordered.findIndex((item) => item.id === taskId);
+                const next = ordered[(index + 1) % ordered.length];
+                if (next) selectTask(next.id);
+              }}
+            >
+              {t.nextTask}
+            </button>
+          </div>
+        )}
       </header>
 
       <article className="home-writer-insumo home-rise" lang="pt-BR">
-        <p className="home-writer-insumo-kicker">{t.insumoKicker}</p>
+        <p className="home-writer-insumo-kicker">
+          {task.sourceMedia?.kind === "video"
+            ? t.insumoWatch
+            : task.sourceMedia?.kind === "audio"
+              ? t.insumoListen
+              : t.insumoKicker}
+        </p>
         <h2 className="home-writer-insumo-title">{task.sourceTitle}</h2>
-        {sourceParagraphs.map((paragraph) => (
-          <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-        ))}
+        {task.sourceMedia?.kind === "video" ? (
+          <video className="home-writer-media" controls preload="metadata" playsInline src={task.sourceMedia.src} />
+        ) : null}
+        {task.sourceMedia?.kind === "audio" ? (
+          <audio className="home-writer-media" controls preload="metadata" src={task.sourceMedia.src} />
+        ) : null}
+        {task.sourceImage ? (
+          <img src={task.sourceImage} alt={task.sourceTitle} />
+        ) : task.sourceMedia ? (
+          <details className="home-writer-transcript">
+            <summary>{t.transcriptLabel}</summary>
+            {sourceParagraphs.map((paragraph, index) => (
+              <p key={`${task.id}-${index}`}>{paragraph}</p>
+            ))}
+          </details>
+        ) : (
+          sourceParagraphs.map((paragraph, index) => (
+            <p key={`${task.id}-${index}`}>{paragraph}</p>
+          ))
+        )}
       </article>
 
       <article className="home-writer-prompt home-rise home-rise-delay-1" lang="pt-BR">
