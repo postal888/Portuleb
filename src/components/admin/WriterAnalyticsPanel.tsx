@@ -276,16 +276,16 @@ export function WriterAnalyticsPanel() {
           Quem abriu Escrever, até onde foi, quanto escreveu e o que aconteceu com o e-mail. Nada aqui vem do GA4.
         </p>
 
-        <div className="admin-grid mt-4">
-          <label className="admin-input">
+        <div className="writer-filters mt-4">
+          <label className="writer-field">
             De
             <input type="date" className="admin-input" value={form.from} onChange={(e) => setForm({ ...form, from: e.target.value })} />
           </label>
-          <label className="admin-input">
+          <label className="writer-field">
             Até
             <input type="date" className="admin-input" value={form.to} onChange={(e) => setForm({ ...form, to: e.target.value })} />
           </label>
-          <label className="admin-input admin-input--select">
+          <label className="writer-field">
             Locale
             <select className="admin-input" value={form.locale} onChange={(e) => setForm({ ...form, locale: e.target.value })}>
               <option value="">todos</option>
@@ -294,7 +294,7 @@ export function WriterAnalyticsPanel() {
               <option value="ru">ru</option>
             </select>
           </label>
-          <label className="admin-input admin-input--select">
+          <label className="writer-field">
             Tarefa
             <select className="admin-input" value={form.taskId} onChange={(e) => setForm({ ...form, taskId: e.target.value })}>
               <option value="">todas</option>
@@ -305,7 +305,7 @@ export function WriterAnalyticsPanel() {
               ))}
             </select>
           </label>
-          <label className="admin-input admin-input--select">
+          <label className="writer-field">
             Status do envio
             <select className="admin-input" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
               <option value="">todos</option>
@@ -316,7 +316,7 @@ export function WriterAnalyticsPanel() {
               ))}
             </select>
           </label>
-          <label className="admin-input admin-input--select">
+          <label className="writer-field">
             Entrega
             <select className="admin-input" value={form.delivery} onChange={(e) => setForm({ ...form, delivery: e.target.value })}>
               <option value="">todas</option>
@@ -328,7 +328,7 @@ export function WriterAnalyticsPanel() {
               <option value="none">sem registro</option>
             </select>
           </label>
-          <label className="admin-input admin-input--select">
+          <label className="writer-field">
             Sessão
             <select className="admin-input" value={form.sessionStatus} onChange={(e) => setForm({ ...form, sessionStatus: e.target.value })}>
               <option value="">todas</option>
@@ -339,7 +339,7 @@ export function WriterAnalyticsPanel() {
               ))}
             </select>
           </label>
-          <label className="admin-input admin-input--select">
+          <label className="writer-field">
             Motor
             <select className="admin-input" value={form.mock} onChange={(e) => setForm({ ...form, mock: e.target.value })}>
               <option value="">todos</option>
@@ -369,12 +369,12 @@ export function WriterAnalyticsPanel() {
       </form>
 
       {kpis ? (
-        <div className="admin-grid">
+        <div className="writer-kpis">
           {kpiCards.map((card) => (
-            <div key={card.label} className="surface-card p-4">
+            <div key={card.label} className="surface-card writer-kpi p-4">
               <p className="text-sm text-muted">{card.label}</p>
-              <p className="text-2xl font-bold text-teal">{card.value}</p>
-              {card.hint ? <p className="mt-1 text-xs text-muted">{card.hint}</p> : null}
+              <p className="writer-kpi__value text-2xl font-bold text-teal">{card.value}</p>
+              {card.hint ? <p className="text-xs text-muted">{card.hint}</p> : null}
             </div>
           ))}
         </div>
@@ -382,7 +382,7 @@ export function WriterAnalyticsPanel() {
 
       <div className="surface-card p-4">
         <h3 className="font-semibold text-teal">Funil</h3>
-        <table className="admin-table mt-3">
+        <table className="admin-table writer-funnel mt-3">
           <thead>
             <tr>
               <th>Etapa</th>
@@ -396,8 +396,12 @@ export function WriterAnalyticsPanel() {
               <tr key={step.key}>
                 <td>{step.label}</td>
                 <td>
-                  <span className="admin-funnel-bar" style={{ width: `${Math.max(step.fromOpened ?? 0, 2)}%` }} aria-hidden />
-                  {step.count}
+                  <span className="writer-funnel-meter">
+                    <span className="writer-funnel-track" aria-hidden>
+                      <span className="writer-funnel-fill" style={{ width: `${Math.max(step.fromOpened ?? 0, step.count > 0 ? 4 : 0)}%` }} />
+                    </span>
+                    {step.count}
+                  </span>
                 </td>
                 <td>{percent(step.fromPrev)}</td>
                 <td>{percent(step.fromOpened)}</td>
@@ -412,7 +416,7 @@ export function WriterAnalyticsPanel() {
         ) : null}
       </div>
 
-      <div className="admin-grid">
+      <div className="writer-splits">
         <BreakdownTable title="Por dia" rows={breakdowns.byDay ?? []} />
         <BreakdownTable title="Por locale" rows={breakdowns.byLocale ?? []} />
         <BreakdownTable title="Por tarefa" rows={breakdowns.byTask ?? []} />
@@ -428,7 +432,7 @@ export function WriterAnalyticsPanel() {
           Envios <span className="text-sm text-muted">({rows.length} de {total})</span>
         </h3>
         <div className="admin-table-wrap">
-          <table className="admin-table mt-3">
+          <table className="admin-table writer-sends mt-3">
             <thead>
               <tr>
                 <th>Quando</th>
@@ -625,6 +629,35 @@ export function WriterAnalyticsPanel() {
   );
 }
 
+const COLUMN_LABELS: Record<string, string> = {
+  day: "Dia",
+  sessions: "Sessões",
+  visitors: "Visitantes",
+  reached_submit: "Enviaram",
+  locale: "Locale",
+  task: "Tarefa",
+  referrer: "Origem",
+  utm_source: "Source",
+  utm_medium: "Medium",
+  utm_campaign: "Campaign",
+  status: "Status",
+  error_code: "Erro",
+  c: "Envios",
+  provider: "Motor",
+  model: "Modelo",
+  mock_runs: "Mock",
+  real_runs: "Real",
+  runs: "Total",
+};
+
+const NUMERIC_COLUMNS = new Set(["sessions", "visitors", "reached_submit", "c", "mock_runs", "real_runs", "runs"]);
+
+function cellText(column: string, value: string | number | null | undefined): string {
+  if (value === null || value === undefined || value === "") return "—";
+  if (column === "task") return taskLabel(String(value));
+  return String(value);
+}
+
 function BreakdownTable({ title, rows }: { title: string; rows: Row[] }) {
   const columns = rows.length ? Object.keys(rows[0]) : [];
   return (
@@ -633,24 +666,30 @@ function BreakdownTable({ title, rows }: { title: string; rows: Row[] }) {
       {rows.length === 0 ? (
         <p className="mt-2 text-sm text-muted">Sem dados neste período.</p>
       ) : (
-        <table className="admin-table mt-2">
-          <thead>
-            <tr>
-              {columns.map((column) => (
-                <th key={column}>{column}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
+        <div className="admin-table-wrap">
+          <table className="admin-table mt-2">
+            <thead>
+              <tr>
                 {columns.map((column) => (
-                  <td key={column}>{row[column] === null || row[column] === undefined ? "—" : String(row[column])}</td>
+                  <th key={column} className={NUMERIC_COLUMNS.has(column) ? "is-num" : undefined}>
+                    {COLUMN_LABELS[column] ?? column}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <tr key={index}>
+                  {columns.map((column) => (
+                    <td key={column} className={NUMERIC_COLUMNS.has(column) ? "is-num" : undefined} title={cellText(column, row[column])}>
+                      {cellText(column, row[column])}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
