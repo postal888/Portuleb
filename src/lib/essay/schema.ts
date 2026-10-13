@@ -113,6 +113,89 @@ export function wordCount(text: string): number {
   return text.trim() ? text.trim().split(/\s+/).length : 0;
 }
 
+const CATEGORY_ALIASES: Record<string, (typeof CORRECTION_CATEGORIES)[number]> = {
+  syntax: "grammar",
+  syntactic: "grammar",
+  morphology: "grammar",
+  orthography: "spelling",
+  ortografia: "spelling",
+  accent: "spelling",
+  accentuation: "spelling",
+  typo: "spelling",
+  concordance: "agreement",
+  concordancia: "agreement",
+  gender: "agreement",
+  number: "agreement",
+  plural: "agreement",
+  prepositions: "preposition",
+  articles: "article",
+  verbal: "verb",
+  tense: "verb",
+  conjugation: "verb",
+  lexical: "vocabulary",
+  lexicon: "vocabulary",
+  word_choice: "vocabulary",
+  collocations: "collocation",
+  punct: "punctuation",
+  register: "style",
+  cohesion: "style",
+  coherence: "style",
+  discourse: "style",
+  connector: "style",
+  connectors: "style",
+};
+
+const SEVERITY_ALIASES: Record<string, (typeof CORRECTION_SEVERITIES)[number]> = {
+  major: "error",
+  grave: "error",
+  high: "error",
+  critical: "error",
+  medium: "minor",
+  moderate: "minor",
+  warning: "minor",
+  low: "minor",
+  tip: "suggestion",
+  optional: "suggestion",
+  improvement: "suggestion",
+  hint: "suggestion",
+};
+
+function foldLabel(value: unknown): string {
+  return typeof value === "string" ? value.trim().toLowerCase().replace(/[\s-]+/g, "_") : "";
+}
+
+/** The model sometimes invents a label. One bad word must not discard the whole check. */
+export function coerceCorrectionCategory(value: unknown): (typeof CORRECTION_CATEGORIES)[number] {
+  const key = foldLabel(value);
+  if ((CORRECTION_CATEGORIES as readonly string[]).includes(key)) {
+    return key as (typeof CORRECTION_CATEGORIES)[number];
+  }
+  return CATEGORY_ALIASES[key] ?? "style";
+}
+
+export function coerceCorrectionSeverity(value: unknown): (typeof CORRECTION_SEVERITIES)[number] {
+  const key = foldLabel(value);
+  if ((CORRECTION_SEVERITIES as readonly string[]).includes(key)) {
+    return key as (typeof CORRECTION_SEVERITIES)[number];
+  }
+  return SEVERITY_ALIASES[key] ?? "minor";
+}
+
+/** Drop corrections that still fail validation, and map stray category names onto the allowed list. */
+export function prepareModelEssayPayload(raw: unknown): unknown {
+  if (!raw || typeof raw !== "object") return raw;
+  const source = raw as Record<string, unknown>;
+  if (!Array.isArray(source.corrections)) return raw;
+  const corrections = source.corrections.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const row = { ...(item as Record<string, unknown>) };
+    row.category = coerceCorrectionCategory(row.category);
+    row.severity = coerceCorrectionSeverity(row.severity);
+    return correctionSchema.safeParse(row).success ? [row] : [];
+  });
+  return { ...source, corrections };
+}
+
 export function normalizeCorrections(raw: unknown[]): Correction[] {
   const out: Correction[] = [];
   for (const [index, item] of raw.entries()) {

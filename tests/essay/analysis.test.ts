@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { getWritingTask } from "@/content/writing/tasks";
 import { mockCelpeScore } from "@/lib/essay/celpe";
 import { buildEssayCheckPrompts } from "@/lib/essay/prompt";
-import { normalizeCorrections, parseCheckEssayRequest, wordCount } from "@/lib/essay/schema";
+import { modelEssayPayloadSchema, normalizeCorrections, parseCheckEssayRequest, prepareModelEssayPayload, wordCount } from "@/lib/essay/schema";
 import { explanationOf, shortExplanationOf } from "@/lib/essay/types";
 import type { CheckEssayRequest } from "@/lib/essay/types";
 import { analyzeEssay } from "@/lib/essay/analyze";
@@ -70,6 +70,32 @@ describe("имена полей объяснений", () => {
       },
     ]);
     expect(row?.explanation).toBe("canonical");
+  });
+
+  it("незнакомая категория не отменяет весь разбор", () => {
+    const payload = modelEssayPayloadSchema.parse(
+      prepareModelEssayPayload({
+        corrections: [
+          {
+            originalFragment: "paises",
+            correctedFragment: "países",
+            category: "accentuation",
+            severity: "major",
+            explanation: "Acento agudo.",
+          },
+          {
+            originalFragment: "a",
+            correctedFragment: "b",
+            category: "not-a-category",
+            severity: "whatever",
+          },
+        ],
+      }),
+    );
+
+    expect(payload.corrections).toHaveLength(1);
+    expect(payload.corrections[0]?.category).toBe("spelling");
+    expect(payload.corrections[0]?.severity).toBe("error");
   });
 
   it("исправление без объяснения отбрасывается", () => {

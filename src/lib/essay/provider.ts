@@ -1,7 +1,7 @@
 import { getWritingTask } from "@/content/writing/tasks";
 import { extractJsonObject } from "./json";
 import { buildEssayCheckPrompts } from "./prompt";
-import { modelEssayPayloadSchema, normalizeCorrections, type ModelEssayPayload } from "./schema";
+import { modelEssayPayloadSchema, normalizeCorrections, prepareModelEssayPayload, type ModelEssayPayload } from "./schema";
 import type { CheckEssayMeta, CheckEssayRequest } from "./types";
 
 export class EssayProviderError extends Error {
@@ -103,7 +103,7 @@ async function callOpenAiCompatible(input: CheckEssayRequest): Promise<{
   }
 
   const raw = extractJsonObject(content);
-  const payload = modelEssayPayloadSchema.parse(raw);
+  const payload = modelEssayPayloadSchema.parse(prepareModelEssayPayload(raw));
   return {
     payload,
     raw,

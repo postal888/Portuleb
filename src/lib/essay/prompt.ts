@@ -143,8 +143,8 @@ export function buildEssayCheckPrompts(
     '  "corrections": [{ "id": "c1", "sentenceIndex": 0, "originalFragment": "quatros", "correctedFragment": "quatro", "startOffset": 12, "endOffset": 19, "category": "agreement", "severity": "error", "explanation": "...", "shortExplanation": "...", "ruleHint": "...", "repeatedPatternKey": "quatro-plural" }]',
     "}",
     "",
-    "category: grammar, spelling, agreement, preposition, article, verb, vocabulary, collocation, punctuation, style.",
-    "severity: error, minor, suggestion.",
+    "category must be exactly one of: grammar, spelling, agreement, preposition, article, verb, vocabulary, collocation, punctuation, style. Do not invent another word.",
+    "severity must be exactly one of: error, minor, suggestion.",
   ].join("\n");
 
   const user = [
