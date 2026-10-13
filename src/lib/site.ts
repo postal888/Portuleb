@@ -20,6 +20,26 @@ export function buildSitePath(...segments: (string | undefined | null)[]): strin
   return path ? `/${path}` : "/";
 }
 
+/**
+ * Origin for links we hand to a reader. A loopback address or a raw IP in the
+ * environment is the machine Next is bound to, not the public site, so those
+ * fall back to the canonical origin.
+ */
+export function publicOrigin(): string {
+  const configured = process.env.SITE_URL?.trim() || process.env.NEXT_PUBLIC_SITE_URL?.trim() || "";
+  if (!configured) return SITE.url;
+  try {
+    const url = new URL(configured);
+    const host = url.hostname.replace(/^\[|\]$/g, "");
+    const bareIp = /^\d{1,3}(\.\d{1,3}){3}$/.test(host);
+    const local = host === "localhost" || host === "127.0.0.1" || host === "::1";
+    if (bareIp || local) return SITE.url;
+    return url.origin;
+  } catch {
+    return SITE.url;
+  }
+}
+
 export function absoluteUrl(path = "/"): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return new URL(normalized, SITE.url).toString();

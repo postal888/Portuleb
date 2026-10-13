@@ -1,5 +1,6 @@
 import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { isLocale } from "@/i18n/locales";
+import { publicOrigin } from "@/lib/site";
 
 export const REPORT_TOKEN_BYTES = 32;
 export const DEFAULT_REPORT_TTL_DAYS = 30;
@@ -45,7 +46,7 @@ export function reportPath(locale: string, token: string): string {
 }
 
 export function reportUrl(locale: string, token: string): string {
-  const base = (process.env.SITE_URL?.trim() || process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://celpe-depe.com").replace(/\/+$/, "");
+  const base = publicOrigin();
   return `${base}${reportPath(locale, token)}`;
 }
 

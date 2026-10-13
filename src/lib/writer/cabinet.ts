@@ -1,6 +1,7 @@
 import { randomBytes, randomUUID } from "node:crypto";
 import type { Locale } from "@/i18n/locales";
 import { getAdminDb } from "@/lib/admin/db";
+import { publicOrigin } from "@/lib/site";
 import type { EssayAnalysis } from "@/lib/essay/types";
 import { MailError, getMailProvider } from "./mail/provider";
 import { renderCabinetEmail } from "./mail/templates";
@@ -44,11 +45,7 @@ function hashCabinetToken(token: string): string {
 }
 
 function siteBase(): string {
-  return (
-    process.env.SITE_URL?.trim() ||
-    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-    "https://celpe-depe.com"
-  ).replace(/\/+$/, "");
+  return publicOrigin();
 }
 
 export function hasCompletedEssays(email: string): boolean {

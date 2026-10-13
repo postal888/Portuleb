@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { publicOrigin } from "@/lib/site";
 import { cabinetPath } from "./cabinet-path";
 import {
   CABINET_COOKIE,
@@ -30,8 +31,13 @@ function localeOf(value: FormDataEntryValue | null): Locale {
   return typeof value === "string" && isLocale(value) ? value : "pt-br";
 }
 
-export function enterCabinet(locale: Locale, token: string, request: Request): NextResponse {
-  const home = new URL(cabinetPath(locale), request.url);
+/** Next sees its own bind address behind the proxy, so redirects use the public origin. */
+function cabinetHome(locale: Locale): URL {
+  return new URL(cabinetPath(locale), publicOrigin());
+}
+
+export function enterCabinet(locale: Locale, token: string): NextResponse {
+  const home = cabinetHome(locale);
   const peeked = readLoginLink(token);
   if (!peeked || peeked.purpose === "reset") {
     home.searchParams.set("status", "invalid");
@@ -53,7 +59,7 @@ export async function logoutCabinet(request: Request): Promise<NextResponse> {
   const form = await request.formData();
   const locale = localeOf(form.get("locale"));
   destroyCabinetSession(tokenFrom(request));
-  const response = NextResponse.redirect(new URL(cabinetPath(locale), request.url), 303);
+  const response = NextResponse.redirect(cabinetHome(locale), 303);
   response.cookies.set(CABINET_COOKIE, "", cabinetCookieOptions(0));
   return response;
 }
@@ -63,7 +69,7 @@ export async function eraseCabinetRequest(request: Request): Promise<NextRespons
   const locale = localeOf(form.get("locale"));
   const email = sessionFromToken(tokenFrom(request));
   if (email) eraseCabinet(email);
-  const home = new URL(cabinetPath(locale), request.url);
+  const home = cabinetHome(locale);
   home.searchParams.set("status", "erased");
   const response = NextResponse.redirect(home, 303);
   response.cookies.set(CABINET_COOKIE, "", cabinetCookieOptions(0));

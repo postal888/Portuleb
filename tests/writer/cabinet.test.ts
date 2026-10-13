@@ -161,7 +161,13 @@ describe("кабинет текстов", () => {
     const second = await enterRoute.GET(new Request("https://example.test/pt-br/writing/conta/entrar/x"), {
       params: Promise.resolve({ token }),
     });
-    expect(second.headers.get("location")).toContain("status=invalid");
+    expect(second.headers.get("location")).toBe("https://example.test/pt-br/writing/conta?status=invalid");
+
+    const loop = cabinet.issueLoginLink("loop@example.com", "pt-br");
+    const fromLocal = await enterRoute.GET(new Request("http://localhost:3000/pt-br/writing/conta/entrar/x"), {
+      params: Promise.resolve({ token: loop }),
+    });
+    expect(fromLocal.headers.get("location")).toBe("https://example.test/pt-br/writing/conta");
 
     const raw = setCookie.split(";")[0]?.split("=")[1] ?? "";
     expect(cabinet.sessionFromToken(raw)).toBe("owner@example.com");
