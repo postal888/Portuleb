@@ -19,6 +19,9 @@ const TABLES = [
   "writing_submissions",
   "writing_reports",
   "email_deliveries",
+  "writer_login_links",
+  "writer_accounts",
+  "writer_cabinet_sessions",
 ];
 
 function fromCode(): Database.Database {

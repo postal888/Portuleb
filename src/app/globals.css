@@ -352,6 +352,74 @@
     -webkit-backdrop-filter: blur(16px);
   }
 
+  .header-account {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem 0.7rem;
+  }
+
+  .header-account-login,
+  .header-account-register,
+  .header-account-open {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+
+  .header-account-login,
+  .header-account-open {
+    color: var(--site-primary);
+    background: transparent;
+  }
+
+  .header-account-register {
+    background: var(--site-primary);
+    color: var(--site-inverse);
+  }
+
+  .header-account-login:active,
+  .header-account-register:active,
+  .header-account-open:active {
+    transform: scale(0.97);
+  }
+
+  .header-account a:focus-visible {
+    outline: 2px solid var(--site-primary);
+    outline-offset: 2px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .header-account-login:hover,
+    .header-account-open:hover {
+      background: var(--site-primary-highlight);
+    }
+
+    .header-account-register:hover {
+      background: var(--site-primary-strong, #004d2a);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .header-account {
+      position: absolute;
+      z-index: 2;
+      top: 0.65rem;
+      right: 1.25rem;
+      padding: 0;
+    }
+  }
+
   .site-header-inner {
     width: 100%;
     max-width: 52rem;

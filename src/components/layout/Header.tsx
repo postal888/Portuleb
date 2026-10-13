@@ -2,20 +2,59 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SiteLogo } from "@/components/brand/SiteLogo";
 import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { PortugueseAccentBar } from "@/components/writing/PortugueseAccentBar";
 import type { Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
+import { cabinetPath } from "@/lib/writer/cabinet-path";
+
+function AccountLinks({ locale, signedIn }: { locale: Locale; signedIn: boolean }) {
+  const account = getUi(locale).account;
+  const href = cabinetPath(locale);
+  if (signedIn) {
+    return (
+      <Link className="header-account-open" href={href}>
+        {account.open}
+      </Link>
+    );
+  }
+  return (
+    <>
+      <Link className="header-account-login" href={href}>
+        {account.login}
+      </Link>
+      <Link className="header-account-register" href={`${href}?intent=register`}>
+        {account.register}
+      </Link>
+    </>
+  );
+}
 
 export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
   const nav = getUi(locale).nav;
   const writingHref = localizedPath(locale, "writing");
   const onWriter = pathname === writingHref || pathname.startsWith(`${writingHref}/`);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/writer/cabinet/me", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((payload: { signedIn?: boolean }) => {
+        if (!cancelled) setSignedIn(Boolean(payload?.signedIn));
+      })
+      .catch(() => {
+        if (!cancelled) setSignedIn(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
 
   return (
     <header className="site-header relative sticky top-0 z-50">
@@ -68,6 +107,9 @@ export function Header({ locale }: { locale: Locale }) {
             </svg>
           </button>
         </div>
+      </div>
+      <div className="header-account">
+        <AccountLinks locale={locale} signedIn={signedIn} />
       </div>
       {onWriter ? <PortugueseAccentBar locale={locale} /> : null}
 

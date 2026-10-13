@@ -22,6 +22,7 @@ import { EMAIL_GATE_WORDS, EXAM_MAX_WORDS, EXAM_MIN_WORDS } from "@/lib/writer/t
 import { wordLabel } from "@/lib/writer/word-label";
 import type { Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
+import { CabinetEntry } from "@/components/writer/CabinetEntry";
 import { localizedPath } from "@/lib/i18n-links";
 import "./home-landing.css";
 
@@ -444,6 +445,7 @@ export function HomeWriterMock({
             ) : null}
           </section>
         ) : null}
+        <CabinetEntry locale={locale} />
 
         <div aria-live="polite">
           <EssayWorkbench
@@ -669,6 +671,7 @@ export function HomeWriterMock({
             {canAskEmail ? t.emailNotice : t.gateClosed}
           </p>
         </div>
+        <CabinetEntry locale={locale} />
 
         {error ? (
           <p

@@ -149,3 +149,140 @@ export function renderReportEmail(data: ReportEmailData): MailMessage {
 export function reportEmailCopy(locale: Locale): Copy {
   return COPY[locale] ?? COPY["pt-br"];
 }
+
+export type CabinetEmailData = {
+  locale: Locale;
+  enterUrl: string;
+  minutes: number;
+  kind?: "login" | "verify" | "reset";
+};
+
+type CabinetCopy = {
+  subject: string;
+  greeting: string;
+  intro: string;
+  cta: string;
+  expiry: string;
+  noReply: string;
+  footer: string;
+};
+
+const CABINET_COPY: Record<"login" | "verify" | "reset", Record<Locale, CabinetCopy>> = {
+  login: {
+    "pt-br": {
+      subject: "Link para os seus textos",
+      greeting: "Olá!",
+      intro: "Este link abre os textos que você já enviou com este e-mail, com as correções.",
+      cta: "Abrir meus textos",
+      expiry: "O link vale {minutes} minutos e funciona uma vez.",
+      noReply: "Não responda a este e-mail — a caixa não é monitorada.",
+      footer: COPY["pt-br"].footer,
+    },
+    en: {
+      subject: "Link to your texts",
+      greeting: "Hello!",
+      intro: "This link opens the texts you already sent with this email, corrections included.",
+      cta: "Open my texts",
+      expiry: "The link lasts {minutes} minutes and works once.",
+      noReply: "Please do not reply to this email — the inbox is not monitored.",
+      footer: COPY.en.footer,
+    },
+    ru: {
+      subject: "Ссылка на ваши тексты",
+      greeting: "Здравствуйте!",
+      intro: "Эта ссылка открывает тексты, которые вы уже отправляли с этой почты, вместе с правками.",
+      cta: "Открыть мои тексты",
+      expiry: "Ссылка действует {minutes} минут и открывается один раз.",
+      noReply: "Не отвечайте на это письмо — ящик не просматривается.",
+      footer: COPY.ru.footer,
+    },
+  },
+  verify: {
+    "pt-br": {
+      subject: "Confirme sua conta",
+      greeting: "Olá!",
+      intro: "Confirme o e-mail para entrar na conta e ver seus textos com as correções.",
+      cta: "Confirmar e-mail",
+      expiry: "O link vale {minutes} minutos e funciona uma vez.",
+      noReply: "Não responda a este e-mail — a caixa não é monitorada.",
+      footer: COPY["pt-br"].footer,
+    },
+    en: {
+      subject: "Confirm your account",
+      greeting: "Hello!",
+      intro: "Confirm this email to open the account and see your texts with the corrections.",
+      cta: "Confirm email",
+      expiry: "The link lasts {minutes} minutes and works once.",
+      noReply: "Please do not reply to this email — the inbox is not monitored.",
+      footer: COPY.en.footer,
+    },
+    ru: {
+      subject: "Подтвердите кабинет",
+      greeting: "Здравствуйте!",
+      intro: "Подтвердите почту, чтобы войти в кабинет и увидеть тексты с правками.",
+      cta: "Подтвердить почту",
+      expiry: "Ссылка действует {minutes} минут и открывается один раз.",
+      noReply: "Не отвечайте на это письмо — ящик не просматривается.",
+      footer: COPY.ru.footer,
+    },
+  },
+  reset: {
+    "pt-br": {
+      subject: "Nova senha da conta",
+      greeting: "Olá!",
+      intro: "Recebemos um pedido para criar uma senha nova. Se não foi você, ignore este e-mail.",
+      cta: "Criar senha nova",
+      expiry: "O link vale {minutes} minutos e funciona uma vez.",
+      noReply: "Não responda a este e-mail — a caixa não é monitorada.",
+      footer: COPY["pt-br"].footer,
+    },
+    en: {
+      subject: "A new password for your account",
+      greeting: "Hello!",
+      intro: "We received a request to set a new password. If this was not you, ignore this email.",
+      cta: "Set a new password",
+      expiry: "The link lasts {minutes} minutes and works once.",
+      noReply: "Please do not reply to this email — the inbox is not monitored.",
+      footer: COPY.en.footer,
+    },
+    ru: {
+      subject: "Новый пароль кабинета",
+      greeting: "Здравствуйте!",
+      intro: "Мы получили просьбу задать новый пароль. Если это были не вы, просто не открывайте ссылку.",
+      cta: "Задать новый пароль",
+      expiry: "Ссылка действует {minutes} минут и открывается один раз.",
+      noReply: "Не отвечайте на это письмо — ящик не просматривается.",
+      footer: COPY.ru.footer,
+    },
+  },
+};
+
+/** Account letter. It never carries the essay, the corrections, or the password. */
+export function renderCabinetEmail(data: CabinetEmailData): MailMessage {
+  const kind = data.kind ?? "login";
+  const copy = CABINET_COPY[kind][data.locale] ?? CABINET_COPY[kind]["pt-br"];
+  const expiry = fill(copy.expiry, { minutes: data.minutes });
+  const text = [copy.greeting, "", copy.intro, "", `${copy.cta}: ${data.enterUrl}`, "", expiry, "", copy.noReply, copy.footer].join(
+    "\n",
+  );
+  const html = `<!doctype html>
+<html lang="${escapeHtml(data.locale === "pt-br" ? "pt-BR" : data.locale)}">
+  <body style="margin:0;padding:24px;background:#f6f4ef;font-family:Georgia,'Times New Roman',serif;color:#1c1a17">
+    <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e2ddd2;border-radius:12px;padding:28px">
+      <p style="margin:0 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8a8070">${escapeHtml(SITE.name)}</p>
+      <h1 style="margin:0 0 16px;font-size:22px;line-height:1.3">${escapeHtml(copy.subject)}</h1>
+      <p style="margin:0 0 12px">${escapeHtml(copy.greeting)}</p>
+      <p style="margin:0 0 20px">${escapeHtml(copy.intro)}</p>
+      <p style="margin:0 0 20px">
+        <a href="${escapeHtml(data.enterUrl)}" style="display:inline-block;background:#1c1a17;color:#ffffff;text-decoration:none;padding:12px 20px;border-radius:8px">${escapeHtml(copy.cta)}</a>
+      </p>
+      <p style="margin:0 0 8px;font-size:13px;color:#8a8070">${escapeHtml(data.enterUrl)}</p>
+      <p style="margin:0 0 8px;font-size:13px;color:#8a8070">${escapeHtml(expiry)}</p>
+      <hr style="border:none;border-top:1px solid #e2ddd2;margin:20px 0">
+      <p style="margin:0 0 6px;font-size:12px;color:#8a8070">${escapeHtml(copy.noReply)}</p>
+      <p style="margin:0;font-size:12px;color:#8a8070">${escapeHtml(copy.footer)}</p>
+    </div>
+  </body>
+</html>`;
+  return { to: "", subject: copy.subject, html, text };
+}

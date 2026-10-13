@@ -122,6 +122,38 @@ export const WRITER_SCHEMA_SQL = `
   );
   CREATE INDEX IF NOT EXISTS idx_email_deliveries_status ON email_deliveries(status, created_at);
   CREATE INDEX IF NOT EXISTS idx_email_deliveries_submission ON email_deliveries(submission_id);
+
+  CREATE TABLE IF NOT EXISTS writer_accounts (
+    id TEXT PRIMARY KEY,
+    email_normalized TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    verified_at TEXT,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_writer_accounts_email ON writer_accounts(email_normalized);
+
+  CREATE TABLE IF NOT EXISTS writer_login_links (
+    id TEXT PRIMARY KEY,
+    email_normalized TEXT NOT NULL,
+    token_hash TEXT NOT NULL UNIQUE,
+    locale TEXT NOT NULL,
+    purpose TEXT NOT NULL DEFAULT 'login',
+    expires_at TEXT NOT NULL,
+    used_at TEXT,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_writer_login_links_email ON writer_login_links(email_normalized, created_at);
+
+  CREATE TABLE IF NOT EXISTS writer_cabinet_sessions (
+    id TEXT PRIMARY KEY,
+    email_normalized TEXT NOT NULL,
+    token_hash TEXT NOT NULL UNIQUE,
+    expires_at TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+    last_seen_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_writer_cabinet_sessions_email ON writer_cabinet_sessions(email_normalized);
+  CREATE INDEX IF NOT EXISTS idx_writer_cabinet_sessions_expires ON writer_cabinet_sessions(expires_at);
 `;
 
 export function migrateWriterObservability(database: Database.Database) {
@@ -130,5 +162,10 @@ export function migrateWriterObservability(database: Database.Database) {
   const cols = database.prepare(`PRAGMA table_info(writing_submissions)`).all() as { name: string }[];
   if (!cols.some((c) => c.name === "archive_error")) {
     database.exec(`ALTER TABLE writing_submissions ADD COLUMN archive_error TEXT`);
+  }
+
+  const linkCols = database.prepare(`PRAGMA table_info(writer_login_links)`).all() as { name: string }[];
+  if (linkCols.length > 0 && !linkCols.some((c) => c.name === "purpose")) {
+    database.exec(`ALTER TABLE writer_login_links ADD COLUMN purpose TEXT NOT NULL DEFAULT 'login'`);
   }
 }

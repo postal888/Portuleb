@@ -6,6 +6,7 @@ import type { Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
 import type { ReportLoad } from "@/lib/writer/report-view";
+import { CabinetEntry } from "@/components/writer/CabinetEntry";
 import { wordLabel } from "@/lib/writer/word-label";
 import type { CheckEssayMeta } from "@/lib/essay/types";
 
@@ -64,6 +65,7 @@ function Status({ locale, title, body }: { locale: Locale; title: string; body: 
         <Link className="home-mock-cta" href={localizedPath(locale, "writing")}>
           {t.reportStartAnother}
         </Link>
+        <CabinetEntry locale={locale} />
       </header>
     </Shell>
   );
@@ -122,6 +124,7 @@ export function WriterReportView({ load, urlLocale }: { load: ReportLoad; urlLoc
           {" · "}
           {t.reportLinkNote}
         </p>
+        <CabinetEntry locale={locale} />
       </header>
       <EssayWorkbench
         originalText={submission.essay_text}

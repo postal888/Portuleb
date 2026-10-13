@@ -8,6 +8,11 @@ import { getAlternatePath, parsePathname } from "@/i18n/route-map";
 import { getUi } from "@/i18n/ui";
 
 function switchHref(pathname: string, target: Locale): string {
+  // The cabinet is noindex and stays out of the route map, so the switcher
+  // keeps the reader on the same screen instead of falling back to the home page.
+  const cabinet = pathname.match(/^\/(?:pt-br|en|ru)(\/writing\/conta(?:\/.*)?)$/);
+  if (cabinet) return `/${target}${cabinet[1]}`;
+
   const parsed = parsePathname(pathname);
   const slug = parsed?.params.slug;
   const hasEnBlog = parsed?.section === "blogPost" && slug ? hasEnglishBlogPost(slug) : undefined;
