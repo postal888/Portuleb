@@ -268,6 +268,7 @@ export const ptBrUi = {
     tabNotes: "Explicações",
     tabStats: "Estatísticas",
     tabJson: "JSON",
+    copyMarked: "Copiar com rasuras",
     copyClean: "Copiar texto corrigido",
     copied: "Copiado",
     writeAgain: "Escrever de novo",

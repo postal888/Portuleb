@@ -110,6 +110,7 @@
   padding: 0.15rem 0.1rem 0.2rem;
   background: transparent;
   border: 0;
+  user-select: text;
 }
 
 .essay-p {
@@ -144,6 +145,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: 0;
+  user-select: none;
 }
 
 .essay-fn-link {

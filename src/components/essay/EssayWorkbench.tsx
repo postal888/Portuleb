@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { renderPlainCorrected } from "@/lib/essay/renderer";
+import { renderAnnotatedHtml, renderMarkedCopy, renderPlainCorrected } from "@/lib/essay/renderer";
 import { explanationOf } from "@/lib/essay/types";
 import type {
   CheckEssayMeta,
@@ -35,18 +35,41 @@ export function EssayWorkbench({
 }) {
   const t = getUi(locale).writing;
   const [tab, setTab] = useState<Tab>(analysis.celpe ? "task" : "corrected");
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<"clean" | "marked" | null>(null);
   const [showJson, setShowJson] = useState(debug);
 
   const clean = useMemo(
     () => renderPlainCorrected(originalText, analysis.corrections),
     [originalText, analysis.corrections],
   );
+  const markedHtml = useMemo(
+    () => renderAnnotatedHtml(originalText, analysis.corrections).html,
+    [originalText, analysis.corrections],
+  );
+
+  function flashCopied(kind: "clean" | "marked") {
+    setCopied(kind);
+    window.setTimeout(() => setCopied(null), 1600);
+  }
 
   async function copyClean() {
     await navigator.clipboard.writeText(clean);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
+    flashCopied("clean");
+  }
+
+  async function copyMarked() {
+    const marked = renderMarkedCopy(originalText, analysis.corrections);
+    try {
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "text/html": new Blob([marked.html], { type: "text/html" }),
+          "text/plain": new Blob([marked.plain], { type: "text/plain" }),
+        }),
+      ]);
+    } catch {
+      await navigator.clipboard.writeText(marked.plain);
+    }
+    flashCopied("marked");
   }
 
   const tabs: Array<{ id: Tab; label: string; hidden?: boolean }> = [
@@ -65,8 +88,11 @@ export function EssayWorkbench({
           <h2 className="essay-work-title">{analysis.celpe ? t.scoreCardTitle : t.tabCorrected}</h2>
         </div>
         <div className="essay-work-actions">
-          <button type="button" className="essay-work-btn" onClick={copyClean}>
-            {copied ? t.copied : t.copyClean}
+          <button type="button" className="essay-work-btn" onClick={() => void copyMarked()}>
+            {copied === "marked" ? t.copied : t.copyMarked}
+          </button>
+          <button type="button" className="essay-work-btn" onClick={() => void copyClean()}>
+            {copied === "clean" ? t.copied : t.copyClean}
           </button>
           {resetHref ? (
             <Link className="essay-work-btn" href={resetHref}>
@@ -95,7 +121,7 @@ export function EssayWorkbench({
 
           {tab === "corrected" ? (
             <CorrectedSheet
-              html={analysis.correctedAnnotatedHtml}
+              html={markedHtml}
               empty={t.noIssues}
               count={analysis.corrections.length}
             />
@@ -111,7 +137,7 @@ export function EssayWorkbench({
                     <div className="essay-note-top">
                       <span className="essay-note-n">{index + 1}</span>
                       <span className="essay-note-pair">
-                        <del>{item.originalFragment || "∅"}</del>
+                        <del style={{ textDecoration: "line-through" }}>{item.originalFragment || "∅"}</del>
                         {" → "}
                         <ins>{item.correctedFragment || "∅"}</ins>
                       </span>

@@ -266,6 +266,7 @@ export const enUi = {
     tabNotes: "Explanations",
     tabStats: "Statistics",
     tabJson: "JSON",
+    copyMarked: "Copy with strikethrough",
     copyClean: "Copy corrected text",
     copied: "Copied",
     writeAgain: "Write again",

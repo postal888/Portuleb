@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { getWritingTask } from "@/content/writing/tasks";
 import { mockCelpeScore } from "@/lib/essay/celpe";
 import { buildEssayCheckPrompts } from "@/lib/essay/prompt";
+import { renderMarkedCopy } from "@/lib/essay/renderer";
 import { modelEssayPayloadSchema, normalizeCorrections, parseCheckEssayRequest, prepareModelEssayPayload, wordCount } from "@/lib/essay/schema";
 import { explanationOf, shortExplanationOf } from "@/lib/essay/types";
 import type { CheckEssayRequest } from "@/lib/essay/types";
@@ -70,6 +71,29 @@ describe("имена полей объяснений", () => {
       },
     ]);
     expect(row?.explanation).toBe("canonical");
+  });
+
+  it("копия с зачёркиванием сохраняет и html, и простой текст", () => {
+    const text = "estabelecia o programa";
+    const marked = renderMarkedCopy(text, [
+      {
+        id: "c1",
+        sentenceIndex: 0,
+        originalFragment: "estabelecia",
+        correctedFragment: "estabeleceu",
+        startOffset: 0,
+        endOffset: "estabelecia".length,
+        category: "verb",
+        severity: "error",
+        explanation: "Pretérito.",
+      },
+    ]);
+
+    expect(marked.html).toContain("text-decoration:line-through");
+    expect(marked.html).toContain("estabelecia");
+    expect(marked.html).toContain("estabeleceu");
+    expect(marked.plain.startsWith("e\u0336")).toBe(true);
+    expect(marked.plain).toContain("estabeleceu");
   });
 
   it("незнакомая категория не отменяет весь разбор", () => {

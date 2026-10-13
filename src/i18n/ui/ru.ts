@@ -266,6 +266,7 @@ export const ruUi = {
     tabNotes: "Пояснения",
     tabStats: "Статистика",
     tabJson: "JSON",
+    copyMarked: "Копировать с зачёркиваниями",
     copyClean: "Скопировать исправленный текст",
     copied: "Скопировано",
     writeAgain: "Написать заново",

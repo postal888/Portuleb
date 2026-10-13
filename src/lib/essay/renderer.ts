@@ -21,12 +21,12 @@ function renderReplacement(correction: ResolvedCorrection): string {
   const mark = footnote(correction.mark, tip);
 
   if (!correction.originalFragment && correction.correctedFragment) {
-    return `<ins class="essay-ins">${next}</ins>${mark}`;
+    return `<ins class="essay-ins" style="text-decoration:none">${next}</ins>${mark}`;
   }
   if (correction.originalFragment && !correction.correctedFragment) {
-    return `<del class="essay-del">${original}</del>${mark}`;
+    return `<del class="essay-del" style="text-decoration:line-through">${original}</del>${mark}`;
   }
-  return `<del class="essay-del">${original}</del><ins class="essay-ins">${next}</ins>${mark}`;
+  return `<del class="essay-del" style="text-decoration:line-through">${original}</del><ins class="essay-ins" style="text-decoration:none">${next}</ins>${mark}`;
 }
 
 function wrapParagraphs(html: string): string {
@@ -57,6 +57,56 @@ export function renderAnnotatedHtml(text: string, corrections: Correction[]): {
   parts.unshift(escapeHtml(text.slice(0, cursor)));
 
   return { html: wrapParagraphs(parts.join("")), resolved };
+}
+
+function strikePlain(value: string): string {
+  return Array.from(value)
+    .map((char) => (/\s/.test(char) ? char : `${char}\u0336`))
+    .join("");
+}
+
+function markedPiece(correction: ResolvedCorrection): { html: string; plain: string } {
+  const original = correction.originalFragment;
+  const next = correction.correctedFragment;
+  if (!original && next) {
+    return { html: `<ins style="text-decoration:none">${escapeHtml(next)}</ins>`, plain: next };
+  }
+  if (original && !next) {
+    return {
+      html: `<del style="text-decoration:line-through">${escapeHtml(original)}</del>`,
+      plain: strikePlain(original),
+    };
+  }
+  return {
+    html: `<del style="text-decoration:line-through">${escapeHtml(original)}</del><ins style="text-decoration:none">${escapeHtml(next)}</ins>`,
+    plain: `${strikePlain(original)}${next}`,
+  };
+}
+
+/** HTML keeps the strike for Word and Docs. Plain text uses a combining stroke so messengers keep it too. */
+export function renderMarkedCopy(text: string, corrections: Correction[]): { html: string; plain: string } {
+  const resolved = resolveCorrections(text, corrections);
+  let cursor = text.length;
+  const htmlParts: string[] = [];
+  const plainParts: string[] = [];
+
+  for (let i = resolved.length - 1; i >= 0; i--) {
+    const item = resolved[i];
+    const tail = text.slice(item.endOffset, cursor);
+    htmlParts.unshift(escapeHtml(tail));
+    plainParts.unshift(tail);
+    const piece = markedPiece(item);
+    htmlParts.unshift(piece.html);
+    plainParts.unshift(piece.plain);
+    cursor = item.startOffset;
+  }
+  const head = text.slice(0, cursor);
+  htmlParts.unshift(escapeHtml(head));
+  plainParts.unshift(head);
+
+  const plain = plainParts.join("");
+  const html = `<!DOCTYPE html><html><body>${wrapParagraphs(htmlParts.join(""))}</body></html>`;
+  return { html, plain };
 }
 
 export function renderPlainCorrected(text: string, corrections: Correction[]): string {
