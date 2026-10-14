@@ -2,7 +2,7 @@
   --mock-display: var(--font-mock-display), "Palatino Linotype", Palatino, serif;
   max-width: 52rem;
   margin: 0 auto;
-  padding-bottom: 2.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .home-mock--cyrillic {
@@ -429,8 +429,8 @@
 }
 
 .home-mock-featured {
-  margin-top: 2.6rem;
-  padding-top: 1.7rem;
+  margin-top: 1.15rem;
+  padding-top: 0.8rem;
   border-top: 1px solid color-mix(in srgb, var(--site-primary) 10%, transparent);
 }
 
