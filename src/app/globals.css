@@ -352,10 +352,6 @@
     -webkit-backdrop-filter: blur(16px);
   }
 
-  .header-account-desktop {
-    display: none;
-  }
-
   .header-account-root {
     position: relative;
   }
@@ -503,16 +499,6 @@
     }
   }
 
-  @media (min-width: 1024px) {
-    .header-account-desktop {
-      display: flex;
-      position: absolute;
-      z-index: 3;
-      top: 0.62rem;
-      right: 0.45rem;
-    }
-  }
-
   @media (min-width: 1024px) and (max-width: 1279px) {
     .header-account-desktop .header-account-label {
       position: absolute;
@@ -543,8 +529,12 @@
   }
 
   .site-header-inner .nav-link {
-    padding-inline: 0.45rem;
+    padding-inline: 0.38rem;
     font-size: 0.78rem;
+  }
+
+  .header-account-desktop .header-account-root {
+    flex-shrink: 0;
   }
 
   .site-footer {

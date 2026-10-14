@@ -46,23 +46,26 @@ export function Header({ locale }: { locale: Locale }) {
       <div className="site-header-inner mx-auto flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <SiteLogo locale={locale} />
 
-        <nav className="hidden min-w-0 flex-nowrap items-center gap-0 lg:flex" aria-label="Principal">
-          {nav.map((item) => {
-            const href = localizedPath(locale, item.section);
-            const active = pathname.startsWith(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`nav-link ${active ? "nav-link-active" : "nav-link-idle"}`}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          <LocaleSwitcher locale={locale} />
-        </nav>
+        <div className="header-account-desktop hidden min-w-0 items-center gap-1.5 lg:flex">
+          <nav className="flex min-w-0 flex-nowrap items-center gap-0" aria-label="Principal">
+            {nav.map((item) => {
+              const href = localizedPath(locale, item.section);
+              const active = pathname.startsWith(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`nav-link ${active ? "nav-link-active" : "nav-link-idle"}`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <LocaleSwitcher locale={locale} />
+          </nav>
+          <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
+        </div>
 
         <div className="flex items-center gap-1.5 lg:hidden">
           <LocaleSwitcher locale={locale} />
@@ -93,9 +96,6 @@ export function Header({ locale }: { locale: Locale }) {
           </button>
           <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
         </div>
-      </div>
-      <div className="header-account-slot header-account-desktop hidden lg:flex">
-        <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
       </div>
       {onWriter ? <PortugueseAccentBar locale={locale} /> : null}
 

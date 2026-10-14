@@ -211,10 +211,6 @@ export function HomeLandingView({ locale }: { locale: Locale }) {
         })}
       </ul>
 
-      {locale !== "ru" && t.independenceNote ? (
-        <p className="home-mock-independence home-rise home-rise-delay-2">{t.independenceNote}</p>
-      ) : null}
-
       <section className="home-mock-featured home-rise home-rise-delay-3">
         <h2 className="home-mock-featured-title">{t.featuredTitle}</h2>
         <ul className="home-mock-featured-list">
@@ -256,6 +252,10 @@ export function HomeLandingView({ locale }: { locale: Locale }) {
           </li>
         </ul>
       </section>
+
+      {locale !== "ru" && t.independenceNote ? (
+        <p className="home-mock-independence home-rise home-rise-delay-2">{t.independenceNote}</p>
+      ) : null}
     </div>
   );
 }
