@@ -14,6 +14,7 @@ type RegisterModule = typeof import("@/app/api/writer/cabinet/register/route");
 type LoginModule = typeof import("@/app/api/writer/cabinet/login/route");
 type ForgotModule = typeof import("@/app/api/writer/cabinet/forgot/route");
 type ResetModule = typeof import("@/app/api/writer/cabinet/reset/route");
+type PasswordModule = typeof import("@/app/api/writer/cabinet/password/route");
 type EnterModule = typeof import("@/app/pt-br/writing/conta/entrar/[token]/route");
 type LogoutModule = typeof import("@/app/api/writer/cabinet/logout/route");
 type EraseModule = typeof import("@/app/api/writer/cabinet/erase/route");
@@ -26,6 +27,7 @@ let registerRoute: RegisterModule;
 let loginRoute: LoginModule;
 let forgotRoute: ForgotModule;
 let resetRoute: ResetModule;
+let passwordRoute: PasswordModule;
 let enterRoute: EnterModule;
 let logoutRoute: LogoutModule;
 let eraseRoute: EraseModule;
@@ -46,6 +48,7 @@ beforeAll(async () => {
   loginRoute = await import("@/app/api/writer/cabinet/login/route");
   forgotRoute = await import("@/app/api/writer/cabinet/forgot/route");
   resetRoute = await import("@/app/api/writer/cabinet/reset/route");
+  passwordRoute = await import("@/app/api/writer/cabinet/password/route");
   enterRoute = await import("@/app/pt-br/writing/conta/entrar/[token]/route");
   logoutRoute = await import("@/app/api/writer/cabinet/logout/route");
   eraseRoute = await import("@/app/api/writer/cabinet/erase/route");
@@ -323,6 +326,80 @@ describe("кабинет текстов", () => {
     );
     expect(again.status).toBe(401);
     expect(fresh.status).toBe(200);
+    expect(cabinet.cabinetStats("aluno@example.com").texts).toBe(1);
+    const summary = cabinet.cabinetErrorSummary("aluno@example.com");
+    expect(summary.total).toBe(1);
+    expect(summary.groups).toEqual([
+      expect.objectContaining({ original: "fazem", corrected: "faz", count: 1, category: "grammar" }),
+    ]);
+
+    const passwordCookie = (fresh.headers.get("set-cookie") ?? "").split(";")[0] ?? "";
+    const wrongCurrent = await passwordRoute.POST(
+      new Request("https://example.test/api/writer/cabinet/password", {
+        method: "POST",
+        headers: { "content-type": "application/json", cookie: passwordCookie },
+        body: JSON.stringify({ current: "senha-errada-1", next: "senha-final-123" }),
+      }),
+    );
+    const changed = await passwordRoute.POST(
+      new Request("https://example.test/api/writer/cabinet/password", {
+        method: "POST",
+        headers: { "content-type": "application/json", cookie: passwordCookie },
+        body: JSON.stringify({ current: "senha-nova-123", next: "senha-final-123" }),
+      }),
+    );
+    expect(wrongCurrent.status).toBe(401);
+    expect(changed.status).toBe(200);
+    const withNew = await loginRoute.POST(
+      new Request("https://example.test/api/writer/cabinet/login", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-forwarded-for": "203.0.113.18" },
+        body: JSON.stringify({ email: "aluno@example.com", password: "senha-final-123" }),
+      }),
+    );
+    expect(withNew.status).toBe(200);
+  });
+
+  it("одна и та же правка складывается, одиночная остаётся без числа", () => {
+    const email = "erros@example.com";
+    const first = finishedSubmission(store, { email });
+    finishedSubmission(store, { email });
+    db.prepare(`UPDATE writing_submissions SET analysis_json = ? WHERE id = ?`).run(
+      JSON.stringify({
+        correctedAnnotatedHtml: "<p>texto</p>",
+        corrections: [
+          {
+            id: "a",
+            sentenceIndex: 0,
+            originalFragment: "Fazem",
+            correctedFragment: "faz",
+            category: "grammar",
+            severity: "error",
+            explanation: "Concordância.",
+          },
+          {
+            id: "b",
+            sentenceIndex: 1,
+            originalFragment: "quatros",
+            correctedFragment: "quatro",
+            category: "agreement",
+            severity: "error",
+            explanation: "Sem -s.",
+          },
+        ],
+      }),
+      first,
+    );
+
+    const summary = cabinet.cabinetErrorSummary(email);
+    expect(summary.total).toBe(3);
+    expect(summary.byCategory.map((row) => [row.category, row.count])).toEqual([
+      ["grammar", 2],
+      ["agreement", 1],
+    ]);
+    expect(summary.groups.find((row) => row.corrected === "faz")?.count).toBe(2);
+    expect(summary.groups.find((row) => row.original === "quatros")?.count).toBe(1);
+    expect(cabinet.cabinetErrorSummary("outro@example.com").total).toBe(0);
   });
 
   it("ссылка сброса пароля не сгорает, если её открыли как вход", async () => {

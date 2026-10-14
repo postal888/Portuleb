@@ -151,6 +151,107 @@ export function CabinetAuth({ locale, mode }: { locale: Locale; mode: Mode }) {
   );
 }
 
+export function CabinetPasswordForm({ locale }: { locale: Locale }) {
+  const t = getUi(locale).writing;
+  const [current, setCurrent] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [phase, setPhase] = useState<"idle" | "busy" | "saved">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (password !== confirm) {
+      setError(t.cabinetPasswordMismatch);
+      return;
+    }
+    setPhase("busy");
+    setError(null);
+    try {
+      const response = await fetch("/api/writer/cabinet/password", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ current, next: password }),
+      });
+      const payload = (await response.json().catch(() => null)) as { ok?: boolean; errorCode?: string } | null;
+      if (payload?.ok) {
+        setCurrent("");
+        setPassword("");
+        setConfirm("");
+        setPhase("saved");
+        return;
+      }
+      if (payload?.errorCode === "weak_password") setError(t.cabinetPasswordShort);
+      else if (payload?.errorCode === "rate_limited") setError(t.cabinetRate);
+      else setError(t.cabinetPasswordWrong);
+      setPhase("idle");
+    } catch {
+      setError(t.cabinetSendFailed);
+      setPhase("idle");
+    }
+  }
+
+  return (
+    <form className="cabinet-form" onSubmit={onSubmit}>
+      <label className="home-writer-label" htmlFor="cabinet-current-password">
+        {t.cabinetPasswordCurrent}
+      </label>
+      <input
+        id="cabinet-current-password"
+        name="current"
+        type="password"
+        autoComplete="current-password"
+        required
+        maxLength={72}
+        value={current}
+        onChange={(event) => setCurrent(event.target.value)}
+      />
+      <label className="home-writer-label" htmlFor="cabinet-change-password">
+        {t.cabinetPasswordNew}
+      </label>
+      <input
+        id="cabinet-change-password"
+        name="password"
+        type="password"
+        autoComplete="new-password"
+        required
+        minLength={8}
+        maxLength={72}
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <p className="home-writer-gate-hint">{t.cabinetPasswordHint}</p>
+      <label className="home-writer-label" htmlFor="cabinet-change-password-2">
+        {t.cabinetPasswordConfirm}
+      </label>
+      <input
+        id="cabinet-change-password-2"
+        name="confirm"
+        type="password"
+        autoComplete="new-password"
+        required
+        minLength={8}
+        maxLength={72}
+        value={confirm}
+        onChange={(event) => setConfirm(event.target.value)}
+      />
+      {phase === "saved" ? (
+        <p className="cabinet-note" role="status">
+          {t.cabinetPasswordSaved}
+        </p>
+      ) : null}
+      {error ? (
+        <p className="home-writer-error" role="alert">
+          {error}
+        </p>
+      ) : null}
+      <button type="submit" className="home-mock-cta home-writer-submit" disabled={phase === "busy"}>
+        {phase === "busy" ? t.cabinetSending : t.cabinetResetSubmit}
+      </button>
+    </form>
+  );
+}
+
 export function CabinetResetForm({ locale, token }: { locale: Locale; token: string }) {
   const t = getUi(locale).writing;
   const [password, setPassword] = useState("");

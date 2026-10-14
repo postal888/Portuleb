@@ -352,71 +352,182 @@
     -webkit-backdrop-filter: blur(16px);
   }
 
-  .header-account {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0 1rem 0.7rem;
+  .header-account-desktop {
+    display: none;
   }
 
-  .header-account-login,
-  .header-account-register,
-  .header-account-open {
+  .header-account-root {
+    position: relative;
+  }
+
+  .header-account-chip {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 2rem;
-    padding: 0.3rem 0.85rem;
+    gap: 0.4rem;
+    min-height: 2.15rem;
+    padding: 0.15rem 0.18rem 0.15rem 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--site-primary) 22%, transparent);
     border-radius: 999px;
+    background: color-mix(in srgb, #fff 78%, var(--site-header-bg));
+    color: var(--site-primary);
     font-size: 0.78rem;
     font-weight: 600;
     line-height: 1;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+    cursor: pointer;
+    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out);
   }
 
-  .header-account-login,
-  .header-account-open {
+  .header-account-chip[data-state="out"] {
+    padding: 0.15rem;
+  }
+
+  .header-account-chip[data-state="in"] {
+    background: color-mix(in srgb, var(--site-primary) 8%, #fff);
+  }
+
+  .header-account-mark {
+    display: grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--site-primary) 10%, #fff);
     color: var(--site-primary);
-    background: transparent;
   }
 
-  .header-account-register {
+  .header-account-chip[data-state="in"] .header-account-mark {
     background: var(--site-primary);
     color: var(--site-inverse);
   }
 
-  .header-account-login:active,
-  .header-account-register:active,
-  .header-account-open:active {
+  .header-account-chip:active {
     transform: scale(0.97);
   }
 
-  .header-account a:focus-visible {
+  .header-account-chip:focus-visible,
+  .header-account-item:focus-visible {
     outline: 2px solid var(--site-primary);
     outline-offset: 2px;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .header-account-login:hover,
-    .header-account-open:hover {
-      background: var(--site-primary-highlight);
-    }
+  .header-account-menu {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 0.4rem);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 14.5rem;
+    padding: 0.35rem;
+    border: 1px solid color-mix(in srgb, var(--site-primary) 16%, #d5e6dc);
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 14px 36px color-mix(in srgb, #004d2a 14%, transparent);
+    transform-origin: top right;
+    animation: header-account-in 160ms var(--ease-out);
+  }
 
-    .header-account-register:hover {
-      background: var(--site-primary-strong, #004d2a);
+  .header-account-who {
+    margin: 0;
+    padding: 0.45rem 0.7rem 0.35rem;
+    color: var(--site-muted);
+    font-size: 0.75rem;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .header-account-menu form {
+    margin: 0;
+  }
+
+  .header-account-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    min-height: 2.25rem;
+    padding: 0.35rem 0.7rem;
+    border: 0;
+    border-radius: 0.7rem;
+    background: transparent;
+    color: var(--site-text, #1c2e24);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 160ms var(--ease-out);
+  }
+
+  .header-account-item-danger {
+    color: #8a3b32;
+  }
+
+  @keyframes header-account-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
     }
   }
 
-  @media (min-width: 1280px) {
-    .header-account {
+  @media (hover: hover) and (pointer: fine) {
+    .header-account-chip:hover {
+      background: var(--site-primary-highlight);
+    }
+
+    .header-account-item:hover {
+      background: color-mix(in srgb, var(--site-primary) 8%, #fff);
+    }
+  }
+
+  @media (max-width: 420px) {
+    .header-account-label {
       position: absolute;
-      z-index: 2;
-      top: 0.65rem;
-      right: 1.25rem;
+      width: 1px;
+      height: 1px;
       padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .header-account-chip[data-state="in"] {
+      padding-left: 0.18rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-account-desktop {
+      display: flex;
+      position: absolute;
+      z-index: 3;
+      top: 0.62rem;
+      right: 0.45rem;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .header-account-desktop .header-account-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .header-account-desktop .header-account-chip[data-state="in"] {
+      padding-left: 0.18rem;
     }
   }
 

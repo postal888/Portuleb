@@ -9,34 +9,13 @@ import { PortugueseAccentBar } from "@/components/writing/PortugueseAccentBar";
 import type { Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
-import { cabinetPath } from "@/lib/writer/cabinet-path";
-
-function AccountLinks({ locale, signedIn }: { locale: Locale; signedIn: boolean }) {
-  const account = getUi(locale).account;
-  const href = cabinetPath(locale);
-  if (signedIn) {
-    return (
-      <Link className="header-account-open" href={href}>
-        {account.open}
-      </Link>
-    );
-  }
-  return (
-    <>
-      <Link className="header-account-login" href={href}>
-        {account.login}
-      </Link>
-      <Link className="header-account-register" href={`${href}?intent=register`}>
-        {account.register}
-      </Link>
-    </>
-  );
-}
+import { HeaderAccount } from "@/components/layout/HeaderAccount";
 
 export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
   const nav = getUi(locale).nav;
   const writingHref = localizedPath(locale, "writing");
   const onWriter = pathname === writingHref || pathname.startsWith(`${writingHref}/`);
@@ -45,11 +24,17 @@ export function Header({ locale }: { locale: Locale }) {
     let cancelled = false;
     fetch("/api/writer/cabinet/me", { cache: "no-store" })
       .then((response) => response.json())
-      .then((payload: { signedIn?: boolean }) => {
-        if (!cancelled) setSignedIn(Boolean(payload?.signedIn));
+      .then((payload: { signedIn?: boolean; email?: string }) => {
+        if (cancelled) return;
+        const inAccount = Boolean(payload?.signedIn);
+        setSignedIn(inAccount);
+        setEmail(inAccount && payload.email ? payload.email : null);
       })
       .catch(() => {
-        if (!cancelled) setSignedIn(false);
+        if (!cancelled) {
+          setSignedIn(false);
+          setEmail(null);
+        }
       });
     return () => {
       cancelled = true;
@@ -79,7 +64,7 @@ export function Header({ locale }: { locale: Locale }) {
           <LocaleSwitcher locale={locale} />
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-1.5 lg:hidden">
           <LocaleSwitcher locale={locale} />
           <button
             type="button"
@@ -106,10 +91,11 @@ export function Header({ locale }: { locale: Locale }) {
               )}
             </svg>
           </button>
+          <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
         </div>
       </div>
-      <div className="header-account">
-        <AccountLinks locale={locale} signedIn={signedIn} />
+      <div className="header-account-slot header-account-desktop hidden lg:flex">
+        <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
       </div>
       {onWriter ? <PortugueseAccentBar locale={locale} /> : null}
 

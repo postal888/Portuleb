@@ -2,7 +2,13 @@ import { randomBytes, randomUUID } from "node:crypto";
 import type { Locale } from "@/i18n/locales";
 import { getAdminDb } from "@/lib/admin/db";
 import { publicOrigin } from "@/lib/site";
-import type { EssayAnalysis } from "@/lib/essay/types";
+import {
+  CORRECTION_CATEGORIES,
+  type CorrectionCategory,
+  type EssayAnalysis,
+  explanationOf,
+  shortExplanationOf,
+} from "@/lib/essay/types";
 import { MailError, getMailProvider } from "./mail/provider";
 import { renderCabinetEmail } from "./mail/templates";
 import { cabinetEnterPath, cabinetResetPath } from "./cabinet-path";
@@ -364,4 +370,116 @@ export async function resetPassword(
     )
     .run(passwordHash, now, link.email);
   return { status: "ok", sessionToken: createCabinetSession(link.email).token };
+}
+
+/** Changes the password of a signed-in account. A wrong current password looks the same as a missing account. */
+export async function changePassword(
+  email: string,
+  current: string,
+  next: string,
+): Promise<{ status: "ok" | "invalid" | "weak" }> {
+  if (!passwordAccepted(next)) return { status: "weak" };
+  const account = accountOf(email);
+  const matches = await verifyPassword(current, account?.password_hash ?? (await dummyHash()));
+  if (!account || !matches) return { status: "invalid" };
+  const passwordHash = await hashPassword(next);
+  getAdminDb()
+    .prepare(`UPDATE writer_accounts SET password_hash = ? WHERE email_normalized = ?`)
+    .run(passwordHash, account.email_normalized);
+  return { status: "ok" };
+}
+
+export type CabinetStats = {
+  texts: number;
+  words: number;
+  latestLevel: string | null;
+  latestAt: string | null;
+};
+
+export function cabinetStats(email: string): CabinetStats {
+  const essays = listCabinetEssays(email);
+  const latest = essays[0];
+  return {
+    texts: essays.length,
+    words: essays.reduce((sum, essay) => sum + essay.wordCount, 0),
+    latestLevel: latest?.level ?? null,
+    latestAt: latest?.createdAt ?? null,
+  };
+}
+
+export type CabinetErrorGroup = {
+  key: string;
+  category: CorrectionCategory;
+  original: string;
+  corrected: string;
+  explanation: string;
+  count: number;
+};
+
+export type CabinetErrorSummary = {
+  total: number;
+  byCategory: Array<{ category: CorrectionCategory; count: number }>;
+  groups: CabinetErrorGroup[];
+};
+
+function isCorrectionCategory(value: string): value is CorrectionCategory {
+  return (CORRECTION_CATEGORIES as readonly string[]).includes(value);
+}
+
+function mistakeKey(category: CorrectionCategory, original: string, corrected: string): string {
+  const fold = (value: string) => value.trim().replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
+  return `${category}\n${fold(original)}\n${fold(corrected)}`;
+}
+
+/** Every mark across the account. The same wrong fragment and the same fix share one row. */
+export function cabinetErrorSummary(email: string): CabinetErrorSummary {
+  const rows = getAdminDb()
+    .prepare(
+      `SELECT analysis_json
+       FROM writing_submissions
+       WHERE email_normalized = ? AND status = 'completed' AND analysis_json IS NOT NULL`,
+    )
+    .all(normalizeEmail(email)) as Array<{ analysis_json: string | null }>;
+
+  const groups = new Map<string, CabinetErrorGroup>();
+  const categoryCounts = new Map<CorrectionCategory, number>();
+  let total = 0;
+
+  for (const row of rows) {
+    const analysis = parseAnalysis(row.analysis_json);
+    if (!analysis) continue;
+    for (const item of analysis.corrections) {
+      if (!isCorrectionCategory(item.category)) continue;
+      const original = item.originalFragment?.trim() ?? "";
+      const corrected = item.correctedFragment?.trim() ?? "";
+      if (!original && !corrected) continue;
+      total += 1;
+      categoryCounts.set(item.category, (categoryCounts.get(item.category) ?? 0) + 1);
+      const key = mistakeKey(item.category, original, corrected);
+      const existing = groups.get(key);
+      if (existing) {
+        existing.count += 1;
+        continue;
+      }
+      const short = shortExplanationOf(item).trim();
+      groups.set(key, {
+        key,
+        category: item.category,
+        original,
+        corrected,
+        explanation: short || explanationOf(item).trim(),
+        count: 1,
+      });
+    }
+  }
+
+  return {
+    total,
+    byCategory: [...categoryCounts.entries()]
+      .map(([category, count]) => ({ category, count }))
+      .sort((a, b) => b.count - a.count || a.category.localeCompare(b.category)),
+    groups: [...groups.values()].sort(
+      (a, b) => b.count - a.count || a.original.localeCompare(b.original, "pt"),
+    ),
+  };
 }

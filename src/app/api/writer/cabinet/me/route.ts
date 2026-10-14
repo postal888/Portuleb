@@ -3,8 +3,9 @@ import { tokenFrom } from "@/lib/writer/cabinet-http";
 
 export const dynamic = "force-dynamic";
 
-/** Whether the browser already holds a cabinet session. The address stays on the server. */
+/** Whether the browser already holds a cabinet session. The address is returned only to that session. */
 export async function GET(request: Request) {
   const email = sessionFromToken(tokenFrom(request));
-  return Response.json({ signedIn: Boolean(email) }, { headers: { "Cache-Control": "no-store" } });
+  const body = email ? { signedIn: true, email } : { signedIn: false };
+  return Response.json(body, { headers: { "Cache-Control": "no-store" } });
 }
