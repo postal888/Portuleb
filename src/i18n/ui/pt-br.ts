@@ -77,6 +77,11 @@ export const ptBrUi = {
       "Acervo de provas anteriores do Celpe-Bras por edição: caderno de questões, vídeos das tarefas, roteiros e elementos provocadores da parte oral.",
     sessionLabel: "Sessão",
     materialsCount: "materiais",
+    practiceKicker: "Prática",
+    practiceTitle: "Escreva a parte escrita",
+    practiceSummary:
+      "As mesmas edições, com vídeo, áudio e texto, para treinar cada tarefa da prova.",
+    practiceFoot: "Ir para a prática →",
   },
   blog: {
     navLabel: "Blog",

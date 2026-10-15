@@ -73,6 +73,11 @@ export const enUi = {
       "Past Celpe-Bras exams by edition: question booklet, task videos, oral scripts and the prompts used in the face-to-face interaction.",
     sessionLabel: "Session",
     materialsCount: "materials",
+    practiceKicker: "Practice",
+    practiceTitle: "Write the written part",
+    practiceSummary:
+      "The same editions, with video, audio and text, so you can practice each written task.",
+    practiceFoot: "Go to practice →",
     lastUpdated: "Last updated",
     officialVerified: "Official information verified on",
     officialSourcesTitle: "Official sources",

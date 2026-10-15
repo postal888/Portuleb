@@ -41,6 +41,17 @@ export function PastExamsIndexView({ locale }: { locale: Locale }) {
             </li>
           );
         })}
+        <li>
+          <Link
+            href={localizedPath(locale, "practiceWriting")}
+            className="archive-session-card"
+          >
+            <div className="archive-session-kicker">{a.practiceKicker}</div>
+            <h3 className="archive-session-title">{a.practiceTitle}</h3>
+            <p className="archive-session-summary">{a.practiceSummary}</p>
+            <p className="archive-session-foot">{a.practiceFoot}</p>
+          </Link>
+        </li>
       </ul>
     </>
   );
