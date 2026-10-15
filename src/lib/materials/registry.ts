@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { acervoFiles } from "./acervo-files";
 
 /** Acervo local em Materials/Provas (repositório). */
 export const MATERIALS_ROOT_PROVAS = path.join(process.cwd(), "Materials", "Provas");
@@ -16,6 +17,8 @@ export type MaterialFile = {
   title: string;
   /** Usar MATERIALS_ROOT legado (arquivos/…) em vez de Materials/Provas. */
   legacy?: boolean;
+  /** Full scans added beside the live 2023–2026 files. Lives in MATERIALS_ROOT/acervo. */
+  acervo?: boolean;
 };
 
 function file(id: string, relativePath: string, kind: MaterialKind, title: string, legacy = false): MaterialFile {
@@ -222,6 +225,7 @@ export const files2026_1: Record<string, MaterialFile> = {
 };
 
 const sessionRegistries: Record<string, Record<string, MaterialFile>> = {
+  ...acervoFiles,
   "2023-1": files2023_1,
   "2023-2": files2023_2,
   "2024-1": files2024_1,
@@ -236,6 +240,11 @@ export function getMaterialRegistry(sessionSlug: string) {
 }
 
 function materialRoot(entry: MaterialFile): string {
+  if (entry.acervo) {
+    const configured = process.env.ACERVO_ROOT;
+    const root = configured && configured.length > 0 ? configured : path.join(MATERIALS_ROOT, "acervo");
+    return path.resolve(root);
+  }
   if (entry.legacy) return path.resolve(process.env.MATERIALS_ROOT ?? MATERIALS_ROOT);
   const provasRoot = fs.existsSync(MATERIALS_ROOT_PROVAS) ? MATERIALS_ROOT_PROVAS : MATERIALS_ROOT;
   return path.resolve(provasRoot);
@@ -261,9 +270,14 @@ export function mimeForPath(filePath: string): string {
   const map: Record<string, string> = {
     ".pdf": "application/pdf",
     ".mp4": "video/mp4",
+    ".m4v": "video/mp4",
     ".mp3": "audio/mpeg",
     ".webm": "video/webm",
     ".m4a": "audio/mp4",
+    ".avi": "video/x-msvideo",
+    ".wmv": "video/x-ms-wmv",
+    ".mpg": "video/mpeg",
+    ".mpeg": "video/mpeg",
     ".htm": "text/html",
     ".html": "text/html",
   };

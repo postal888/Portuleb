@@ -10,6 +10,7 @@ import { session2025_1_en } from "./en/2025-1";
 import { session2026_1_en } from "./en/2026-1";
 import { session2025_1_ru } from "./ru/2025-1";
 import { session2026_1_ru } from "./ru/2026-1";
+import { acervoSessions, acervoSlugs } from "./acervo-sessions";
 import { localizeArchiveSessionForEn } from "./localize-en";
 import { localizeArchiveSessionForRu } from "./localize-ru";
 import type { ArchiveSession } from "./types";
@@ -17,6 +18,7 @@ import type { ArchiveSession } from "./types";
 export type { ArchiveSession } from "./types";
 
 const PT: Record<string, ArchiveSession> = {
+  ...acervoSessions,
   "2023-1": session2023_1,
   "2023-2": session2023_2,
   "2024-1": session2024_1,
@@ -44,6 +46,7 @@ export const archiveSlugs = [
   "2024-1",
   "2023-2",
   "2023-1",
+  ...acervoSlugs,
 ] as const;
 
 export function getArchiveSession(slug: string, locale: Locale): ArchiveSession | undefined {

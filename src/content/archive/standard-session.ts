@@ -28,6 +28,16 @@ export type StandardSessionMeta = {
   edital?: { available: boolean; description?: string };
   blogAnalysis?: { href: string; label: string };
   asideNote?: string;
+  /** Defaults keep every core file present, as on the 2023–2026 pages. */
+  present?: {
+    caderno?: boolean;
+    videoT1?: boolean;
+    videoT2?: boolean;
+    roteiros?: boolean;
+    elementos?: boolean;
+  };
+  task1Kind?: "video" | "audio";
+  task2Kind?: "video" | "audio";
 };
 
 export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession {
@@ -41,6 +51,28 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
   };
 
   const editalAvailable = meta.edital?.available ?? false;
+  const has = {
+    caderno: meta.present?.caderno ?? true,
+    videoT1: meta.present?.videoT1 ?? true,
+    videoT2: meta.present?.videoT2 ?? true,
+    roteiros: meta.present?.roteiros ?? true,
+    elementos: meta.present?.elementos ?? true,
+  };
+  const task1Kind = meta.task1Kind ?? "video";
+  const task2Kind = meta.task2Kind ?? "video";
+
+  function slot(on: boolean, item: ArchiveSession["materials"][number]) {
+    if (on) return item;
+    return {
+      ...item,
+      badge: "Ausente",
+      badgeVariant: "missing" as const,
+      description: "Não incluído neste pacote local.",
+      action: "Indisponível",
+      href: "#materiais",
+      dimmed: true,
+    };
+  }
 
   return {
     slug: meta.slug,
@@ -56,7 +88,7 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
     },
     ...(meta.blogAnalysis ? { blogAnalysis: meta.blogAnalysis } : {}),
     materials: [
-      {
+      slot(has.caderno, {
         id: "caderno",
         materialId: "caderno",
         kind: "pdf",
@@ -67,32 +99,32 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
         action: "Abrir PDF",
         href: "#parte-escrita",
         dimmed: false,
-      },
-      {
+      }),
+      slot(has.videoT1, {
         id: "video-t1",
         materialId: "video-t1",
-        kind: "video",
+        kind: task1Kind,
         icon: "V",
         title: meta.task1.videoTitle,
         description: meta.task1.videoDescription,
         category: "Tarefa 1",
-        action: "Assistir",
+        action: task1Kind === "audio" ? "Ouvir" : "Assistir",
         href: "#material-video-t1",
         dimmed: false,
-      },
-      {
+      }),
+      slot(has.videoT2, {
         id: "video-t2",
         materialId: "video-t2",
-        kind: "video",
+        kind: task2Kind,
         icon: "▶",
         title: meta.task2.videoTitle,
         description: meta.task2.videoDescription,
         category: "Tarefa 2",
-        action: "Assistir",
+        action: task2Kind === "audio" ? "Ouvir" : "Assistir",
         href: "#material-video-t2",
         dimmed: false,
-      },
-      {
+      }),
+      slot(has.roteiros, {
         id: "roteiros",
         materialId: "roteiros",
         kind: "pdf",
@@ -103,8 +135,8 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
         action: "Abrir PDF",
         href: "#material-roteiros",
         dimmed: false,
-      },
-      {
+      }),
+      slot(has.elementos, {
         id: "elementos",
         materialId: "elementos",
         kind: "pdf",
@@ -115,7 +147,7 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
         action: "Abrir PDF",
         href: "#material-elementos",
         dimmed: false,
-      },
+      }),
       {
         id: "edital",
         materialId: "edital",
@@ -140,41 +172,55 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
         number: "Tarefa 1",
         title: meta.task1.title,
         description: meta.task1.description,
-        state: "ok",
-        stateLabel: "Vídeo",
-        input: "Insumo: vídeo",
-        materialHref: "#material-video-t1",
-        materialAction: "Assistir vídeo",
+        state: has.videoT1 ? "ok" : "missing",
+        stateLabel: has.videoT1 ? (task1Kind === "audio" ? "Áudio" : "Vídeo") : "Ausente",
+        input: task1Kind === "audio" ? "Insumo: áudio" : "Insumo: vídeo",
+        materialHref: has.videoT1 ? "#material-video-t1" : "#materiais",
+        materialAction: has.videoT1
+          ? task1Kind === "audio"
+            ? "Ouvir"
+            : "Assistir vídeo"
+          : "Indisponível",
       },
       {
         number: "Tarefa 2",
         title: meta.task2.title,
         description: meta.task2.description,
-        state: "ok",
-        stateLabel: "Áudio",
-        input: "Insumo: áudio/vídeo",
-        materialHref: "#material-video-t2",
-        materialAction: "Ouvir / assistir",
+        state: has.videoT2 ? "ok" : "missing",
+        stateLabel: has.videoT2
+          ? meta.task2Kind === "video"
+            ? "Vídeo"
+            : "Áudio"
+          : "Ausente",
+        input: has.videoT2
+          ? meta.task2Kind === "audio"
+            ? "Insumo: áudio"
+            : meta.task2Kind === "video"
+              ? "Insumo: vídeo"
+              : "Insumo: áudio/vídeo"
+          : "Insumo: áudio/vídeo",
+        materialHref: has.videoT2 ? "#material-video-t2" : "#materiais",
+        materialAction: has.videoT2 ? "Ouvir / assistir" : "Indisponível",
       },
       {
         number: "Tarefa 3",
         title: task3.title,
         description: task3.description,
-        state: "ok",
-        stateLabel: "No caderno",
+        state: has.caderno ? "ok" : "missing",
+        stateLabel: has.caderno ? "No caderno" : "Ausente",
         input: "Insumo: texto",
-        materialHref: "#material-caderno",
-        materialAction: "Ver no caderno",
+        materialHref: has.caderno ? "#material-caderno" : "#materiais",
+        materialAction: has.caderno ? "Ver no caderno" : "Indisponível",
       },
       {
         number: "Tarefa 4",
         title: task4.title,
         description: task4.description,
-        state: "ok",
-        stateLabel: "No caderno",
+        state: has.caderno ? "ok" : "missing",
+        stateLabel: has.caderno ? "No caderno" : "Ausente",
         input: "Insumo: texto",
-        materialHref: "#material-caderno",
-        materialAction: "Ver no caderno",
+        materialHref: has.caderno ? "#material-caderno" : "#materiais",
+        materialAction: has.caderno ? "Ver no caderno" : "Indisponível",
       },
     ],
     oralTopics: {
@@ -186,7 +232,18 @@ export function buildStandardSession(meta: StandardSessionMeta): ArchiveSession 
       {
         question: "O que está completo?",
         answer:
-          "Caderno de questões, vídeos das tarefas 1 e 2, roteiros e elementos provocadores — todos visualizáveis nesta página.",
+          has.caderno && has.videoT1 && has.videoT2 && has.roteiros && has.elementos
+            ? "Caderno de questões, vídeos das tarefas 1 e 2, roteiros e elementos provocadores — todos visualizáveis nesta página."
+            : `Nesta página dá para abrir o que está no acervo local: ${[
+                has.caderno ? "caderno de questões" : null,
+                has.videoT1 ? "insumo da tarefa 1" : null,
+                has.videoT2 ? "insumo da tarefa 2" : null,
+                has.roteiros ? "roteiros" : null,
+                has.elementos ? "elementos provocadores" : null,
+                editalAvailable ? "edital" : null,
+              ]
+                .filter(Boolean)
+                .join(", ")}.`,
       },
       {
         question: "O que falta?",
