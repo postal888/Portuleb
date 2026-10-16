@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { getWritingTask } from "@/content/writing/tasks";
 import { mockCelpeScore } from "@/lib/essay/celpe";
 import { buildEssayCheckPrompts } from "@/lib/essay/prompt";
-import { renderMarkedCopy } from "@/lib/essay/renderer";
+import { renderAnnotatedHtml, renderMarkedCopy, splitSharedAffix } from "@/lib/essay/renderer";
 import { modelEssayPayloadSchema, normalizeCorrections, parseCheckEssayRequest, prepareModelEssayPayload, wordCount } from "@/lib/essay/schema";
 import { explanationOf, shortExplanationOf } from "@/lib/essay/types";
 import type { CheckEssayRequest } from "@/lib/essay/types";
@@ -90,10 +90,40 @@ describe("имена полей объяснений", () => {
     ]);
 
     expect(marked.html).toContain("text-decoration:line-through");
-    expect(marked.html).toContain("estabelecia");
-    expect(marked.html).toContain("estabeleceu");
-    expect(marked.plain.startsWith("e\u0336")).toBe(true);
-    expect(marked.plain).toContain("estabeleceu");
+    expect(marked.html).toContain("<del");
+    expect(marked.html).toContain("ia");
+    expect(marked.html).toContain("eu");
+    expect(marked.html).toContain("estabelec");
+    expect(marked.plain.startsWith("estabelec")).toBe(true);
+    expect(marked.plain).toContain("eu");
+  });
+
+  it("зачёркивает только отличающиеся буквы, общий контекст остаётся", () => {
+    const split = splitSharedAffix("pela sua atencao", "pela sua atenção");
+    expect(split.prefix).toBe("pela sua aten");
+    expect(split.originalMid).toBe("ca");
+    expect(split.correctedMid).toBe("çã");
+    expect(split.suffix).toBe("o");
+
+    const { html } = renderAnnotatedHtml("Agradeço pela sua atencao.", [
+      {
+        id: "c1",
+        sentenceIndex: 0,
+        originalFragment: "pela sua atencao",
+        correctedFragment: "pela sua atenção",
+        startOffset: 9,
+        endOffset: 25,
+        category: "spelling",
+        severity: "error",
+        explanation: "Acento.",
+      },
+    ]);
+
+    expect(html).toContain("pela sua aten");
+    expect(html).toContain("<del class=\"essay-del\"");
+    expect(html).toContain(">ca</del>");
+    expect(html).toContain(">çã</ins>");
+    expect(html).not.toMatch(/<del[^>]*>pela sua atencao<\/del>/);
   });
 
   it("незнакомая категория не отменяет весь разбор", () => {

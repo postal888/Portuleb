@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { renderAnnotatedHtml, renderMarkedCopy, renderPlainCorrected } from "@/lib/essay/renderer";
+import {
+  renderAnnotatedHtml,
+  renderMarkedCopy,
+  renderPlainCorrected,
+  splitSharedAffix,
+} from "@/lib/essay/renderer";
 import { explanationOf } from "@/lib/essay/types";
 import type {
   CheckEssayMeta,
@@ -15,6 +20,23 @@ import type { Locale } from "@/i18n/locales";
 import "./essay-workbench.css";
 
 type Tab = "task" | "corrected" | "notes" | "stats" | "json";
+
+function NotePair({ original, corrected }: { original: string; corrected: string }) {
+  if (!original && !corrected) return <>∅</>;
+  if (!original) return <ins>{corrected}</ins>;
+  if (!corrected) {
+    return <del style={{ textDecoration: "line-through" }}>{original}</del>;
+  }
+  const { prefix, originalMid, correctedMid, suffix } = splitSharedAffix(original, corrected);
+  return (
+    <>
+      {prefix}
+      {originalMid ? <del style={{ textDecoration: "line-through" }}>{originalMid}</del> : null}
+      {correctedMid ? <ins>{correctedMid}</ins> : null}
+      {suffix}
+    </>
+  );
+}
 
 export function EssayWorkbench({
   originalText,
@@ -137,9 +159,7 @@ export function EssayWorkbench({
                     <div className="essay-note-top">
                       <span className="essay-note-n">{index + 1}</span>
                       <span className="essay-note-pair">
-                        <del style={{ textDecoration: "line-through" }}>{item.originalFragment || "∅"}</del>
-                        {" → "}
-                        <ins>{item.correctedFragment || "∅"}</ins>
+                        <NotePair original={item.originalFragment} corrected={item.correctedFragment} />
                       </span>
                       <span className="essay-badge">{t.categories[item.category as CorrectionCategory]}</span>
                       <span className={`essay-badge is-${item.severity}`}>
