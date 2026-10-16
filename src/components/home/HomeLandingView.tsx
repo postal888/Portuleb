@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { HomeFeaturedBlog } from "@/components/home/HomeFeaturedBlog";
 import { IconCheck, IconMail, IconPen } from "@/components/home/HomeIcons";
 import { mockDisplay, mockDisplayCyrillic } from "@/components/home/home-mock-font";
+import { getBlogPosts } from "@/content/blog";
 import type { Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
 import { localizedPath } from "@/lib/i18n-links";
@@ -56,13 +58,25 @@ function IconArrow({ className }: { className?: string }) {
   );
 }
 
-const FEATURED_BLOG_SLUG = "analise-tarefa-1-festival-fartura-2026-1";
+function featuredHint(text: string): string {
+  const value = text.trim().replace(/\s+/g, " ");
+  if (value.length <= 96) return value;
+  const cut = value.slice(0, 93);
+  const space = cut.lastIndexOf(" ");
+  return `${cut.slice(0, space > 48 ? space : 93)}…`;
+}
 
 export function HomeLandingView({ locale }: { locale: Locale }) {
   const t = getUi(locale).home;
   const writingHref = localizedPath(locale, "practiceWriting");
   const provaHref = localizedPath(locale, "pastExamSession", { slug: "2026-1" });
-  const blogHref = localizedPath(locale, "blogPost", { slug: FEATURED_BLOG_SLUG });
+  const blogItems = getBlogPosts(locale)
+    .slice(0, 6)
+    .map((post) => ({
+      href: localizedPath(locale, "blogPost", { slug: post.slug }),
+      title: post.title,
+      hint: featuredHint(post.subtitle),
+    }));
 
   const doors = [
     {
@@ -215,22 +229,12 @@ export function HomeLandingView({ locale }: { locale: Locale }) {
         <h2 className="home-mock-featured-title">{t.featuredTitle}</h2>
         <ul className="home-mock-featured-list">
           <li>
-            <Link href={blogHref} className="home-mock-featured-card">
-              <img
-                className="home-mock-photo"
-                src="/images/mock/person-feat-blog.jpg?v=2"
-                alt=""
-                width={80}
-                height={80}
-                loading="lazy"
-                decoding="async"
-              />
-              <span className="home-mock-featured-copy">
-                <span className="home-mock-featured-kicker">{t.featuredBlogKicker}</span>
-                <span className="home-mock-featured-name">{withBrandMarks(t.featuredBlogName)}</span>
-                <span className="home-mock-featured-hint">{t.featuredBlogHint}</span>
-              </span>
-            </Link>
+            <HomeFeaturedBlog
+              kicker={t.featuredBlogKicker}
+              items={blogItems}
+              photoSrc="/images/mock/person-feat-blog.jpg?v=2"
+              photoAlt=""
+            />
           </li>
           <li>
             <Link href={localizedPath(locale, "celpeBras")} className="home-mock-featured-card">
