@@ -73,20 +73,86 @@
   padding: clamp(1.5rem, 4vw, 2.625rem);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+  background-image: url("/images/practice/hero-pratica.webp");
+  background-size: cover;
+  background-position: center right;
 }
 
 .practice-hero-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    96deg,
+    rgba(0, 45, 24, 0.9) 0%,
+    rgba(0, 60, 33, 0.78) 34%,
+    rgba(0, 78, 43, 0.42) 60%,
+    rgba(0, 78, 43, 0.08) 82%
+  );
+}
+
+@media (max-width: 760px) {
+  .practice-hero-main {
+    background-position: 72% center;
+  }
+
+  .practice-hero-main::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 45, 24, 0.86) 0%,
+      rgba(0, 55, 30, 0.66) 44%,
+      rgba(0, 68, 38, 0.34) 72%,
+      rgba(0, 68, 38, 0.14) 100%
+    );
+  }
+}
+
+.practice-hero-main::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
+  z-index: 1;
   background: linear-gradient(
     90deg,
     var(--site-primary),
     color-mix(in srgb, var(--practice-gold) 65%, var(--site-primary))
   );
+}
+
+.practice-hero-main .practice-kicker {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.practice-hero-main .practice-title {
+  color: #fff;
+  text-shadow: 0 1px 24px rgba(0, 45, 24, 0.45);
+}
+
+.practice-hero-main .practice-lead {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.practice-hero-main .practice-lead strong {
+  color: #fff;
+}
+
+.practice-hero-main .practice-btn-secondary,
+.practice-hub a.practice-hero-main .practice-btn-secondary,
+.practice-hub .practice-hero-main a.practice-btn-secondary {
+  border-color: rgba(255, 255, 255, 0.42);
+  color: #fff !important;
+}
+
+.practice-hero-main .practice-btn-secondary:hover,
+.practice-hub .practice-hero-main a.practice-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.62);
+  color: #fff !important;
 }
 
 .practice-hero-side {
