@@ -855,6 +855,10 @@ audio.home-writer-media {
   color: var(--site-ink);
 }
 
+.home-writer-signed {
+  margin-top: 1.35rem;
+}
+
 .home-writer-gate {
   display: grid;
   margin-top: 1.35rem;

@@ -14,6 +14,7 @@ import { renderCabinetEmail } from "./mail/templates";
 import { cabinetEnterPath, cabinetResetPath } from "./cabinet-path";
 import { hashPassword, passwordAccepted, verifyPassword } from "./password";
 import { hashReportToken, isPlausibleToken, reportTokenPepper } from "./report-token";
+import { isWritingTaskId } from "@/content/writing/tasks";
 import { deleteSubmissionCascade, getSubmission, normalizeEmail } from "./store";
 import { nowIso } from "./time";
 import type { WritingSubmissionRow } from "./types";
@@ -187,6 +188,18 @@ export function listCabinetEssays(email: string): CabinetEssaySummary[] {
   }));
 }
 
+/** Completed catalog tasks for this address. Free texts and unknown ids stay out of the check column. */
+export function writtenTaskIds(email: string): string[] {
+  const rows = getAdminDb()
+    .prepare(
+      `SELECT DISTINCT task_id
+       FROM writing_submissions
+       WHERE email_normalized = ? AND status = 'completed' AND analysis_json IS NOT NULL AND task_id IS NOT NULL`,
+    )
+    .all(normalizeEmail(email)) as Array<{ task_id: string }>;
+  return rows.map((row) => row.task_id).filter((id) => isWritingTaskId(id));
+}
+
 function parseAnalysis(json: string | null): EssayAnalysis | null {
   if (!json) return null;
   try {
@@ -322,6 +335,43 @@ export async function registerAccount(email: string, password: string, locale: L
   return mailed === "unconfigured" ? "unconfigured" : "failed";
 }
 
+/**
+ * An essay from someone who is not signed in opens an account for that address.
+ * A random password is stored only so the row is valid; the confirmation link is the way in.
+ * A verified account is left untouched, including its password.
+ */
+export async function ensureEssayAccount(email: string, locale: Locale): Promise<RegisterStatus> {
+  const normalized = normalizeEmail(email);
+  const existing = accountOf(normalized);
+  if (existing?.verified_at) return "exists";
+
+  const database = getAdminDb();
+  if (!existing) {
+    const passwordHash = await hashPassword(randomBytes(32).toString("base64url"));
+    database
+      .prepare(
+        `INSERT INTO writer_accounts (id, email_normalized, password_hash, verified_at, created_at)
+         VALUES (?, ?, ?, NULL, ?)`,
+      )
+      .run(randomUUID(), normalized, passwordHash, nowIso());
+  }
+
+  const pending = database
+    .prepare(
+      `SELECT expires_at FROM writer_login_links
+       WHERE email_normalized = ? AND purpose = 'verify' AND used_at IS NULL
+       ORDER BY created_at DESC LIMIT 1`,
+    )
+    .get(normalized) as { expires_at: string } | undefined;
+  if (pending && Date.parse(pending.expires_at) > Date.now()) return "sent";
+
+  const provider = getMailProvider();
+  if (!provider) return "unconfigured";
+  const mailed = await sendAccountLink(normalized, locale, "verify");
+  if (mailed === "sent") return "sent";
+  return mailed === "unconfigured" ? "unconfigured" : "failed";
+}
+
 export type LoginStatus = "ok" | "invalid" | "unverified";
 
 let dummyPasswordHash: Promise<string> | null = null;
@@ -407,6 +457,12 @@ export function cabinetStats(email: string): CabinetStats {
   };
 }
 
+export type CabinetErrorSource = {
+  id: string;
+  taskId: string | null;
+  createdAt: string;
+};
+
 export type CabinetErrorGroup = {
   key: string;
   category: CorrectionCategory;
@@ -414,6 +470,7 @@ export type CabinetErrorGroup = {
   corrected: string;
   explanation: string;
   count: number;
+  sources: CabinetErrorSource[];
 };
 
 export type CabinetErrorSummary = {
@@ -435,11 +492,17 @@ function mistakeKey(category: CorrectionCategory, original: string, corrected: s
 export function cabinetErrorSummary(email: string): CabinetErrorSummary {
   const rows = getAdminDb()
     .prepare(
-      `SELECT analysis_json
+      `SELECT id, task_id, created_at, analysis_json
        FROM writing_submissions
-       WHERE email_normalized = ? AND status = 'completed' AND analysis_json IS NOT NULL`,
+       WHERE email_normalized = ? AND status = 'completed' AND analysis_json IS NOT NULL
+       ORDER BY created_at DESC`,
     )
-    .all(normalizeEmail(email)) as Array<{ analysis_json: string | null }>;
+    .all(normalizeEmail(email)) as Array<{
+    id: string;
+    task_id: string | null;
+    created_at: string;
+    analysis_json: string | null;
+  }>;
 
   const groups = new Map<string, CabinetErrorGroup>();
   const categoryCounts = new Map<CorrectionCategory, number>();
@@ -459,6 +522,9 @@ export function cabinetErrorSummary(email: string): CabinetErrorSummary {
       const existing = groups.get(key);
       if (existing) {
         existing.count += 1;
+        if (!existing.sources.some((source) => source.id === row.id)) {
+          existing.sources.push({ id: row.id, taskId: row.task_id, createdAt: row.created_at });
+        }
         continue;
       }
       const short = shortExplanationOf(item).trim();
@@ -469,6 +535,7 @@ export function cabinetErrorSummary(email: string): CabinetErrorSummary {
         corrected,
         explanation: short || explanationOf(item).trim(),
         count: 1,
+        sources: [{ id: row.id, taskId: row.task_id, createdAt: row.created_at }],
       });
     }
   }

@@ -116,6 +116,8 @@ export function HomeWriterMock({
   const task = getWritingTask(taskId);
   const [text, setText] = useState("");
   const [email, setEmail] = useState("");
+  const [accountEmail, setAccountEmail] = useState<string | null>(null);
+  const [accountKnown, setAccountKnown] = useState(false);
   const [error, setError] = useState("");
   const [errorSource, setErrorSource] = useState<"essay" | "email" | "form" | null>(null);
   const [focusTick, setFocusTick] = useState(0);
@@ -136,9 +138,9 @@ export function HomeWriterMock({
   const appliedFocusTickRef = useRef(0);
 
   const words = useMemo(() => wordCount(text), [text]);
-  const canAskEmail = words >= EMAIL_GATE_WORDS;
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-  const canSubmit = words >= EXAM_MIN_WORDS && emailOk && !checking;
+  const canAskEmail = words >= EMAIL_GATE_WORDS && !accountEmail;
+  const emailOk = accountEmail !== null || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const canSubmit = accountKnown && words >= EXAM_MIN_WORDS && emailOk && !checking;
   const label = wordLabel(locale, words, t.wordOne, t.wordFew, t.wordMany);
   const sourceParagraphs = task.sourceText.split(/\n{2,}/);
   const essayDescribedBy = ["essay-count", errorSource === "essay" ? "writer-error" : null]
@@ -183,6 +185,23 @@ export function HomeWriterMock({
       track("writer_reached_exam_minimum", { wordCount: nextWords });
     }
   }
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/writer/cabinet/me")
+      .then((response) => response.json())
+      .then((payload: { signedIn?: boolean; email?: string }) => {
+        if (cancelled) return;
+        if (payload.signedIn && payload.email) setAccountEmail(payload.email);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setAccountKnown(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!fixedTaskId || fixedTaskId === taskIdRef.current) return;
@@ -264,7 +283,7 @@ export function HomeWriterMock({
       showError(fill(t.errorLong, { max: EXAM_MAX_WORDS }), "essay");
       return;
     }
-    if (!emailOk) {
+    if (!accountEmail && !emailOk) {
       track("writer_validation_failed", { reason: "bad_email", wordCount: words });
       showError(t.errorEmail, "email");
       return;
@@ -285,7 +304,7 @@ export function HomeWriterMock({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text,
-          email: email.trim(),
+          email: accountEmail ?? email.trim(),
           sourceLanguage: "pt",
           explanationLanguage: explanationLanguageOf(locale),
           mode: "exam",
@@ -323,7 +342,7 @@ export function HomeWriterMock({
       setResend({ status: "idle" });
 
       const status = payload.emailDelivery ?? "pending";
-      if (payload.submissionId) {
+      if (!accountEmail && payload.submissionId && status !== "not_attempted") {
         setDelivery({
           submissionId: payload.submissionId,
           status,
@@ -445,6 +464,7 @@ export function HomeWriterMock({
             ) : null}
           </section>
         ) : null}
+        {accountEmail ? <p className="home-writer-gate-hint home-writer-signed">{t.signedInNotice}</p> : null}
         <CabinetEntry locale={locale} />
 
         <div aria-live="polite">
@@ -639,6 +659,13 @@ export function HomeWriterMock({
           <span>{fill(t.wordHint, { max: EXAM_MAX_WORDS })}</span>
         </p>
 
+        {!accountKnown ? (
+          <p className="home-writer-signed" aria-hidden="true" />
+        ) : accountEmail ? (
+          <p id="writer-email-hint" className="home-writer-gate-hint home-writer-signed">
+            {t.signedInNotice}
+          </p>
+        ) : (
         <div className={`home-writer-gate${canAskEmail ? " is-open" : ""}`}>
           <label className="home-writer-label" htmlFor="email">
             {t.labelEmail}
@@ -671,6 +698,7 @@ export function HomeWriterMock({
             {canAskEmail ? t.emailNotice : t.gateClosed}
           </p>
         </div>
+        )}
         <CabinetEntry locale={locale} />
 
         {error ? (
@@ -687,7 +715,7 @@ export function HomeWriterMock({
 
         {!canSubmit && !checking ? (
           <p id="writer-submit-hint" className="sr-only">
-            {fill(t.submitHint, { min: EXAM_MIN_WORDS })}
+            {fill(accountEmail ? t.signedInSubmitHint : t.submitHint, { min: EXAM_MIN_WORDS })}
           </p>
         ) : null}
 

@@ -363,7 +363,7 @@ describe("кабинет текстов", () => {
   it("одна и та же правка складывается, одиночная остаётся без числа", () => {
     const email = "erros@example.com";
     const first = finishedSubmission(store, { email });
-    finishedSubmission(store, { email });
+    const second = finishedSubmission(store, { email, taskId: "zona-livre-2023-2" });
     db.prepare(`UPDATE writing_submissions SET analysis_json = ? WHERE id = ?`).run(
       JSON.stringify({
         correctedAnnotatedHtml: "<p>texto</p>",
@@ -372,6 +372,15 @@ describe("кабинет текстов", () => {
             id: "a",
             sentenceIndex: 0,
             originalFragment: "Fazem",
+            correctedFragment: "faz",
+            category: "grammar",
+            severity: "error",
+            explanation: "Concordância.",
+          },
+          {
+            id: "a2",
+            sentenceIndex: 2,
+            originalFragment: "fazem",
             correctedFragment: "faz",
             category: "grammar",
             severity: "error",
@@ -392,14 +401,67 @@ describe("кабинет текстов", () => {
     );
 
     const summary = cabinet.cabinetErrorSummary(email);
-    expect(summary.total).toBe(3);
+    expect(summary.total).toBe(4);
     expect(summary.byCategory.map((row) => [row.category, row.count])).toEqual([
-      ["grammar", 2],
+      ["grammar", 3],
       ["agreement", 1],
     ]);
-    expect(summary.groups.find((row) => row.corrected === "faz")?.count).toBe(2);
-    expect(summary.groups.find((row) => row.original === "quatros")?.count).toBe(1);
+    const fazem = summary.groups.find((row) => row.corrected === "faz");
+    expect(fazem?.count).toBe(3);
+    expect(fazem?.sources.map((source) => source.id).sort()).toEqual([first, second].sort());
+    expect(fazem?.sources.map((source) => source.taskId).sort()).toEqual(
+      ["mandacaru-2025-2", "zona-livre-2023-2"].sort(),
+    );
+    const quatros = summary.groups.find((row) => row.original === "quatros");
+    expect(quatros?.count).toBe(1);
+    expect(quatros?.sources).toEqual([
+      expect.objectContaining({ id: first, taskId: "mandacaru-2025-2" }),
+    ]);
     expect(cabinet.cabinetErrorSummary("outro@example.com").total).toBe(0);
+  });
+
+  it("галочки стоят только на завершённых заданиях этой почты", () => {
+    finishedSubmission(store, { email: "marks@example.com", taskId: "mandacaru-2025-2" });
+    finishedSubmission(store, { email: "marks@example.com", taskId: "mandacaru-2025-2" });
+    finishedSubmission(store, { email: "marks@example.com", taskId: "not-a-task" });
+    finishedSubmission(store, { email: "marks@example.com", taskId: null });
+    finishedSubmission(store, { email: "other-marks@example.com", taskId: "zona-livre-2023-2" });
+    expect(cabinet.writtenTaskIds("Marks@Example.com").sort()).toEqual(["mandacaru-2025-2"]);
+  });
+
+  it("эссе без входа создаёт учётку и одно письмо-подтверждение, не трогая чужой пароль", async () => {
+    enableMail();
+    const calls = stubResend();
+    finishedSubmission(store, { email: "novo@example.com", taskId: "nota-musical-2025-1" });
+    const first = await cabinet.ensureEssayAccount("Novo@Example.com", "pt-br");
+    expect(first).toBe("sent");
+    expect(calls).toHaveLength(1);
+    const letter = String(calls[0]?.text ?? "");
+    expect(letter).toContain("Confirme o e-mail");
+    expect(letter).not.toContain("Um texto");
+
+    const again = await cabinet.ensureEssayAccount("novo@example.com", "pt-br");
+    expect(again).toBe("sent");
+    expect(calls).toHaveLength(1);
+
+    const token = letter.match(/entrar\/([A-Za-z0-9_-]+)/)?.[1] ?? "";
+    const confirmed = await enterRoute.GET(new Request("https://example.test/pt-br/writing/conta/entrar/x"), {
+      params: Promise.resolve({ token }),
+    });
+    const session = (confirmed.headers.get("set-cookie") ?? "").split(";")[0]?.split("=")[1] ?? "";
+    expect(cabinet.sessionFromToken(decodeURIComponent(session))).toBe("novo@example.com");
+    expect(cabinet.listCabinetEssays("novo@example.com")).toHaveLength(1);
+    expect(await cabinet.ensureEssayAccount("novo@example.com", "pt-br")).toBe("exists");
+
+    await cabinet.registerAccount("senha@example.com", "senha-forte-1", "pt-br");
+    const before = db.prepare(`SELECT password_hash FROM writer_accounts WHERE email_normalized = ?`).get(
+      "senha@example.com",
+    ) as { password_hash: string };
+    expect(await cabinet.ensureEssayAccount("senha@example.com", "pt-br")).toBe("sent");
+    const after = db.prepare(`SELECT password_hash FROM writer_accounts WHERE email_normalized = ?`).get(
+      "senha@example.com",
+    ) as { password_hash: string };
+    expect(after.password_hash).toBe(before.password_hash);
   });
 
   it("ссылка сброса пароля не сгорает, если её открыли как вход", async () => {

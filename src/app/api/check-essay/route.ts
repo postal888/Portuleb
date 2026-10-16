@@ -4,6 +4,8 @@ import { SAMPLE_ESSAY_PT } from "@/lib/essay/sample";
 import { parseCheckEssayRequest } from "@/lib/essay/schema";
 import { getEssayProviderStatus } from "@/lib/essay/provider";
 import { clientKey, essayRateLimit } from "@/lib/essay/rate-limit";
+import { ensureEssayAccount, sessionFromToken } from "@/lib/writer/cabinet";
+import { tokenFrom } from "@/lib/writer/cabinet-http";
 import { runWriterCheck } from "@/lib/writer/check";
 import { getMailStatus } from "@/lib/writer/mail/provider";
 import { parseWriterCheckMeta } from "@/lib/writer/request";
@@ -77,6 +79,11 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, errorCode: "bad_json" }, { status: 400, headers: NO_STORE });
   }
 
+  const sessionEmail = sessionFromToken(tokenFrom(request));
+  if (sessionEmail && body && typeof body === "object" && !Array.isArray(body)) {
+    (body as { email?: string }).email = sessionEmail;
+  }
+
   let input;
   let meta;
   try {
@@ -97,7 +104,16 @@ export async function POST(request: Request) {
     locale: meta.locale,
     timing: meta.timing,
     debug: input.debug,
+    deliver: !sessionEmail,
   });
+
+  if (outcome.ok && !sessionEmail) {
+    try {
+      await ensureEssayAccount(input.email, meta.locale);
+    } catch (error) {
+      console.error("[cabinet] essay account:", error instanceof Error ? error.name : "failed");
+    }
+  }
 
   if (!outcome.ok) {
     return Response.json(

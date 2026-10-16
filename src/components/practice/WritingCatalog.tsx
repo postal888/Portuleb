@@ -7,6 +7,7 @@ import {
 } from "@/content/writing/tasks";
 import { writingModelos } from "@/content/writing/modelos";
 import { localizedPath } from "@/lib/i18n-links";
+import { WritingEditions } from "./WritingEditions";
 
 function insumoKind(task: WritingTask): string {
   if (task.sourceMedia?.kind === "video") return "vídeo";
@@ -62,26 +63,19 @@ export function WritingCatalog() {
           </div>
         </section>
 
-        <div className="escrita-editions">
-          {groups.map((group) => (
-            <section key={group.cycle} className="escrita-edition" aria-labelledby={`edicao-${group.cycle.replace(/[^\w]+/g, "-")}`}>
-              <h2 id={`edicao-${group.cycle.replace(/[^\w]+/g, "-")}`}>{group.cycle}</h2>
-              <ul className="escrita-tasks">
-                {group.tasks.map((task) => (
-                  <li key={task.id}>
-                    <Link href={writingTaskHref(task.id)}>
-                      <span className="num">{task.number.replace("Tarefa ", "T")}</span>
-                      <strong>{task.title}</strong>
-                      <em>
-                        {task.genre} · {insumoKind(task)}
-                      </em>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
+        <WritingEditions
+          groups={groups.map((group) => ({
+            cycle: group.cycle,
+            tasks: group.tasks.map((task) => ({
+              id: task.id,
+              href: writingTaskHref(task.id),
+              number: task.number,
+              title: task.title,
+              genre: task.genre,
+              kind: insumoKind(task),
+            })),
+          }))}
+        />
         <p className="escrita-note">{writingModelos.note}</p>
       </div>
     </div>

@@ -161,7 +161,8 @@ export const enUi = {
       "Celpe-Dê Pé is independent of Inep. This educational assessment does not replace an official exam score.",
     startWriting: "Start writing",
     emailNotice:
-      "We use your email to unlock the result on this screen. When sending is on, you also get a link to reopen the assessment.",
+      "Enter your email to see the assessment on this screen. The confirmation link opens the account, and the correction stays in My texts.",
+    signedInNotice: "You are already signed in. The correction appears on this screen and in My texts.",
     howTitle: "How the correction works",
     how: [
       {
@@ -249,6 +250,7 @@ export const enUi = {
     errorEmail: "Leave a valid email to see the evaluation.",
     submit: "Check my writing for free",
     submitHint: "Write at least {min} words and leave a valid email.",
+    signedInSubmitHint: "Write at least {min} words.",
     accentsLabel: "Portuguese accents",
     accentsInsert: "Insert",
     accentsShift: "Uppercase and lowercase",

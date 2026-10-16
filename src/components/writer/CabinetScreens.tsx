@@ -15,21 +15,11 @@ import { currentCabinetEmail } from "@/lib/writer/cabinet-session";
 import { cabinetErrorSummary, cabinetStats, listCabinetEssays, loadCabinetEssay } from "@/lib/writer/cabinet";
 import { wordLabel } from "@/lib/writer/word-label";
 import type { CheckEssayMeta } from "@/lib/essay/types";
+import { EssayStamp } from "./EssayStamp";
 import "./cabinet.css";
 
 function fill(template: string, vars: Record<string, string | number>) {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => String(vars[key] ?? ""));
-}
-
-function formatDate(value: string, locale: Locale): string {
-  const parsed = Date.parse(value);
-  if (Number.isNaN(parsed)) return value;
-  return new Intl.DateTimeFormat(locale === "pt-br" ? "pt-BR" : locale, {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(parsed));
 }
 
 function knownTask(taskId: string | null): WritingTask | null {
@@ -255,7 +245,7 @@ export async function CabinetHome({
                 <strong>{task?.title ?? t.cabinetFreeTask}</strong>
                 {task ? <p className="cabinet-card-prompt">{task.prompt}</p> : null}
                 <span>
-                  {formatDate(essay.createdAt, locale)}
+                  <EssayStamp iso={essay.createdAt} locale={locale} />
                   {" · "}
                   {essay.wordCount} {words}
                   {level ? ` · ${level}` : ""}
@@ -321,7 +311,7 @@ export async function CabinetEssay({ locale, id }: { locale: Locale; id: string 
         <p className="home-mock-eyebrow">{t.cabinetKicker}</p>
         <h1 className="home-writer-title">{task?.title ?? t.cabinetFreeTask}</h1>
         <p className="home-writer-lead">
-          {formatDate(loaded.submission.created_at, locale)}
+          <EssayStamp iso={loaded.submission.created_at} locale={locale} />
           {" · "}
           {loaded.submission.word_count} {words}
         </p>

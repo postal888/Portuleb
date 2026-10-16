@@ -162,7 +162,8 @@ export const ptBrUi = {
       "O Celpe-Dê Pé é independente do Inep. A avaliação é educativa e não substitui a nota oficial do exame.",
     startWriting: "Começar a escrever",
     emailNotice:
-      "Usaremos seu e-mail para liberar o resultado nesta tela. Quando o envio está ativo, você também recebe um link para reabrir a avaliação.",
+      "Informe seu e-mail para ver a avaliação nesta tela. O link de confirmação abre a conta, e a correção fica em Meus textos.",
+    signedInNotice: "Você já está na conta. A correção aparece nesta tela e em Meus textos.",
     howTitle: "Como funciona a correção",
     how: [
       {
@@ -250,6 +251,7 @@ export const ptBrUi = {
     errorEmail: "Deixe um e-mail válido para ver a avaliação.",
     submit: "Corrigir minha redação grátis",
     submitHint: "Escreva pelo menos {min} palavras e deixe um e-mail válido.",
+    signedInSubmitHint: "Escreva pelo menos {min} palavras.",
     accentsLabel: "Acentos do português",
     accentsInsert: "Inserir",
     accentsShift: "Maiúsculas e minúsculas",

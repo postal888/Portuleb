@@ -48,6 +48,8 @@ export type CheckContext = {
   locale: string;
   debug?: boolean;
   timing?: { activeMs: number; elapsedMs: number } | null;
+  /** False when a cabinet session already owns the address: the result stays on screen, no mail. */
+  deliver?: boolean;
 };
 
 /**
@@ -168,7 +170,10 @@ export async function runWriterCheck(input: CheckEssayRequest, context: CheckCon
     // A duplicate e-mail row must never cost the candidate their result.
   }
 
-  const delivery = await deliverReport(submissionId);
+  const delivery =
+    context.deliver === false
+      ? { status: "not_attempted" as const, error: null, reportUrl: null }
+      : await deliverReport(submissionId);
 
   return {
     ok: true,
