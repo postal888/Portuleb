@@ -6,6 +6,7 @@ import { resolveBlogLocale } from "@/lib/blog/locale";
 import { analiseTarefa12026_1 } from "@/content/blog/posts/analise-tarefa-1-2026-1";
 import { analiseTarefa12026_1_en } from "@/content/blog/posts/analise-tarefa-1-festival-fartura-2026-1.en";
 import { analiseTarefa12026_1_ru } from "@/content/blog/posts/analise-tarefa-1-festival-fartura-2026-1.ru";
+import { celpeBras2026_2TarefasParteEscrita } from "@/content/blog/posts/celpe-bras-2026-2-tarefas-parte-escrita";
 import { estrategiaMinimalista } from "@/content/blog/posts/estrategia-minimalista";
 import { repeticaoEspacada_en } from "@/content/blog/posts/repeticao-espacada-aprendizado-vocabulario.en";
 import { temasCelpeBras1998_2026 } from "@/content/blog/posts/temas-do-celpe-bras-1998-2026";
@@ -14,7 +15,12 @@ import { temasCelpeBras1998_2026_ru } from "@/content/blog/posts/temas-do-celpe-
 
 const JSON_DIR = path.join(process.cwd(), "data", "blog", "posts");
 
-const bundledPostsPt: BlogPost[] = [temasCelpeBras1998_2026, analiseTarefa12026_1, estrategiaMinimalista];
+const bundledPostsPt: BlogPost[] = [
+  celpeBras2026_2TarefasParteEscrita,
+  temasCelpeBras1998_2026,
+  analiseTarefa12026_1,
+  estrategiaMinimalista,
+];
 const bundledPostsEn: BlogPost[] = [temasCelpeBras1998_2026_en, analiseTarefa12026_1_en, repeticaoEspacada_en];
 const bundledPostsRu: BlogPost[] = [temasCelpeBras1998_2026_ru, analiseTarefa12026_1_ru];
 
