@@ -160,6 +160,47 @@ const SEVERITY_ALIASES: Record<string, (typeof CORRECTION_SEVERITIES)[number]> =
   hint: "suggestion",
 };
 
+function clipModelString(value: unknown, maxLength: number): string | null {
+  if (typeof value !== "string") return null;
+  const text = value.trim();
+  if (!text) return null;
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
+}
+
+function normalizeModelStringArray(value: unknown, maxItems: number, maxLength: number): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => clipModelString(item, maxLength))
+    .filter((item): item is string => Boolean(item))
+    .slice(0, maxItems);
+}
+
+function normalizeCriterion(value: unknown): unknown {
+  if (!value || typeof value !== "object") return value;
+  const row = value as Record<string, unknown>;
+  return {
+    ...row,
+    comment: clipModelString(row.comment, 600) ?? row.comment,
+  };
+}
+
+function normalizeCelpePayload(value: unknown): unknown {
+  if (!value || typeof value !== "object") return value;
+  const row = value as Record<string, unknown>;
+  return {
+    ...row,
+    taskFulfillment: normalizeCriterion(row.taskFulfillment),
+    sourceComprehension: normalizeCriterion(row.sourceComprehension),
+    organization: normalizeCriterion(row.organization),
+    language: normalizeCriterion(row.language),
+    usedFacts: normalizeModelStringArray(row.usedFacts, 5, 160),
+    missedFacts: normalizeModelStringArray(row.missedFacts, 5, 160),
+    inventedFacts: normalizeModelStringArray(row.inventedFacts, 5, 160),
+    overallComment: clipModelString(row.overallComment, 800) ?? row.overallComment,
+  };
+}
+
 function foldLabel(value: unknown): string {
   return typeof value === "string" ? value.trim().toLowerCase().replace(/[\s-]+/g, "_") : "";
 }
@@ -185,15 +226,20 @@ export function coerceCorrectionSeverity(value: unknown): (typeof CORRECTION_SEV
 export function prepareModelEssayPayload(raw: unknown): unknown {
   if (!raw || typeof raw !== "object") return raw;
   const source = raw as Record<string, unknown>;
-  if (!Array.isArray(source.corrections)) return raw;
-  const corrections = source.corrections.flatMap((item) => {
-    if (!item || typeof item !== "object") return [];
-    const row = { ...(item as Record<string, unknown>) };
-    row.category = coerceCorrectionCategory(row.category);
-    row.severity = coerceCorrectionSeverity(row.severity);
-    return correctionSchema.safeParse(row).success ? [row] : [];
-  });
-  return { ...source, corrections };
+  const prepared: Record<string, unknown> = { ...source };
+
+  if (Array.isArray(source.corrections)) {
+    prepared.corrections = source.corrections.flatMap((item) => {
+      if (!item || typeof item !== "object") return [];
+      const row = { ...(item as Record<string, unknown>) };
+      row.category = coerceCorrectionCategory(row.category);
+      row.severity = coerceCorrectionSeverity(row.severity);
+      return correctionSchema.safeParse(row).success ? [row] : [];
+    });
+  }
+
+  prepared.celpe = normalizeCelpePayload(source.celpe);
+  return prepared;
 }
 
 export function normalizeCorrections(raw: unknown[]): Correction[] {
