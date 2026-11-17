@@ -66,16 +66,26 @@ function featuredHint(text: string): string {
   return `${cut.slice(0, space > 48 ? space : 93)}…`;
 }
 
+const EDITORIAL_BLOG_PHOTOS = [
+  "/images/home-editorial/feat-blog.webp",
+  "/images/home-editorial/door-guide.webp",
+  "/images/home-editorial/door-exam.webp",
+  "/images/home-editorial/door-study.webp",
+  "/images/home-editorial/door-blog.webp",
+  "/images/home-editorial/hero-write.webp",
+] as const;
+
 export function HomeLandingView({ locale }: { locale: Locale }) {
   const t = getUi(locale).home;
   const writingHref = localizedPath(locale, "practiceWriting");
   const provaHref = localizedPath(locale, "pastExamSession", { slug: "2026-1" });
   const blogItems = getBlogPosts(locale)
     .slice(0, 6)
-    .map((post) => ({
+    .map((post, index) => ({
       href: localizedPath(locale, "blogPost", { slug: post.slug }),
       title: post.title,
       hint: featuredHint(post.subtitle),
+      photoSrc: EDITORIAL_BLOG_PHOTOS[index % EDITORIAL_BLOG_PHOTOS.length],
     }));
 
   const doors = [
@@ -232,7 +242,6 @@ export function HomeLandingView({ locale }: { locale: Locale }) {
             <HomeFeaturedBlog
               kicker={t.featuredBlogKicker}
               items={blogItems}
-              photoSrc="/images/mock/person-feat-blog.jpg?v=2"
               photoAlt=""
             />
           </li>
@@ -240,7 +249,7 @@ export function HomeLandingView({ locale }: { locale: Locale }) {
             <Link href={localizedPath(locale, "celpeBras")} className="home-mock-featured-card">
               <img
                 className="home-mock-photo"
-                src="/images/mock/person-feat-site.jpg?v=3"
+                src="/images/home-editorial/feat-site.webp"
                 alt=""
                 width={80}
                 height={80}

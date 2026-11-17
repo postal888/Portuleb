@@ -14,11 +14,19 @@ import { HeaderAccount } from "@/components/layout/HeaderAccount";
 export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const nav = getUi(locale).nav;
   const writingHref = localizedPath(locale, "writing");
   const onWriter = pathname === writingHref || pathname.startsWith(`${writingHref}/`);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -42,7 +50,10 @@ export function Header({ locale }: { locale: Locale }) {
   }, [pathname]);
 
   return (
-    <header className="site-header relative sticky top-0 z-50">
+    <header
+      className="site-header relative sticky top-0 z-50"
+      data-scrolled={scrolled ? "true" : "false"}
+    >
       <div className="site-header-inner mx-auto flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <SiteLogo locale={locale} />
 

@@ -7,6 +7,7 @@ export type FeaturedBlogItem = {
   href: string;
   title: string;
   hint: string;
+  photoSrc?: string;
 };
 
 const ROTATE_MS = 4800;
@@ -34,12 +35,10 @@ function withBrandMarks(text: string): ReactNode {
 export function HomeFeaturedBlog({
   kicker,
   items,
-  photoSrc,
   photoAlt = "",
 }: {
   kicker: string;
   items: FeaturedBlogItem[];
-  photoSrc: string;
   photoAlt?: string;
 }) {
   const [index, setIndex] = useState(0);
@@ -100,16 +99,25 @@ export function HomeFeaturedBlog({
     >
       <div className="home-mock-featured-card home-mock-featured-card--blog">
         <Link href={current.href} className="home-mock-featured-card-main">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="home-mock-photo"
-            src={photoSrc}
-            alt={photoAlt}
-            width={80}
-            height={80}
-            loading="lazy"
-            decoding="async"
-          />
+          <span className="home-mock-featured-photo" aria-hidden={photoAlt ? undefined : true}>
+            {items.map((item, itemIndex) =>
+              item.photoSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={item.href}
+                  className={`home-mock-photo home-mock-featured-photo-img${
+                    itemIndex === index ? " is-active" : ""
+                  }`}
+                  src={item.photoSrc}
+                  alt={itemIndex === index ? photoAlt : ""}
+                  width={80}
+                  height={80}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : null,
+            )}
+          </span>
           <span className="home-mock-featured-copy home-mock-featured-stage" aria-live="polite">
             <span className="home-mock-featured-kicker">{kicker}</span>
             {items.map((item, itemIndex) => {

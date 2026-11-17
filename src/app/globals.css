@@ -198,21 +198,43 @@
     @apply rounded-full px-2.5 py-1.5 text-sm font-medium;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+    transition:
+      background-color 160ms var(--ease-out),
+      color 160ms var(--ease-out),
+      transform 120ms var(--ease-out);
+  }
+
+  .nav-link:active {
+    transform: scale(0.96);
   }
 
   .nav-link-active {
     background: var(--site-primary-highlight);
     color: var(--site-primary);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--site-primary) 22%, transparent),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 1px 2px rgba(0, 100, 55, 0.08);
   }
 
   .nav-link-idle {
     color: var(--site-text);
   }
 
-  .nav-link-idle:hover {
-    background: color-mix(in srgb, var(--site-border) 35%, transparent);
-    color: var(--site-primary);
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link-idle:hover {
+      background: color-mix(in srgb, var(--site-border) 35%, transparent);
+      color: var(--site-primary);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link {
+      transition: none;
+    }
+    .nav-link:active {
+      transform: none;
+    }
   }
 
   .hub-card {
@@ -347,9 +369,34 @@
 
   .site-header {
     background: var(--site-header-bg);
-    border-bottom: 1px solid color-mix(in srgb, var(--site-primary) 10%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid color-mix(in srgb, var(--site-primary) 12%, transparent);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    transition: box-shadow 240ms var(--ease-out);
+  }
+
+  .site-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--site-primary) 30%, transparent) 30%,
+      color-mix(in srgb, var(--site-primary) 30%, transparent) 70%,
+      transparent
+    );
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .site-header[data-scrolled="true"] {
+    box-shadow:
+      0 1px 2px rgba(0, 60, 36, 0.06),
+      0 12px 32px rgba(0, 60, 36, 0.12);
   }
 
   .header-account-root {
