@@ -372,12 +372,18 @@
 
   .header-mobile-tools {
     margin-left: auto;
+    flex: 0 0 auto;
   }
 
   @media (max-width: 1023px) {
+    .site-header-inner {
+      gap: 0.75rem;
+    }
+
     .site-header-inner .brand-link {
-      flex: 1 1 auto;
+      flex: 0 1 auto;
       min-width: 0;
+      max-width: calc(100% - 5.5rem);
     }
 
     .site-header-inner .brand-tagline {
@@ -390,11 +396,22 @@
     }
 
     .site-header-inner .brand-name {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .site-header-inner .brand-lockup {
-      gap: 0.5rem;
+      gap: 0.45rem;
+    }
+
+    .header-mobile-tools {
+      gap: 0.15rem;
+    }
+
+    .header-mobile-tools .header-account-chip {
+      min-height: 2rem;
     }
   }
 
