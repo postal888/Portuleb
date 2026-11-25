@@ -9,6 +9,14 @@ export function archiveAnchors(locale: Locale) {
       oral: "oral-part",
     } as const;
   }
+  if (locale === "es") {
+    return {
+      materials: "materiales",
+      viewOnSite: "ver-en-sitio",
+      written: "examen-escrito",
+      oral: "parte-oral",
+    } as const;
+  }
   if (locale === "ru") {
     return {
       materials: "materialy",
@@ -27,6 +35,7 @@ export function archiveAnchors(locale: Locale) {
 
 export function materialDomId(locale: Locale, materialId: string): string {
   if (locale === "en" && materialId === "caderno") return "material-booklet";
+  if (locale === "es" && materialId === "caderno") return "material-cuadernillo";
   if (locale === "ru" && materialId === "caderno") return "material-sbornik";
   return `material-${materialId}`;
 }
@@ -37,6 +46,7 @@ export function materialHash(locale: Locale, materialId: string): string {
 
 export function theoryAnchors(locale: Locale) {
   if (locale === "en") return { main: "study-areas", verbs: "verbs" } as const;
+  if (locale === "es") return { main: "ejes", verbs: "verbos" } as const;
   if (locale === "ru") return { main: "razdely", verbs: "glagoly" } as const;
   return { main: "eixos", verbs: "verbos" } as const;
 }

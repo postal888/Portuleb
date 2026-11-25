@@ -30,6 +30,7 @@ export const config = {
     "/admin/:path*",
     "/en/:path*",
     "/ru/:path*",
+    "/es/:path*",
     "/pt-br/:path*",
   ],
 };

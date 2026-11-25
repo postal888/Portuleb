@@ -12,7 +12,7 @@ export const enUi = {
     { section: "theory" as const, label: "Theory" },
     { section: "contact" as const, label: "Contact" },
   ],
-  localeSwitcher: { label: "Language", pt: "PT", en: "EN", ru: "RU" },
+  localeSwitcher: { label: "Language", pt: "PT", en: "EN", ru: "RU", es: "ES" },
   breadcrumb: { home: "Home" },
   skipToContent: "Skip to content",
   account: {
@@ -78,6 +78,7 @@ export const enUi = {
     practiceSummary:
       "The same editions, with video, audio and text, so you can practice each written task.",
     practiceFoot: "Go to practice →",
+    portugueseVersion: "Portuguese version →",
     lastUpdated: "Last updated",
     officialVerified: "Official information verified on",
     officialSourcesTitle: "Official sources",
@@ -106,6 +107,7 @@ export const enUi = {
       modelAnswer: "Model answer in Portuguese",
     },
     leadDefault: "Introduction",
+    portugueseVersion: "Portuguese version →",
   },
   home: {
     metaTitle: "Celpe-Dê Pé — Celpe-Bras exam preparation",

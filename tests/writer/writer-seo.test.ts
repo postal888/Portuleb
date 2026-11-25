@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { writerMetadata, writerPageJsonLd } from "@/lib/seo/writer-page-schema";
-import { LOCALES, type Locale } from "@/i18n/locales";
+import { SWITCHER_LOCALES, type Locale } from "@/i18n/locales";
 import { getUi } from "@/i18n/ui";
 import { absoluteUrl } from "@/lib/site";
 
-const PATHS: Record<Locale, string> = {
+/** Writer product locales only — ES mirror has no /escrever surface. */
+const WRITER_LOCALES = SWITCHER_LOCALES;
+
+const PATHS: Record<(typeof WRITER_LOCALES)[number], string> = {
   "pt-br": "/pt-br/escrever",
   en: "/en/writing",
   ru: "/ru/pismo",
@@ -12,7 +15,7 @@ const PATHS: Record<Locale, string> = {
 
 describe("SEO страниц письма", () => {
   it("title, description, canonical и hreflang совпадают у трёх локалей", () => {
-    for (const locale of LOCALES) {
+    for (const locale of WRITER_LOCALES) {
       const t = getUi(locale).writing;
       const meta = writerMetadata(locale);
       const title = meta.title;
@@ -30,14 +33,14 @@ describe("SEO страниц письма", () => {
   });
 
   it("на странице один смысловой H1 и FAQ виден в тех же строках, что и FAQPage", () => {
-    for (const locale of LOCALES) {
+    for (const locale of WRITER_LOCALES) {
       const t = getUi(locale).writing;
       expect(t.title).not.toBe(t.howTitle);
       expect(t.faq).toHaveLength(5);
       expect(t.how).toHaveLength(3);
       expect(t.criteria).toHaveLength(5);
 
-      const [webPage, crumbs, faq] = writerPageJsonLd(locale) as [
+      const [webPage, crumbs, faq] = writerPageJsonLd(locale) as unknown as [
         { "@type": string; name: string; description: string; url: string },
         { "@type": string; itemListElement: { name: string }[] },
         { "@type": string; mainEntity: { name: string; acceptedAnswer: { text: string } }[] },

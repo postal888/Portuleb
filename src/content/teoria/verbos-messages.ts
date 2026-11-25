@@ -113,7 +113,7 @@ const ru: VerbosMessages = {
 };
 
 export function getVerbosMessages(locale: Locale): VerbosMessages {
-  if (locale === "en") return en;
+  if (locale === "en" || locale === "es") return en;
   if (locale === "ru") return ru;
   return pt;
 }

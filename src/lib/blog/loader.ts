@@ -69,7 +69,7 @@ function mergeBundledWithJson(bundled: BlogPost[], locale: Locale): BlogPost[] {
 }
 
 export function loadAllBlogPosts(locale: Locale = "pt-br"): BlogPost[] {
-  if (locale === "en") return mergeBundledWithJson(bundledPostsEn, "en");
+  if (locale === "en" || locale === "es") return mergeBundledWithJson(bundledPostsEn, "en");
   if (locale === "ru") return mergeBundledWithJson(bundledPostsRu, "ru");
   return mergePosts(bundledPostsPt, readJsonPostsForLocale("pt-br"));
 }

@@ -65,12 +65,17 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
   } = input;
 
   const canonicalPath = pathFor(locale, section, params);
-  const languages = alternatesForSection(section, params, {
-    hasEnBlogPost,
-    enBlogSlug,
-    hasRuBlogPost,
-    ruBlogSlug,
-  });
+  // Spanish mirror: self-canonical only. Do not emit hreflang — reciprocal
+  // tags would change <head> on frozen PT/EN/RU traffic pages.
+  const languages =
+    locale === "es"
+      ? undefined
+      : alternatesForSection(section, params, {
+          hasEnBlogPost,
+          enBlogSlug,
+          hasRuBlogPost,
+          ruBlogSlug,
+        });
 
   const alternates: Metadata["alternates"] = {
     canonical: absoluteUrl(canonicalPath),

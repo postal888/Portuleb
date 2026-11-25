@@ -12,7 +12,7 @@ export const ruUi = {
     { section: "theory" as const, label: "Теория" },
     { section: "contact" as const, label: "Контакты" },
   ],
-  localeSwitcher: { label: "Язык", pt: "PT", en: "EN", ru: "RU" },
+  localeSwitcher: { label: "Язык", pt: "PT", en: "EN", ru: "RU", es: "ES" },
   breadcrumb: { home: "Главная" },
   skipToContent: "Перейти к содержанию",
   account: {
@@ -78,6 +78,7 @@ export const ruUi = {
     practiceSummary:
       "Те же экзамены, с видео, аудио и текстом, чтобы тренировать каждое письменное задание.",
     practiceFoot: "Перейти к практике →",
+    portugueseVersion: "Версия на португальском →",
     lastUpdated: "Последнее обновление",
     officialVerified: "Официальные сведения проверены",
     officialSourcesTitle: "Официальные источники",
@@ -106,6 +107,7 @@ export const ruUi = {
       modelAnswer: "Образец ответа на португальском",
     },
     leadDefault: "Введение",
+    portugueseVersion: "Версия на португальском →",
   },
   home: {
     metaTitle: "Celpe-Dê Pé — Подготовка к Celpe-Bras",

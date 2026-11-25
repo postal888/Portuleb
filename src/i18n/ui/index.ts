@@ -1,5 +1,6 @@
 import type { Locale } from "../locales";
 import { enUi } from "./en";
+import { esUi } from "./es";
 import { ptBrUi } from "./pt-br";
 import { ruUi } from "./ru";
 
@@ -9,6 +10,7 @@ const UI: Record<Locale, SiteUi> = {
   "pt-br": ptBrUi,
   en: enUi as unknown as SiteUi,
   ru: ruUi as unknown as SiteUi,
+  es: esUi as unknown as SiteUi,
 };
 
 export function getUi(locale: Locale): SiteUi {

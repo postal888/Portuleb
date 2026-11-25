@@ -25,14 +25,29 @@ export type SectionKey =
 
 type RouteTemplate = {
   paths: Record<Locale, string>;
-  /** If false, no public URL outside pt-br (switcher falls back to locale home). */
+  /**
+   * If false, no public URL outside pt-br for EN/RU switcher (falls back to locale home).
+   * Spanish (`es`) paths may still point at a real EN/PT URL for hub deep-links.
+   */
   enMirror: boolean;
 };
 
+/**
+ * Spanish mirror owns a subset of public URLs (EN parity minus writer/practice).
+ * Unowned sections fall back to PT/EN so nav never 404s — without thin ES stubs.
+ */
 const ROUTES: Record<SectionKey, RouteTemplate> = {
-  home: { paths: { "pt-br": "/pt-br", en: "/en", ru: "/ru" }, enMirror: true },
+  home: {
+    paths: { "pt-br": "/pt-br", en: "/en", ru: "/ru", es: "/es" },
+    enMirror: true,
+  },
   celpeBras: {
-    paths: { "pt-br": "/pt-br/celpe-bras", en: "/en/celpe-bras", ru: "/ru/celpe-bras" },
+    paths: {
+      "pt-br": "/pt-br/celpe-bras",
+      en: "/en/celpe-bras",
+      ru: "/ru/celpe-bras",
+      es: "/es/celpe-bras",
+    },
     enMirror: true,
   },
   examCycle: {
@@ -40,6 +55,7 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/celpe-bras/{cycle}",
       en: "/pt-br/celpe-bras/{cycle}",
       ru: "/pt-br/celpe-bras/{cycle}",
+      es: "/pt-br/celpe-bras/{cycle}",
     },
     enMirror: false,
   },
@@ -48,6 +64,7 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/provas-anteriores",
       en: "/en/past-exams",
       ru: "/ru/proshlye-ekzameny",
+      es: "/es/examenes-anteriores",
     },
     enMirror: true,
   },
@@ -56,15 +73,27 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/provas-anteriores/{slug}",
       en: "/en/past-exams/{slug}",
       ru: "/ru/proshlye-ekzameny/{slug}",
+      es: "/es/examenes-anteriores/{slug}",
     },
     enMirror: true,
   },
   practice: {
-    paths: { "pt-br": "/pt-br/pratica", en: "/en/practice", ru: "/ru/praktika" },
+    paths: {
+      "pt-br": "/pt-br/pratica",
+      en: "/en/practice",
+      ru: "/ru/praktika",
+      // No ES practice surface — funnel to PT.
+      es: "/pt-br/pratica",
+    },
     enMirror: true,
   },
   theory: {
-    paths: { "pt-br": "/pt-br/teoria", en: "/en/theory", ru: "/ru/teoriya" },
+    paths: {
+      "pt-br": "/pt-br/teoria",
+      en: "/en/theory",
+      ru: "/ru/teoriya",
+      es: "/es/teoria",
+    },
     enMirror: true,
   },
   theoryTopic: {
@@ -72,15 +101,26 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/teoria/{slug}",
       en: "/pt-br/teoria/{slug}",
       ru: "/pt-br/teoria/{slug}",
+      es: "/pt-br/teoria/{slug}",
     },
     enMirror: false,
   },
   reader: {
-    paths: { "pt-br": "/pt-br/leitor", en: "/en/reader", ru: "/ru/chitalka" },
+    paths: {
+      "pt-br": "/pt-br/leitor",
+      en: "/en/reader",
+      ru: "/ru/chitalka",
+      es: "/es/lector",
+    },
     enMirror: true,
   },
   blog: {
-    paths: { "pt-br": "/pt-br/blog", en: "/en/blog", ru: "/ru/blog" },
+    paths: {
+      "pt-br": "/pt-br/blog",
+      en: "/en/blog",
+      ru: "/ru/blog",
+      es: "/es/blog",
+    },
     enMirror: true,
   },
   blogPost: {
@@ -88,37 +128,62 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/blog/{slug}",
       en: "/en/blog/{slug}",
       ru: "/ru/blog/{slug}",
+      es: "/es/blog/{slug}",
     },
     enMirror: true,
   },
   materials: {
-    paths: { "pt-br": "/pt-br/materiais", en: "/en/materials", ru: "/ru/materialy" },
+    paths: {
+      "pt-br": "/pt-br/materiais",
+      en: "/en/materials",
+      ru: "/ru/materialy",
+      es: "/pt-br/materiais",
+    },
     enMirror: true,
   },
   contact: {
-    paths: { "pt-br": "/pt-br/contato", en: "/en/contact", ru: "/ru/kontakt" },
+    paths: {
+      "pt-br": "/pt-br/contato",
+      en: "/en/contact",
+      ru: "/ru/kontakt",
+      es: "/es/contacto",
+    },
     enMirror: true,
   },
   terms: {
-    paths: { "pt-br": "/pt-br/termos", en: "/en/terms", ru: "/ru/usloviya" },
+    paths: {
+      "pt-br": "/pt-br/termos",
+      en: "/en/terms",
+      ru: "/ru/usloviya",
+      es: "/pt-br/termos",
+    },
     enMirror: true,
   },
   assessment: {
-    paths: { "pt-br": "/pt-br/avaliacao", en: "/pt-br/avaliacao", ru: "/pt-br/avaliacao" },
+    paths: {
+      "pt-br": "/pt-br/avaliacao",
+      en: "/pt-br/avaliacao",
+      ru: "/pt-br/avaliacao",
+      es: "/pt-br/avaliacao",
+    },
     enMirror: false,
   },
   writing: {
-    paths: { "pt-br": "/pt-br/escrever", en: "/en/writing", ru: "/ru/pismo" },
+    paths: {
+      "pt-br": "/pt-br/escrever",
+      en: "/en/writing",
+      ru: "/ru/pismo",
+      // No ES writer surface — funnel to PT.
+      es: "/pt-br/escrever",
+    },
     enMirror: true,
   },
-  // Lesson pages exist in pt-BR only. Like theoryTopic/examCycle/assessment,
-  // the en/ru entries point at the real pt-BR URL: pathFor() ignores enMirror,
-  // so a locale-specific path here would render tiles linking to a 404.
   practiceListening: {
     paths: {
       "pt-br": "/pt-br/pratica/compreensao-auditiva",
       en: "/pt-br/pratica/compreensao-auditiva",
       ru: "/pt-br/pratica/compreensao-auditiva",
+      es: "/pt-br/pratica/compreensao-auditiva",
     },
     enMirror: false,
   },
@@ -127,6 +192,7 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/pratica/compreensao-leitura",
       en: "/pt-br/pratica/compreensao-leitura",
       ru: "/pt-br/pratica/compreensao-leitura",
+      es: "/pt-br/pratica/compreensao-leitura",
     },
     enMirror: false,
   },
@@ -135,6 +201,7 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/pratica/producao-escrita",
       en: "/pt-br/pratica/producao-escrita",
       ru: "/pt-br/pratica/producao-escrita",
+      es: "/pt-br/pratica/producao-escrita",
     },
     enMirror: false,
   },
@@ -143,10 +210,24 @@ const ROUTES: Record<SectionKey, RouteTemplate> = {
       "pt-br": "/pt-br/pratica/polimento-de-base",
       en: "/pt-br/pratica/polimento-de-base",
       ru: "/pt-br/pratica/polimento-de-base",
+      es: "/pt-br/pratica/polimento-de-base",
     },
     enMirror: false,
   },
 };
+
+/** Sections that have a dedicated Spanish public page (freeze-safe new URLs only). */
+export const ES_OWNED_SECTIONS: ReadonlySet<SectionKey> = new Set([
+  "home",
+  "celpeBras",
+  "pastExams",
+  "pastExamSession",
+  "theory",
+  "reader",
+  "blog",
+  "blogPost",
+  "contact",
+]);
 
 export type ParsedRoute = {
   locale: Locale;
@@ -174,6 +255,8 @@ export function parsePathname(pathname: string): ParsedRoute | null {
   const normalized = pathname.split("?")[0].replace(/\/$/, "") || "/";
 
   for (const section of Object.keys(ROUTES) as SectionKey[]) {
+    // Prefer SWITCHER locales before `es` so /en/past-exams/{slug} parses as EN,
+    // not as the ES fallback that reuses the same path template.
     for (const locale of LOCALES) {
       const template = ROUTES[section].paths[locale];
       const parts = template.split("/").filter(Boolean);
@@ -192,7 +275,13 @@ export function parsePathname(pathname: string): ParsedRoute | null {
           break;
         }
       }
-      if (match) return { locale, section, params };
+      if (match) {
+        // If ES reuses an EN/PT path, keep the real host locale when templates collide.
+        if (locale === "es" && !ES_OWNED_SECTIONS.has(section)) {
+          continue;
+        }
+        return { locale, section, params };
+      }
     }
   }
   return null;
@@ -234,13 +323,23 @@ export function getAlternatePath(
     return pathFor("ru", "blog");
   }
 
-  if (targetLocale !== "pt-br" && !ROUTES[section].enMirror) {
+  // Spanish switcher targets: only owned sections stay on /es; otherwise ES home.
+  if (targetLocale === "es" && !ES_OWNED_SECTIONS.has(section)) {
+    return pathFor("es", "home");
+  }
+
+  if (targetLocale !== "pt-br" && targetLocale !== "es" && !ROUTES[section].enMirror) {
     return pathFor(targetLocale, "home");
   }
 
   return pathFor(targetLocale, section, blogPostParams(targetLocale, params, options));
 }
 
+/**
+ * Language alternates for PT/EN/RU pages.
+ * Intentionally never emits `es` — Spanish mirror ships without reciprocal hreflang
+ * so frozen traffic pages keep an unchanged <head>.
+ */
 type HrefLangCode = "pt-BR" | "en" | "ru" | "x-default";
 
 export function alternatesForSection(

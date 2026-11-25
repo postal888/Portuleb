@@ -79,6 +79,23 @@ const COPY: Record<Locale, Copy> = {
     footer: "Celpe-Dê Pé не связан с Inep/MEC: мы готовим к экзамену, но регистрация и сертификат — только через официальные каналы.",
     noReply: "Не отвечайте на это письмо — ящик не просматривается.",
   },
+  // ES public pages do not ship the writer yet; keep EN copy for type completeness.
+  es: {
+    subject: "Your writing assessment is ready",
+    subjectResent: "Resent: your writing assessment",
+    greeting: "Hello!",
+    intro: "Your text was assessed on the site and the result appeared right away. This link is your copy, for coming back to it.",
+    introResent:
+      "The result is still on your screen. For safety, this resend carries a new link — the previous one no longer works.",
+    level: "Estimated level",
+    words: "Words",
+    corrections: "Marked passages",
+    cta: "Open the assessment",
+    expiry: "The link works for {days} days and opens this assessment only.",
+    openHint: "The result shows up in the browser straight away; this email is just the link.",
+    footer: "Celpe-Dê Pé is independent of Inep/MEC: we prepare you for the exam, but registration and the certificate go through official channels only.",
+    noReply: "Please do not reply to this email — the inbox is not monitored.",
+  },
 };
 
 function fill(template: string, vars: Record<string, string | number>): string {
@@ -196,6 +213,15 @@ const CABINET_COPY: Record<"login" | "verify" | "reset", Record<Locale, CabinetC
       noReply: "Не отвечайте на это письмо — ящик не просматривается.",
       footer: COPY.ru.footer,
     },
+    es: {
+      subject: "Link to your texts",
+      greeting: "Hello!",
+      intro: "This link opens the texts you already sent with this email, corrections included.",
+      cta: "Open my texts",
+      expiry: "The link lasts {minutes} minutes and works once.",
+      noReply: "Please do not reply to this email — the inbox is not monitored.",
+      footer: COPY.es.footer,
+    },
   },
   verify: {
     "pt-br": {
@@ -225,6 +251,15 @@ const CABINET_COPY: Record<"login" | "verify" | "reset", Record<Locale, CabinetC
       noReply: "Не отвечайте на это письмо — ящик не просматривается.",
       footer: COPY.ru.footer,
     },
+    es: {
+      subject: "Confirm your account",
+      greeting: "Hello!",
+      intro: "Confirm this email to open the account and see your texts with the corrections.",
+      cta: "Confirm email",
+      expiry: "The link lasts {minutes} minutes and works once.",
+      noReply: "Please do not reply to this email — the inbox is not monitored.",
+      footer: COPY.es.footer,
+    },
   },
   reset: {
     "pt-br": {
@@ -253,6 +288,15 @@ const CABINET_COPY: Record<"login" | "verify" | "reset", Record<Locale, CabinetC
       expiry: "Ссылка действует {minutes} минут и открывается один раз.",
       noReply: "Не отвечайте на это письмо — ящик не просматривается.",
       footer: COPY.ru.footer,
+    },
+    es: {
+      subject: "A new password for your account",
+      greeting: "Hello!",
+      intro: "We received a request to set a new password. If this was not you, ignore this email.",
+      cta: "Set a new password",
+      expiry: "The link lasts {minutes} minutes and works once.",
+      noReply: "Please do not reply to this email — the inbox is not monitored.",
+      footer: COPY.es.footer,
     },
   },
 };

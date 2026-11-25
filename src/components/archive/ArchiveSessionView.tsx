@@ -50,6 +50,14 @@ export function ArchiveSessionView({
                 <a className="archive-btn archive-btn-secondary" href={`#${anchors.written}`}>
                   {a.viewStructure}
                 </a>
+                {locale === "es" ? (
+                  <Link
+                    className="archive-btn archive-btn-secondary"
+                    href={localizedPath("pt-br", "pastExamSession", { slug: session.slug })}
+                  >
+                    {a.portugueseVersion}
+                  </Link>
+                ) : null}
                 {session.blogAnalysis ? (
                   <Link
                     className="archive-btn archive-btn-secondary"

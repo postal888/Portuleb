@@ -102,8 +102,34 @@ const ru: ReaderMessages = {
   privacy: "Файлы обрабатываются в браузере — на сервер ничего не отправляется.",
 };
 
+const es: ReaderMessages = {
+  kicker: "Herramienta de lectura",
+  title: "Lector con desplazamiento automático",
+  lead: "Sube un PDF, Word (.docx) o archivo de texto y lee con desplazamiento automático — ajusta la velocidad y el tamaño de fuente para practicar la lectura en portugués.",
+  breadcrumb: "Lector",
+  dropTitle: "Arrastra un archivo aquí",
+  dropHint: "o haz clic para elegir — PDF, Word (.docx) o texto (.txt, .md)",
+  chooseFile: "Elegir archivo",
+  accepted: "Acepta PDF, .docx, .txt y .md",
+  parsing: "Procesando el archivo…",
+  errorGeneric: "No se pudo leer este archivo. Prueba con otro.",
+  errorType: "Formato no compatible. Usa PDF, .docx, .txt o .md.",
+  empty: "No se encontró texto en este archivo.",
+  play: "Desplazar",
+  pause: "Pausar",
+  speed: "Velocidad",
+  fontSize: "Tamaño de fuente",
+  decrease: "Reducir",
+  increase: "Aumentar",
+  toTop: "Volver arriba",
+  newFile: "Otro archivo",
+  words: "palabras",
+  privacy: "Los archivos se procesan en tu navegador — no se envía nada al servidor.",
+};
+
 export function getReaderMessages(locale: Locale): ReaderMessages {
   if (locale === "en") return en;
+  if (locale === "es") return es;
   if (locale === "ru") return ru;
   return pt;
 }

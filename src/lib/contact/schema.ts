@@ -12,7 +12,7 @@ export const contactMessageSchema = z.object({
     .trim()
     .min(MIN_CONTACT_MESSAGE, `Escreva pelo menos ${MIN_CONTACT_MESSAGE} caracteres.`)
     .max(MAX_CONTACT_MESSAGE, `Mensagem muito longa (máximo ${MAX_CONTACT_MESSAGE}).`),
-  locale: z.enum(["pt-br", "en", "ru"]).optional(),
+  locale: z.enum(["pt-br", "en", "ru", "es"]).optional(),
   /** Honeypot — bots fill this; humans leave it empty. */
   company: z.string().optional().default(""),
 });

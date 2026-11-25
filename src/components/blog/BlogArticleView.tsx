@@ -23,6 +23,13 @@ export function BlogArticleView({ post, locale }: { post: BlogPost; locale: Loca
           <div className="blog-eyebrow">{post.eyebrow}</div>
           <h1 className="blog-title">{post.title}</h1>
           <p className="blog-subtitle">{post.subtitle}</p>
+          {locale === "es" && post.translationOf ? (
+            <p className="blog-subtitle">
+              <Link href={localizedPath("pt-br", "blogPost", { slug: post.translationOf })}>
+                {ui.portugueseVersion}
+              </Link>
+            </p>
+          ) : null}
           <div className="blog-meta-line">
             <span>
               {ui.category}: {post.category}
@@ -56,9 +63,11 @@ export function BlogArticleView({ post, locale }: { post: BlogPost; locale: Loca
             aria-label={
               locale === "en"
                 ? "Sidebar"
-                : locale === "ru"
-                  ? "Дополнительная информация"
-                  : "Informações complementares"
+                : locale === "es"
+                  ? "Información complementaria"
+                  : locale === "ru"
+                    ? "Дополнительная информация"
+                    : "Informações complementares"
             }
           >
             <section className="blog-side-card">

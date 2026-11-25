@@ -59,7 +59,8 @@ export function applyBlogLocaleToPost(post: BlogPost, locale: Locale): BlogPost 
         href: link.href
           .replace(/^\/pt-br/, prefix)
           .replace(/^\/en/, prefix)
-          .replace(/^\/ru/, prefix),
+          .replace(/^\/ru/, prefix)
+          .replace(/^\/es/, prefix),
       })),
     },
   };

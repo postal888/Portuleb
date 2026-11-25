@@ -240,7 +240,8 @@ export function HomeWriterMock({
 
   useEffect(() => {
     const tracker = createWriterTracker({
-      locale,
+      // Writer product locales only — ES mirror reuses EN tracking bucket.
+      locale: locale === "es" ? "en" : locale,
       path: window.location.pathname,
       taskId: taskIdRef.current,
     });

@@ -61,10 +61,11 @@ function finishedSubmission(overrides: Record<string, unknown> = {}) {
 
 function writerSession(locale: Locale = "pt-br"): string {
   const sessionId = crypto.randomUUID();
+  const writerLocale = locale === "es" ? "en" : locale;
   store.upsertWriterSession({
     sessionId,
     visitorId: crypto.randomUUID(),
-    context: { locale, path: `/${locale}/writing`, taskId: "mandacaru-2025-2" },
+    context: { locale: writerLocale, path: `/${writerLocale}/writing`, taskId: "mandacaru-2025-2" },
   });
   return sessionId;
 }

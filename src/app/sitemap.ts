@@ -217,5 +217,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
     );
   }
 
+  // Spanish mirror — new URLs only. No hreflang cluster (would alter frozen PT/EN/RU heads).
+  // EN parity minus writer/practice; materials/terms stay out (thin stubs).
+  for (const [section, priority] of [
+    ["home", 0.85],
+    ["celpeBras", 0.7],
+    ["pastExams", 0.7],
+    ["theory", 0.65],
+    ["reader", 0.65],
+    ["blog", 0.65],
+    ["contact", 0.55],
+  ] as const) {
+    routes.push({
+      url: `${SITE.url}${pathFor("es", section)}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority,
+    });
+  }
+
+  for (const slug of archiveSlugs) {
+    routes.push({
+      url: `${SITE.url}${pathFor("es", "pastExamSession", { slug })}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    });
+  }
+
+  for (const post of getBlogPosts("es")) {
+    routes.push({
+      url: `${SITE.url}${pathFor("es", "blogPost", { slug: post.slug })}`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: "monthly",
+      priority: 0.55,
+    });
+  }
+
   return routes;
 }

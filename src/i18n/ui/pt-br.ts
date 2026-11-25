@@ -13,7 +13,7 @@ export const ptBrUi = {
     { section: "theory" as const, label: "Teoria" },
     { section: "contact" as const, label: "Contato" },
   ],
-  localeSwitcher: { label: "Idioma", pt: "PT", en: "EN", ru: "RU" },
+  localeSwitcher: { label: "Idioma", pt: "PT", en: "EN", ru: "RU", es: "ES" },
   breadcrumb: { home: "Início" },
   skipToContent: "Ir para o conteúdo",
   account: {
@@ -82,6 +82,7 @@ export const ptBrUi = {
     practiceSummary:
       "As mesmas edições, com vídeo, áudio e texto, para treinar cada tarefa da prova.",
     practiceFoot: "Ir para a prática →",
+    portugueseVersion: "Versão em português →",
   },
   blog: {
     navLabel: "Blog",
@@ -107,6 +108,7 @@ export const ptBrUi = {
       modelAnswer: "Resposta-modelo em português",
     },
     leadDefault: "Introdução",
+    portugueseVersion: "Versão em português →",
   },
   home: {
     metaTitle: "Celpe-Dê Pé — Preparação para o Celpe-Bras",

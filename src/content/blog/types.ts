@@ -21,7 +21,7 @@ export type BlogFaqItem = { question: string; answer: string };
 export type BlogPost = {
   slug: string;
   /** Content locale; EN posts may embed PT exam artifacts. */
-  locale?: "pt-br" | "en" | "ru";
+  locale?: "pt-br" | "en" | "ru" | "es";
   /** PT slug when this post is an English version of a PT article. */
   translationOf?: string;
   title: string;

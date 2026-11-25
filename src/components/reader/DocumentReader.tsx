@@ -332,7 +332,13 @@ export function DocumentReader({ locale }: { locale: Locale }) {
         </span>
         <span className="reader-wordcount">
           {words.toLocaleString(
-            locale === "en" ? "en-US" : locale === "ru" ? "ru-RU" : "pt-BR",
+            locale === "en"
+              ? "en-US"
+              : locale === "es"
+                ? "es-ES"
+                : locale === "ru"
+                  ? "ru-RU"
+                  : "pt-BR",
           )}{" "}
           {t.words}
         </span>

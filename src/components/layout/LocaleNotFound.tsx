@@ -19,6 +19,11 @@ const copy: Record<Locale, { title: string; lead: string; home: string }> = {
     lead: "Такого адреса нет или он был перемещён. Вернитесь на главную или воспользуйтесь меню.",
     home: "На главную",
   },
+  es: {
+    title: "Página no encontrada",
+    lead: "Esta dirección no existe o se ha movido. Vuelve al inicio o usa el menú.",
+    home: "Ir al inicio",
+  },
 };
 
 export function LocaleNotFound({ locale }: { locale: Locale }) {

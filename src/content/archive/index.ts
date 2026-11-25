@@ -12,6 +12,7 @@ import { session2025_1_ru } from "./ru/2025-1";
 import { session2026_1_ru } from "./ru/2026-1";
 import { acervoSessions, acervoSlugs } from "./acervo-sessions";
 import { localizeArchiveSessionForEn } from "./localize-en";
+import { localizeArchiveSessionForEs } from "./localize-es";
 import { localizeArchiveSessionForRu } from "./localize-ru";
 import type { ArchiveSession } from "./types";
 
@@ -53,6 +54,11 @@ export function getArchiveSession(slug: string, locale: Locale): ArchiveSession 
   if (locale === "en") {
     const session = EN[slug] ?? PT[slug];
     return session ? localizeArchiveSessionForEn(session) : undefined;
+  }
+  if (locale === "es") {
+    // Spanish UI shell; prefer EN copy when present, else PT artifacts.
+    const session = EN[slug] ?? PT[slug];
+    return session ? localizeArchiveSessionForEs(session) : undefined;
   }
   if (locale === "ru") {
     const session = RU[slug] ?? PT[slug];
