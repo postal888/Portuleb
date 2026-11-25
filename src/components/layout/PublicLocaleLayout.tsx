@@ -51,7 +51,7 @@ export function PublicLocaleLayout({
           <Header locale={locale} />
         </Suspense>
         <main id="main-content" className="site-main-inner flex-1" tabIndex={-1}>
-          <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</div>
+          <div className="site-page mx-auto px-4 py-8 sm:px-6 lg:px-8">{children}</div>
         </main>
         <Footer locale={locale} />
       </div>

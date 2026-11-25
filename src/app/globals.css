@@ -358,13 +358,16 @@
 
   .brand-link {
     text-decoration: none;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .brand-lockup {
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    flex-shrink: 0;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .site-header {
@@ -566,18 +569,18 @@
 
   .site-header-inner {
     width: 100%;
-    max-width: 52rem;
+    max-width: var(--site-content);
   }
 
   .site-header-inner nav[aria-label="Principal"] {
     flex-wrap: nowrap;
     min-width: 0;
-    gap: 0;
+    gap: 0.1rem;
   }
 
   .site-header-inner .nav-link {
-    padding-inline: 0.38rem;
-    font-size: 0.78rem;
+    padding-inline: 0.55rem;
+    font-size: 0.88rem;
   }
 
   .header-account-desktop .header-account-root {
@@ -595,7 +598,7 @@
     display: flex;
     align-items: center;
     gap: 1rem 1.25rem;
-    max-width: 52rem;
+    max-width: var(--site-content);
     margin: 0 auto;
     padding: 0.7rem 1rem;
     border-radius: 1rem;
@@ -650,6 +653,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
+    min-width: 0;
+  }
+
+  @media (max-width: 420px) {
+    .brand-tagline {
+      display: none;
+    }
   }
 
   .brand-name {
@@ -770,6 +780,11 @@
   .site-main-inner {
     position: relative;
     z-index: 1;
+  }
+
+  .site-page {
+    width: 100%;
+    max-width: var(--site-content);
   }
 
   /* —— Home page visual system —— */

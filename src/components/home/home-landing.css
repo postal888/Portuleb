@@ -1,6 +1,6 @@
 .home-mock {
   --mock-display: var(--font-mock-display), "Palatino Linotype", Palatino, serif;
-  max-width: 52rem;
+  max-width: var(--site-content);
   margin: 0 auto;
   padding-bottom: 0.5rem;
 }
