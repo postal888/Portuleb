@@ -224,7 +224,12 @@ try {
     ssh $SshHost "bash $RemoteDir/deploy/setup-indexnow.sh"
 
     Write-Host "Building on server..." -ForegroundColor Cyan
-    ssh $SshHost "cd $RemoteDir && export MAKEFLAGS=-j1 && export NODE_OPTIONS='--max-old-space-size=768' && npm ci && npm run build && systemctl restart celpe-de-pe && systemctl is-active celpe-de-pe"
+    # Wipe .next first: a failed/partial turbopack build leaves hashed CSS/JS that no longer
+    # match the running process, and Cloudflare then keeps serving the old immutable chunks.
+    ssh $SshHost "cd $RemoteDir && rm -rf .next && export MAKEFLAGS=-j1 && export NODE_OPTIONS='--max-old-space-size=768' && npm ci && npm run build && systemctl restart celpe-de-pe && systemctl is-active celpe-de-pe"
+    if ($LASTEXITCODE -ne 0) {
+        throw "Server build or restart failed (exit $LASTEXITCODE). The previous process may still be running with a stale .next - fix the build before another deploy."
+    }
 
     Write-Host "Ensuring publish cron..." -ForegroundColor Cyan
     ssh $SshHost "bash $RemoteDir/deploy/setup-cron.sh"
