@@ -576,15 +576,23 @@
     flex-wrap: nowrap;
     min-width: 0;
     gap: 0.1rem;
+    overflow: hidden;
   }
 
   .site-header-inner .nav-link {
-    padding-inline: 0.55rem;
-    font-size: 0.88rem;
+    padding-inline: 0.45rem;
+    font-size: 0.84rem;
+  }
+
+  .header-account-desktop .locale-switcher {
+    margin-left: 0;
+    flex-shrink: 0;
   }
 
   .header-account-desktop .header-account-root {
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
   }
 
   .site-footer {
@@ -1344,6 +1352,8 @@
   border-radius: 999px;
   border: 1px solid var(--site-border);
   background: var(--site-surface);
+  position: relative;
+  z-index: 1;
 }
 
 .locale-switcher__btn {

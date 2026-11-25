@@ -57,7 +57,7 @@ export function Header({ locale }: { locale: Locale }) {
       <div className="site-header-inner mx-auto flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <SiteLogo locale={locale} />
 
-        <div className="header-account-desktop hidden min-w-0 items-center gap-1.5 lg:flex">
+        <div className="header-account-desktop hidden min-w-0 items-center gap-2 lg:flex">
           <nav className="flex min-w-0 flex-nowrap items-center gap-0" aria-label="Principal">
             {nav.map((item) => {
               const href = localizedPath(locale, item.section);
@@ -73,8 +73,8 @@ export function Header({ locale }: { locale: Locale }) {
                 </Link>
               );
             })}
-            <LocaleSwitcher locale={locale} />
           </nav>
+          <LocaleSwitcher locale={locale} />
           <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
         </div>
 
