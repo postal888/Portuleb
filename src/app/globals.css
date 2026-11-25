@@ -370,6 +370,34 @@
     max-width: 100%;
   }
 
+  .header-mobile-tools {
+    margin-left: auto;
+  }
+
+  @media (max-width: 1023px) {
+    .site-header-inner .brand-link {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .site-header-inner .brand-tagline {
+      display: none;
+    }
+
+    .site-header-inner .brand-logo-icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .site-header-inner .brand-name {
+      font-size: 0.98rem;
+    }
+
+    .site-header-inner .brand-lockup {
+      gap: 0.5rem;
+    }
+  }
+
   .site-header {
     background: var(--site-header-bg);
     border-bottom: 1px solid color-mix(in srgb, var(--site-primary) 12%, transparent);
@@ -664,11 +692,6 @@
     min-width: 0;
   }
 
-  @media (max-width: 420px) {
-    .brand-tagline {
-      display: none;
-    }
-  }
 
   .brand-name {
     font-family: var(--font-source-sans), system-ui, sans-serif;

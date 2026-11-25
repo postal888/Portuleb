@@ -54,7 +54,7 @@ export function Header({ locale }: { locale: Locale }) {
       className="site-header relative sticky top-0 z-50"
       data-scrolled={scrolled ? "true" : "false"}
     >
-      <div className="site-header-inner mx-auto flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div className="site-header-inner mx-auto flex items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:px-6">
         <SiteLogo locale={locale} />
 
         <div className="header-account-desktop hidden min-w-0 items-center gap-2 lg:flex">
@@ -78,11 +78,10 @@ export function Header({ locale }: { locale: Locale }) {
           <HeaderAccount locale={locale} signedIn={signedIn} email={email} />
         </div>
 
-        <div className="flex items-center gap-1.5 lg:hidden">
-          <LocaleSwitcher locale={locale} />
+        <div className="header-mobile-tools flex shrink-0 items-center gap-1 lg:hidden">
           <button
             type="button"
-            className="rounded-full p-2.5 text-teal transition-colors hover:bg-[var(--site-primary-highlight)]"
+            className="rounded-full p-2 text-teal transition-colors hover:bg-[var(--site-primary-highlight)]"
             aria-expanded={open}
             aria-label="Menu"
             onClick={() => setOpen(!open)}
@@ -115,21 +114,24 @@ export function Header({ locale }: { locale: Locale }) {
           className="border-t border-[var(--site-border)] bg-[var(--site-header-bg)] px-4 py-4 sm:px-6 lg:hidden"
           aria-label="Mobile"
         >
-          <div className="site-header-inner mx-auto flex flex-col gap-1">
-            {nav.map((item) => {
-              const href = localizedPath(locale, item.section);
-              const active = pathname.startsWith(href);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`nav-link ${active ? "nav-link-active" : "nav-link-idle"}`}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          <div className="site-header-inner mx-auto flex flex-col gap-3">
+            <LocaleSwitcher locale={locale} />
+            <div className="flex flex-col gap-1">
+              {nav.map((item) => {
+                const href = localizedPath(locale, item.section);
+                const active = pathname.startsWith(href);
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`nav-link ${active ? "nav-link-active" : "nav-link-idle"}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </nav>
       ) : null}
